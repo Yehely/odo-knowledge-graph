@@ -1,0 +1,19 @@
+# קובץ הנתונים המקורי (גדול מדי ורגיש)
+*.xlsx
+*.xls
+
+# קבצי נעילה של LibreOffice
+.~lock.*
+
+# קבצי RDF הנוצרים (ניתן לשחזר עם build_kg.py)
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# IDE
+.vscode/
+.idea/

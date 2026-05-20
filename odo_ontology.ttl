@@ -1,0 +1,540 @@
+@prefix odo:   <http://odo-project.org/ontology#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix bao:   <http://www.bioassayontology.org/bao#> .
+@prefix chebi: <http://purl.obolibrary.org/obo/CHEBI_> .
+@prefix go:    <http://purl.obolibrary.org/obo/GO_> .
+@prefix ncit:  <http://purl.obolibrary.org/obo/NCIT_> .
+@prefix pro:   <http://purl.obolibrary.org/obo/PR_> .
+@prefix uo:    <http://purl.obolibrary.org/obo/UO_> .
+
+# ============================================================
+# ODO Knowledge Graph Ontology
+# Opioid Drug-Receptor Interaction Database
+# ============================================================
+
+<http://odo-project.org/ontology>
+    a owl:Ontology ;
+    rdfs:label "ODO Knowledge Graph Ontology"@en ;
+    rdfs:comment "Ontology for the Opioid Drug-Receptor Interaction Knowledge Graph"@en ;
+    owl:versionInfo "1.0" .
+
+# ============================================================
+# CLASSES
+# ============================================================
+
+odo:Compound a owl:Class ;
+    rdfs:label "Compound"@en , "תרכובת כימית"@he ;
+    rdfs:comment "A chemical compound (opioid or related molecule) tested in a bioassay."@en .
+
+odo:ParentCompound a owl:Class ;
+    rdfs:subClassOf odo:Compound ;
+    rdfs:label "Parent Compound"@en , "תרכובת אם"@he ;
+    rdfs:comment "The parent (desalted, neutral) structure of a compound."@en .
+
+odo:Assay a owl:Class ;
+    rdfs:label "Assay"@en , "ניסוי"@he ;
+    rdfs:comment "A biological experiment measuring compound activity at a receptor."@en .
+
+odo:Activity a owl:Class ;
+    rdfs:label "Activity"@en , "מדידת פעילות"@he ;
+    rdfs:comment "A single bioactivity measurement (e.g. Ki=1.4 nM) from an assay."@en .
+
+odo:Target a owl:Class ;
+    rdfs:label "Target"@en , "יעד"@he ;
+    rdfs:comment "A biological target, typically an opioid receptor or receptor family."@en .
+
+odo:Protein a owl:Class ;
+    rdfs:label "Protein"@en , "חלבון"@he ;
+    rdfs:comment "A specific protein (GPCR) identified by UniProt ID."@en .
+
+odo:CellLine a owl:Class ;
+    rdfs:label "Cell Line"@en , "קו תאים"@he ;
+    rdfs:comment "A cell line used as the model system in a cell-based assay."@en .
+
+odo:Tissue a owl:Class ;
+    rdfs:label "Tissue"@en , "רקמה"@he ;
+    rdfs:comment "A biological tissue used in a tissue-based assay."@en .
+
+odo:Organism a owl:Class ;
+    rdfs:label "Organism"@en , "אורגניזם"@he ;
+    rdfs:comment "An animal model or species used in an in-vivo assay."@en .
+
+odo:ModelSystem a owl:Class ;
+    rdfs:label "Model System"@en , "מערכת ניסוי"@he ;
+    rdfs:comment "The experimental model system: cell-line, tissue, or whole organism."@en .
+
+odo:AssayFormat a owl:Class ;
+    rdfs:label "Assay Format"@en , "פורמט ניסוי"@he ;
+    rdfs:comment "The BAO-defined assay format (cell-free, cell-based, tissue-based, organism-based)."@en .
+
+odo:BioassayType a owl:Class ;
+    rdfs:label "Bioassay Type"@en , "סוג ביואסיי"@he ;
+    rdfs:comment "Whether the assay is a binding assay or functional assay."@en .
+
+odo:SignalingPathway a owl:Class ;
+    rdfs:label "Signaling Pathway"@en , "נתיב סיגנל"@he ;
+    rdfs:comment "A GPCR signaling pathway (GO-annotated)."@en .
+
+odo:Document a owl:Class ;
+    rdfs:label "Document"@en , "מסמך"@he ;
+    rdfs:comment "A scientific publication (journal article, patent, or database record)."@en .
+
+odo:AssayDescription a owl:Class ;
+    rdfs:label "Assay Description"@en , "תיאור ניסוי"@he ;
+    rdfs:comment "Detailed textual description and properties of an assay."@en .
+
+odo:AssayParameters a owl:Class ;
+    rdfs:label "Assay Parameters"@en , "פרמטרי ניסוי"@he ;
+    rdfs:comment "Measurement parameters: endpoint type, qualifier, unit."@en .
+
+odo:InVivoParameters a owl:Class ;
+    rdfs:label "In Vivo Parameters"@en , "פרמטרי in vivo"@he ;
+    rdfs:comment "Parameters specific to in-vivo assays: route of administration, dose."@en .
+
+# ============================================================
+# OBJECT PROPERTIES (relationships between nodes)
+# ============================================================
+
+odo:testedIn a owl:ObjectProperty ;
+    rdfs:label "tested in"@en , "נבדק בניסוי"@he ;
+    rdfs:domain odo:Compound ;
+    rdfs:range  odo:Assay .
+
+odo:hasActivity a owl:ObjectProperty ;
+    rdfs:label "has activity"@en , "בעל פעילות"@he ;
+    rdfs:comment "Links a compound to its measured activity in an assay."@en .
+
+odo:hasAssay a owl:ObjectProperty ;
+    rdfs:label "has assay"@en , "בניסוי"@he ;
+    rdfs:domain odo:Activity ;
+    rdfs:range  odo:Assay .
+
+odo:hasCompound a owl:ObjectProperty ;
+    rdfs:label "has compound"@en , "של תרכובת"@he ;
+    rdfs:domain odo:Activity ;
+    rdfs:range  odo:Compound .
+
+odo:targetsReceptor a owl:ObjectProperty ;
+    rdfs:label "targets receptor"@en , "מכוון לקולטן"@he ;
+    rdfs:domain odo:Assay ;
+    rdfs:range  odo:Target .
+
+odo:hasTarget a owl:ObjectProperty ;
+    rdfs:label "has target"@en , "יעד הניסוי"@he ;
+    rdfs:domain odo:Activity ;
+    rdfs:range  odo:Target .
+
+odo:encodedBy a owl:ObjectProperty ;
+    rdfs:label "encoded by"@en , "מקודד על ידי"@he ;
+    rdfs:domain odo:Target ;
+    rdfs:range  odo:Protein .
+
+odo:hasProtein a owl:ObjectProperty ;
+    rdfs:label "has protein"@en , "חלבון הניסוי"@he ;
+    rdfs:domain odo:Assay ;
+    rdfs:range  odo:Protein .
+
+odo:hasModelSystem a owl:ObjectProperty ;
+    rdfs:label "has model system"@en , "מערכת הניסוי"@he ;
+    rdfs:domain odo:Assay ;
+    rdfs:range  odo:ModelSystem .
+
+odo:usesCellLine a owl:ObjectProperty ;
+    rdfs:label "uses cell line"@en , "מבוצע בקו תאים"@he ;
+    rdfs:domain odo:ModelSystem ;
+    rdfs:range  odo:CellLine .
+
+odo:usesTissue a owl:ObjectProperty ;
+    rdfs:label "uses tissue"@en , "מבוצע ברקמה"@he ;
+    rdfs:domain odo:ModelSystem ;
+    rdfs:range  odo:Tissue .
+
+odo:usesOrganism a owl:ObjectProperty ;
+    rdfs:label "uses organism"@en , "מבוצע באורגניזם"@he ;
+    rdfs:domain odo:ModelSystem ;
+    rdfs:range  odo:Organism .
+
+odo:hasAssayFormat a owl:ObjectProperty ;
+    rdfs:label "has assay format"@en , "פורמט הניסוי"@he ;
+    rdfs:domain odo:Assay ;
+    rdfs:range  odo:AssayFormat .
+
+odo:hasBioassayType a owl:ObjectProperty ;
+    rdfs:label "has bioassay type"@en , "סוג הניסוי"@he ;
+    rdfs:domain odo:Assay ;
+    rdfs:range  odo:BioassayType .
+
+odo:hasSignalingPathway a owl:ObjectProperty ;
+    rdfs:label "has signaling pathway"@en , "נתיב סיגנל"@he ;
+    rdfs:domain odo:Activity ;
+    rdfs:range  odo:SignalingPathway .
+
+odo:hasPharmacologicalRole a owl:ObjectProperty ;
+    rdfs:label "has pharmacological role"@en , "תפקיד פרמקולוגי"@he ;
+    rdfs:domain odo:Activity .
+
+odo:publishedIn a owl:ObjectProperty ;
+    rdfs:label "published in"@en , "פורסם ב"@he ;
+    rdfs:range  odo:Document .
+
+odo:hasParentCompound a owl:ObjectProperty ;
+    rdfs:label "has parent compound"@en , "תרכובת אם"@he ;
+    rdfs:domain odo:Compound ;
+    rdfs:range  odo:ParentCompound .
+
+odo:hasAssayDescription a owl:ObjectProperty ;
+    rdfs:label "has assay description"@en ;
+    rdfs:domain odo:Assay ;
+    rdfs:range  odo:AssayDescription .
+
+odo:hasAssayParameters a owl:ObjectProperty ;
+    rdfs:label "has assay parameters"@en ;
+    rdfs:domain odo:Activity ;
+    rdfs:range  odo:AssayParameters .
+
+odo:hasInVivoParameters a owl:ObjectProperty ;
+    rdfs:label "has in vivo parameters"@en ;
+    rdfs:domain odo:Activity ;
+    rdfs:range  odo:InVivoParameters .
+
+# ============================================================
+# DATATYPE PROPERTIES (literal values on nodes)
+# ============================================================
+
+# --- Compound identifiers ---
+odo:chemblId a owl:DatatypeProperty ;
+    rdfs:label "ChEMBL ID"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+odo:pubchemCid a owl:DatatypeProperty ;
+    rdfs:label "PubChem CID"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+odo:inchi a owl:DatatypeProperty ;
+    rdfs:label "Standard InChI"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+odo:inchiKey a owl:DatatypeProperty ;
+    rdfs:label "InChI Key"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+odo:smiles a owl:DatatypeProperty ;
+    rdfs:label "Canonical SMILES"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+odo:iupacName a owl:DatatypeProperty ;
+    rdfs:label "IUPAC Name"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+odo:molecularFormula a owl:DatatypeProperty ;
+    rdfs:label "Molecular Formula"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+odo:molecularWeight a owl:DatatypeProperty ;
+    rdfs:label "Molecular Weight"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:chemicalEntityName a owl:DatatypeProperty ;
+    rdfs:label "Chemical Entity Name"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:string .
+
+# --- Compound physicochemical properties ---
+odo:maxPhase a owl:DatatypeProperty ;
+    rdfs:label "Max Clinical Phase"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:integer .
+
+odo:ro5Violations a owl:DatatypeProperty ;
+    rdfs:label "Lipinski Ro5 Violations"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:integer .
+
+odo:alogP a owl:DatatypeProperty ;
+    rdfs:label "AlogP"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:isRadiolabeled a owl:DatatypeProperty ;
+    rdfs:label "Is Radiolabeled Reference"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:boolean .
+
+# --- Qikprop ADMET properties ---
+odo:qpDipole a owl:DatatypeProperty ;
+    rdfs:label "QikProp Dipole Moment"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpSASA a owl:DatatypeProperty ;
+    rdfs:label "QikProp SASA (Total Solvent Accessible Surface Area)"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpFISA a owl:DatatypeProperty ;
+    rdfs:label "QikProp FISA (Hydrophilic Component of SASA)"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpDonorHB a owl:DatatypeProperty ;
+    rdfs:label "QikProp H-Bond Donors"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpAcceptorHB a owl:DatatypeProperty ;
+    rdfs:label "QikProp H-Bond Acceptors"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpLogPw a owl:DatatypeProperty ;
+    rdfs:label "QikProp Log Pw (water/gas partition)"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpLogPow a owl:DatatypeProperty ;
+    rdfs:label "QikProp LogP (octanol/water)"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpLogS a owl:DatatypeProperty ;
+    rdfs:label "QikProp Log Aqueous Solubility"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:qpLogKhsa a owl:DatatypeProperty ;
+    rdfs:label "QikProp Log K(HSA) Human Serum Albumin Binding"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+odo:humanOralAbsorption a owl:DatatypeProperty ;
+    rdfs:label "QikProp % Human Oral Absorption"@en ;
+    rdfs:domain odo:Compound ; rdfs:range xsd:float .
+
+# --- Assay properties ---
+odo:chemblAssayId a owl:DatatypeProperty ;
+    rdfs:label "ChEMBL Assay ID"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:experimentalSetting a owl:DatatypeProperty ;
+    rdfs:label "Experimental Setting (in vitro / in vivo)"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:assayName a owl:DatatypeProperty ;
+    rdfs:label "Assay Name"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:assayDescription a owl:DatatypeProperty ;
+    rdfs:label "Assay Description"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:bindingSiteDescription a owl:DatatypeProperty ;
+    rdfs:label "Binding Site Description"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:assayMethod a owl:DatatypeProperty ;
+    rdfs:label "Assay Method"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:detectionMethod a owl:DatatypeProperty ;
+    rdfs:label "Physical Detection Method"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:assayKit a owl:DatatypeProperty ;
+    rdfs:label "Assay Kit"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:assayProperty a owl:DatatypeProperty ;
+    rdfs:label "Assay Property (ChEMBL)"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:functionalBiasAssay1 a owl:DatatypeProperty ;
+    rdfs:label "Functional Bias Assay 1"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+odo:functionalBiasAssay2 a owl:DatatypeProperty ;
+    rdfs:label "Functional Bias Assay 2"@en ;
+    rdfs:domain odo:Assay ; rdfs:range xsd:string .
+
+# --- Activity / measurement properties ---
+odo:endpointType a owl:DatatypeProperty ;
+    rdfs:label "Endpoint Type (Ki, IC50, EC50...)"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:endpointValue a owl:DatatypeProperty ;
+    rdfs:label "Endpoint Value"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:float .
+
+odo:endpointQualifier a owl:DatatypeProperty ;
+    rdfs:label "Endpoint Qualifier (=, <, >...)"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:semValue a owl:DatatypeProperty ;
+    rdfs:label "Standard Error of the Mean"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:float .
+
+odo:semQualifier a owl:DatatypeProperty ;
+    rdfs:label "SEM Qualifier"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:clLower95 a owl:DatatypeProperty ;
+    rdfs:label "95% CI Lower Bound"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:clUpper95 a owl:DatatypeProperty ;
+    rdfs:label "95% CI Upper Bound"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:unitLabel a owl:DatatypeProperty ;
+    rdfs:label "Unit of Measurement (label)"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:pchemblValue a owl:DatatypeProperty ;
+    rdfs:label "pChEMBL Value (-log10 of molar IC50/Ki/EC50)"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:float .
+
+odo:pharmacologicalRoleLabel a owl:DatatypeProperty ;
+    rdfs:label "Pharmacological Role (label)"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:singleConcentrationScreen a owl:DatatypeProperty ;
+    rdfs:label "Single Concentration Screen"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:isBaoReferenceCompound a owl:DatatypeProperty ;
+    rdfs:label "Is BAO Reference Compound"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:doseReferenceCompound a owl:DatatypeProperty ;
+    rdfs:label "Dose Reference Compound"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+odo:endpointDescription a owl:DatatypeProperty ;
+    rdfs:label "Endpoint Description"@en ;
+    rdfs:domain odo:Activity ; rdfs:range xsd:string .
+
+# --- Target properties ---
+odo:targetName a owl:DatatypeProperty ;
+    rdfs:label "Target Name"@en ;
+    rdfs:domain odo:Target ; rdfs:range xsd:string .
+
+odo:chemblTargetId a owl:DatatypeProperty ;
+    rdfs:label "ChEMBL Target ID"@en ;
+    rdfs:domain odo:Target ; rdfs:range xsd:string .
+
+odo:targetType a owl:DatatypeProperty ;
+    rdfs:label "Target Type (Single protein / Protein family...)"@en ;
+    rdfs:domain odo:Target ; rdfs:range xsd:string .
+
+odo:targetSpecies a owl:DatatypeProperty ;
+    rdfs:label "Target Species (NCBI Taxonomy)"@en ;
+    rdfs:domain odo:Target ; rdfs:range xsd:string .
+
+# --- Protein properties ---
+odo:uniprotId a owl:DatatypeProperty ;
+    rdfs:label "UniProt Protein ID"@en ;
+    rdfs:domain odo:Protein ; rdfs:range xsd:string .
+
+odo:proteinName a owl:DatatypeProperty ;
+    rdfs:label "Protein Name"@en ;
+    rdfs:domain odo:Protein ; rdfs:range xsd:string .
+
+odo:proteinFamilyName a owl:DatatypeProperty ;
+    rdfs:label "Protein Family (InterPro)"@en ;
+    rdfs:domain odo:Protein ; rdfs:range xsd:string .
+
+odo:proteinSubfamilyName a owl:DatatypeProperty ;
+    rdfs:label "Protein Subfamily (NCIT)"@en ;
+    rdfs:domain odo:Protein ; rdfs:range xsd:string .
+
+odo:proteinCategory a owl:DatatypeProperty ;
+    rdfs:label "Protein Category (InterPro)"@en ;
+    rdfs:domain odo:Protein ; rdfs:range xsd:string .
+
+odo:gpcr_category a owl:DatatypeProperty ;
+    rdfs:label "GPCR Category (DTO)"@en ;
+    rdfs:domain odo:Protein ; rdfs:range xsd:string .
+
+# --- Cell line properties ---
+odo:cellLineName a owl:DatatypeProperty ;
+    rdfs:label "Cell Line Name"@en ;
+    rdfs:domain odo:CellLine ; rdfs:range xsd:string .
+
+odo:cellosaurusId a owl:DatatypeProperty ;
+    rdfs:label "Cellosaurus ID"@en ;
+    rdfs:domain odo:CellLine ; rdfs:range xsd:string .
+
+odo:cloId a owl:DatatypeProperty ;
+    rdfs:label "Cell Line Ontology ID"@en ;
+    rdfs:domain odo:CellLine ; rdfs:range xsd:string .
+
+# --- Tissue properties ---
+odo:tissueName a owl:DatatypeProperty ;
+    rdfs:label "Tissue Name"@en ;
+    rdfs:domain odo:Tissue ; rdfs:range xsd:string .
+
+odo:btoId a owl:DatatypeProperty ;
+    rdfs:label "Brenda Tissue Ontology ID"@en ;
+    rdfs:domain odo:Tissue ; rdfs:range xsd:string .
+
+odo:ncbiTissueTaxonomy a owl:DatatypeProperty ;
+    rdfs:label "NCBI Tissue Taxonomy"@en ;
+    rdfs:domain odo:Tissue ; rdfs:range xsd:string .
+
+# --- Organism properties ---
+odo:animalModel a owl:DatatypeProperty ;
+    rdfs:label "Animal Model (NCIT)"@en ;
+    rdfs:domain odo:Organism ; rdfs:range xsd:string .
+
+odo:animalModelStrain a owl:DatatypeProperty ;
+    rdfs:label "Animal Model Strain"@en ;
+    rdfs:domain odo:Organism ; rdfs:range xsd:string .
+
+odo:vertebrateTaxonomy a owl:DatatypeProperty ;
+    rdfs:label "Vertebrate Taxonomy (NCIT)"@en ;
+    rdfs:domain odo:Organism ; rdfs:range xsd:string .
+
+odo:ncbiTaxonomyId a owl:DatatypeProperty ;
+    rdfs:label "NCBI Taxonomy ID"@en ;
+    rdfs:domain odo:Organism ; rdfs:range xsd:string .
+
+# --- In vivo parameters ---
+odo:routeOfAdministration a owl:DatatypeProperty ;
+    rdfs:label "Route of Administration"@en ;
+    rdfs:domain odo:InVivoParameters ; rdfs:range xsd:string .
+
+odo:doseAdministered a owl:DatatypeProperty ;
+    rdfs:label "Dose Administered"@en ;
+    rdfs:domain odo:InVivoParameters ; rdfs:range xsd:string .
+
+# --- Document properties ---
+odo:pubmedId a owl:DatatypeProperty ;
+    rdfs:label "PubMed ID"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:string .
+
+odo:documentDoi a owl:DatatypeProperty ;
+    rdfs:label "Document DOI"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:string .
+
+odo:chemblDocumentId a owl:DatatypeProperty ;
+    rdfs:label "ChEMBL Document ID"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:string .
+
+odo:documentJournal a owl:DatatypeProperty ;
+    rdfs:label "Journal"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:string .
+
+odo:documentYear a owl:DatatypeProperty ;
+    rdfs:label "Publication Year"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:integer .
+
+odo:patentId a owl:DatatypeProperty ;
+    rdfs:label "Patent ID"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:string .
+
+odo:sourceDescription a owl:DatatypeProperty ;
+    rdfs:label "Source Description"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:string .
+
+odo:databaseCitation a owl:DatatypeProperty ;
+    rdfs:label "Database Citation (MI)"@en ;
+    rdfs:domain odo:Document ; rdfs:range xsd:string .
+
+# --- Signaling pathway properties ---
+odo:pathwayName a owl:DatatypeProperty ;
+    rdfs:label "Signaling Pathway Name"@en ;
+    rdfs:domain odo:SignalingPathway ; rdfs:range xsd:string .
+
+odo:goId a owl:DatatypeProperty ;
+    rdfs:label "GO Term ID"@en ;
+    rdfs:domain odo:SignalingPathway ; rdfs:range xsd:string .
