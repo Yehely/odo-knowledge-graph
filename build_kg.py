@@ -49,6 +49,14 @@ def slugify(text):
     return re.sub(r"[^A-Za-z0-9_\-]", "_", str(text).strip())
 
 
+def extract_bao_id(uri_str):
+    """Extract 'BAO_XXXXXXX' from a BAO URI; fall back to slugify."""
+    if not uri_str:
+        return None
+    m = re.search(r'BAO[_#](\d+)', str(uri_str))
+    return f"BAO_{m.group(1)}" if m else slugify(uri_str)
+
+
 _VALID_URI = re.compile(r'^https?://[^\s<>"{}|\\^`\[\]]+$')
 
 def add_uri_sameAs(g, subject, uri_str):
@@ -79,8 +87,10 @@ def bind_prefixes(g):
 
 def build_compound(g, row, seen):
     cid = safe(row["chembl_compound_id"])
-    if not cid or cid in seen["compound"]:
+    if not cid:
         return None
+    if cid in seen["compound"]:
+        return ODOD[f"compound_{slugify(cid)}"]
     seen["compound"].add(cid)
 
     uri = ODOD[f"compound_{slugify(cid)}"]
@@ -190,12 +200,12 @@ def build_assay(g, row, seen):
 def build_assay_format(g, row, seen):
     fmt = safe(row.get("bao_assay_format"))
     fmt_id = safe(row.get("bao_assay_format_id"))
-    key = fmt_id or fmt
+    key = extract_bao_id(fmt_id) or (slugify(fmt) if fmt else None)
     if not key or key in seen["assay_format"]:
-        return ODOD[f"assayformat_{slugify(key)}"] if key else None
+        return ODOD[f"assayformat_{key}"] if key else None
     seen["assay_format"].add(key)
 
-    uri = ODOD[f"assayformat_{slugify(key)}"]
+    uri = ODOD[f"assayformat_{key}"]
     g.add((uri, RDF.type, ODO.AssayFormat))
     if fmt:
         g.add((uri, RDFS.label, Literal(fmt)))
@@ -218,12 +228,12 @@ def build_assay_format(g, row, seen):
 def build_bioassay_type(g, row, seen):
     bt = safe(row.get("bao_bioassay_type"))
     bt_id = safe(row.get("bao_bioassay_type_id"))
-    key = bt_id or bt
+    key = extract_bao_id(bt_id) or (slugify(bt) if bt else None)
     if not key or key in seen["bioassay_type"]:
-        return ODOD[f"bioassaytype_{slugify(key)}"] if key else None
+        return ODOD[f"bioassaytype_{key}"] if key else None
     seen["bioassay_type"].add(key)
 
-    uri = ODOD[f"bioassaytype_{slugify(key)}"]
+    uri = ODOD[f"bioassaytype_{key}"]
     g.add((uri, RDF.type, ODO.BioassayType))
     if bt:
         g.add((uri, RDFS.label, Literal(bt)))
@@ -294,7 +304,7 @@ def build_protein(g, row, seen):
         ("interpro_protein_family_name",  ODO.proteinFamilyName),
         ("ncit_protein_subfamily_name",   ODO.proteinSubfamilyName),
         ("interpro_protein_category",     ODO.proteinCategory),
-        ("dto_gpcr_category",             ODO.gpcr_category),
+        ("dto_gpcr_category",             ODO.gpcrCategory),
     ]:
         v = safe(row.get(col))
         if v:
@@ -381,6 +391,13 @@ def build_tissue(g, row, seen):
 
 def build_organism(g, row, seen):
     taxon = safe(row.get("ncbi_target_taxonomy"))
+    # Normalize species name to standard binomial casing (e.g. "Homo Sapiens" → "Homo sapiens")
+    if taxon:
+        parts = taxon.strip().split()
+        if len(parts) >= 2:
+            taxon = parts[0].capitalize() + " " + " ".join(p.lower() for p in parts[1:])
+        else:
+            taxon = taxon.strip()
     taxon_id = safe(row.get("ncbi_target_taxonomy_id"))
     key = taxon_id or (slugify(taxon) if taxon else None)
     if not key or key in seen["organism"]:
@@ -409,9 +426,15 @@ def build_organism(g, row, seen):
 def build_model_system(g, row, cell_uri, tissue_uri, organism_uri, seen):
     ms_val = safe(row.get("ncit_model_system"))
     ms_id  = safe(row.get("ncit_model_system_id"))
-    key = ms_id or (slugify(ms_val) if ms_val else None)
-    if not key:
+    base = ms_id or (slugify(ms_val) if ms_val else None)
+    if not base:
         return None
+
+    # Unique key per combination of model-system type + specific biological material
+    cell_key  = safe(row.get("cellosaurus_cell_line_id")) or safe(row.get("clo_cell_line_id")) or safe(row.get("cell_line_name")) or ""
+    tissue_key = safe(row.get("bto_tissue_id")) or safe(row.get("tissue_name")) or ""
+    org_key   = safe(row.get("ncbi_target_taxonomy_id")) or safe(row.get("ncbi_target_taxonomy")) or ""
+    key = f"{base}_{slugify(cell_key)}_{slugify(tissue_key)}_{slugify(org_key)}"
 
     uri = ODOD[f"modelsystem_{slugify(key)}"]
     if key not in seen["model_system"]:
@@ -420,15 +443,13 @@ def build_model_system(g, row, cell_uri, tissue_uri, organism_uri, seen):
         if ms_val:
             g.add((uri, RDFS.label, Literal(ms_val)))
         if ms_id:
-            ncit_clean = ms_id.replace("C", "")
             g.add((uri, OWL.sameAs, URIRef(f"http://purl.obolibrary.org/obo/NCIT_{ms_id}")))
-
-    if cell_uri:
-        g.add((uri, ODO.usesCellLine, cell_uri))
-    if tissue_uri:
-        g.add((uri, ODO.usesTissue, tissue_uri))
-    if organism_uri:
-        g.add((uri, ODO.usesOrganism, organism_uri))
+        if cell_uri:
+            g.add((uri, ODO.usesCellLine, cell_uri))
+        if tissue_uri:
+            g.add((uri, ODO.usesTissue, tissue_uri))
+        if organism_uri:
+            g.add((uri, ODO.usesOrganism, organism_uri))
 
     return uri
 
@@ -459,6 +480,12 @@ def build_signaling_pathway(g, row, seen):
 
 def build_document(g, row, seen):
     pmid  = safe(row.get("pubmed_id"))
+    # Excel stores numeric IDs as floats (e.g. 24107104.0) – normalize to integer string
+    if pmid:
+        try:
+            pmid = str(int(float(pmid)))
+        except (ValueError, OverflowError):
+            pass
     doi   = safe(row.get("document_doi"))
     chdoc = safe(row.get("chembl_document_id"))
     key = pmid or doi or chdoc
@@ -469,8 +496,11 @@ def build_document(g, row, seen):
     uri = ODOD[f"doc_{slugify(key)}"]
     g.add((uri, RDF.type, ODO.Document))
 
+    # pubmedId uses the already-normalized integer string, not the raw float from row
+    if pmid:
+        g.add((uri, ODO.pubmedId, Literal(pmid, datatype=XSD.string)))
+
     for col, prop, dtype in [
-        ("pubmed_id",            ODO.pubmedId,         XSD.string),
         ("document_doi",         ODO.documentDoi,      XSD.string),
         ("chembl_document_id",   ODO.chemblDocumentId, XSD.string),
         ("source_description",   ODO.sourceDescription,XSD.string),
@@ -618,6 +648,12 @@ def main():
         if (i + 1) % 5000 == 0:
             print(f"  Processing row {i+1:,}/{total:,}…")
 
+        # Track whether target/assay are newly created before building them
+        _tcid  = safe(row.get("chembl_target_id"))
+        _tname = safe(row.get("target_name"))
+        _tkey  = _tcid or (slugify(_tname) if _tname else None)
+        target_is_new = bool(_tkey and _tkey not in seen["target"])
+
         # Build entity nodes
         compound_uri  = build_compound(gc, row, seen)
         assay_uri     = build_assay(ga, row, seen)
@@ -647,8 +683,9 @@ def main():
             if doc_uri:
                 ga.add((assay_uri, ODO.publishedIn, doc_uri))
 
-        # Wire target → protein
-        if target_uri and protein_uri:
+        # Wire target → protein only when the target node is first created,
+        # preventing spurious multi-protein links on single-protein targets
+        if target_uri and protein_uri and target_is_new:
             gpt.add((target_uri, ODO.encodedBy, protein_uri))
 
         # Wire compound → assay

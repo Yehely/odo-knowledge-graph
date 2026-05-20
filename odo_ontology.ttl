@@ -441,7 +441,7 @@ odo:proteinCategory a owl:DatatypeProperty ;
     rdfs:label "Protein Category (InterPro)"@en ;
     rdfs:domain odo:Protein ; rdfs:range xsd:string .
 
-odo:gpcr_category a owl:DatatypeProperty ;
+odo:gpcrCategory a owl:DatatypeProperty ;
     rdfs:label "GPCR Category (DTO)"@en ;
     rdfs:domain odo:Protein ; rdfs:range xsd:string .
 
@@ -486,7 +486,7 @@ odo:vertebrateTaxonomy a owl:DatatypeProperty ;
 
 odo:ncbiTaxonomyId a owl:DatatypeProperty ;
     rdfs:label "NCBI Taxonomy ID"@en ;
-    rdfs:domain odo:Organism ; rdfs:range xsd:string .
+    rdfs:range xsd:string .
 
 # --- In vivo parameters ---
 odo:routeOfAdministration a owl:DatatypeProperty ;
@@ -538,3 +538,27 @@ odo:pathwayName a owl:DatatypeProperty ;
 odo:goId a owl:DatatypeProperty ;
     rdfs:label "GO Term ID"@en ;
     rdfs:domain odo:SignalingPathway ; rdfs:range xsd:string .
+
+# --- Properties used in ETL but missing from original ontology ---
+
+odo:hasUnit a owl:ObjectProperty ;
+    rdfs:label "has unit"@en ;
+    rdfs:domain odo:Activity ;
+    rdfs:comment "Links an activity measurement to its unit of measurement (UO ontology term)."@en .
+
+odo:hasExperimentalSettingConcept a owl:ObjectProperty ;
+    rdfs:label "has experimental setting concept"@en ;
+    rdfs:domain odo:Assay ;
+    rdfs:comment "Links an assay to its BAO experimental setting concept (in vitro / in vivo URI)."@en .
+
+odo:assayFormatL2 a owl:DatatypeProperty ;
+    rdfs:label "Assay Format Level 2 (BAO)"@en ;
+    rdfs:domain odo:AssayFormat ; rdfs:range xsd:string .
+
+odo:assayFormatL3 a owl:DatatypeProperty ;
+    rdfs:label "Assay Format Level 3 (BAO)"@en ;
+    rdfs:domain odo:AssayFormat ; rdfs:range xsd:string .
+
+odo:subcellularFormat a owl:DatatypeProperty ;
+    rdfs:label "Subcellular Format"@en ;
+    rdfs:domain odo:AssayFormat ; rdfs:range xsd:string .

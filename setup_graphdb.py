@@ -54,6 +54,19 @@ def create_repository():
         print(f"  WARNING: status {r.status_code} – {r.text[:400]}")
 
 
+def clear_repository():
+    """Delete all statements from the repository to ensure a clean reimport."""
+    print(f"Clearing all statements from '{REPO_ID}'…", end=" ")
+    r = requests.delete(
+        f"{BASE_URL}/repositories/{REPO_ID}/statements",
+        timeout=120,
+    )
+    if r.status_code in (200, 204):
+        print("OK")
+    else:
+        print(f"WARNING: HTTP {r.status_code} – {r.text[:200]}")
+
+
 def import_ttl(filepath, label=""):
     """Import a Turtle file into the repository via REST."""
     size_mb = os.path.getsize(filepath) / 1e6
@@ -119,9 +132,13 @@ def run_sparql(query, label=""):
 
 
 def main():
-    # 1. Create repository
+    # 1. Create repository (skipped if already exists)
     create_repository()
     time.sleep(2)
+
+    # 1b. Clear any stale triples from previous runs
+    print("\nClearing stale data…")
+    clear_repository()
 
     # 2. Import ontology schema
     print("\nImporting ontology…")
