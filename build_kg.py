@@ -276,13 +276,16 @@ def build_target(g, row, seen):
     if tcid:
         g.add((uri, ODO.chemblTargetId, Literal(tcid)))
 
-    for col, prop in [
-        ("target_type",           ODO.targetType),
-        ("ncbi_target_taxonomy",  ODO.targetSpecies),
-    ]:
-        v = safe(row.get(col))
-        if v:
-            g.add((uri, prop, Literal(v)))
+    ttype = safe(row.get("target_type"))
+    if ttype:
+        g.add((uri, ODO.targetType, Literal(ttype)))
+
+    taxon_raw = safe(row.get("ncbi_target_taxonomy"))
+    if taxon_raw:
+        parts = taxon_raw.strip().split()
+        taxon_norm = (parts[0].capitalize() + " " + " ".join(p.lower() for p in parts[1:])
+                      if len(parts) >= 2 else taxon_raw.strip())
+        g.add((uri, ODO.targetSpecies, Literal(taxon_norm)))
 
     ncbi_id = safe(row.get("ncbi_target_taxonomy_id"))
     if ncbi_id:
@@ -658,7 +661,7 @@ def main():
         "target": set(), "protein": set(),
         "cell_line": set(), "tissue": set(), "organism": set(),
         "model_system": set(), "signaling": set(), "document": set(),
-        "target_protein": {},  # target_key → protein_key, for conflict detection
+        "target_protein": {},
     }
 
     gc  = graphs["compounds"]
@@ -670,16 +673,9 @@ def main():
     gsp = graphs["signaling"]
 
     total = len(df)
-    conflicts = 0
     for i, (_, row) in enumerate(df.iterrows()):
         if (i + 1) % 5000 == 0:
             print(f"  Processing row {i+1:,}/{total:,}…")
-
-        # Determine new-entity flags before building (seen sets not yet updated)
-        _tcid  = safe(row.get("chembl_target_id"))
-        _tname = safe(row.get("target_name"))
-        _tkey  = _tcid or (slugify(_tname) if _tname else None)
-        target_is_new = bool(_tkey and _tkey not in seen["target"])
 
         _aid = safe(row.get("chembl_assay_id"))
         assay_is_new = bool(_aid and _aid not in seen["assay"])
@@ -715,22 +711,9 @@ def main():
         if assay_uri and doc_uri:
             ga.add((assay_uri, ODO.publishedIn, doc_uri))
 
-        # Wire target → protein only when target node is first created
-        if target_uri and protein_uri and target_is_new:
+        # Wire target → protein; multi-valued (same target studied across multiple species)
+        if target_uri and protein_uri:
             gpt.add((target_uri, ODO.encodedBy, protein_uri))
-            pkey = safe(row.get("uniprot_protein_id")) or (
-                slugify(safe(row.get("protein_name"))) if safe(row.get("protein_name")) else None)
-            if _tkey and pkey:
-                seen["target_protein"][_tkey] = pkey
-        elif not target_is_new and _tkey and protein_uri:
-            # Detect if a different protein is being associated with an already-seen target
-            existing_pkey = seen["target_protein"].get(_tkey)
-            new_pkey = safe(row.get("uniprot_protein_id")) or (
-                slugify(safe(row.get("protein_name"))) if safe(row.get("protein_name")) else None)
-            if existing_pkey and new_pkey and existing_pkey != new_pkey:
-                print(f"  [CONFLICT] target {_tkey}: recorded={existing_pkey}, "
-                      f"conflicting={new_pkey} (row {i+1})")
-                conflicts += 1
 
         # Wire compound → assay
         if compound_uri and assay_uri:
@@ -738,10 +721,6 @@ def main():
 
         # Build activity node (one per row, content-addressed)
         build_activity(gact, row, compound_uri, assay_uri, target_uri, doc_uri, signal_uris)
-
-    if conflicts:
-        print(f"\n  [WARNING] {conflicts} target/protein conflict(s) detected "
-              f"(first-encountered protein retained for each target).")
 
     print("\nSerializing TTL files…")
     for name, g in graphs.items():
