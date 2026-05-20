@@ -4,6 +4,7 @@ Reads Final_updated_Dataset_v2025_11-12.xlsx and produces RDF Turtle files
 in the output/ directory, ready to be loaded into GraphDB.
 """
 
+import hashlib
 import os
 import re
 import pandas as pd
@@ -86,16 +87,27 @@ def bind_prefixes(g):
 # ────────────────────────────────────────────────────────────────────────────
 
 def build_compound(g, row, seen):
-    cid = safe(row["chembl_compound_id"])
-    if not cid:
-        return None
-    if cid in seen["compound"]:
-        return ODOD[f"compound_{slugify(cid)}"]
-    seen["compound"].add(cid)
+    cid  = safe(row.get("chembl_compound_id"))
+    ikey = safe(row.get("rdkit_library_standard_inchi_key"))
 
-    uri = ODOD[f"compound_{slugify(cid)}"]
+    # Prefer ChEMBL ID; fall back to InChIKey for unannotated structures
+    if cid:
+        key      = cid
+        uri_slug = f"compound_{slugify(cid)}"
+    elif ikey:
+        key      = f"inchikey_{ikey}"
+        uri_slug = f"compound_{slugify(ikey)}"
+    else:
+        return None
+
+    if key in seen["compound"]:
+        return ODOD[uri_slug]
+    seen["compound"].add(key)
+
+    uri = ODOD[uri_slug]
     g.add((uri, RDF.type, ODO.Compound))
-    g.add((uri, ODO.chemblId, Literal(cid)))
+    if cid:
+        g.add((uri, ODO.chemblId, Literal(cid)))
 
     for col, prop, dtype in [
         ("pubchem_cid",                     ODO.pubchemCid,           XSD.string),
@@ -133,8 +145,9 @@ def build_compound(g, row, seen):
     if rl:
         g.add((uri, ODO.isRadiolabeled, Literal(rl.lower() in ("true","1","yes","t"), datatype=XSD.boolean)))
 
-    # Linked Data – external URIs (only for clean numeric/alphanumeric IDs)
-    add_uri_sameAs(g, uri, f"https://www.ebi.ac.uk/chembl/compound_report_card/{cid}")
+    # Linked Data – external URIs
+    if cid:
+        add_uri_sameAs(g, uri, f"https://www.ebi.ac.uk/chembl/compound_report_card/{cid}")
     pcid = safe(row.get("pubchem_cid"))
     if pcid and re.match(r'^\d+$', str(pcid).strip()):
         add_uri_sameAs(g, uri, f"https://pubchem.ncbi.nlm.nih.gov/compound/{pcid}")
@@ -142,7 +155,7 @@ def build_compound(g, row, seen):
     # Parent compound (sub-node)
     parent_inchi = safe(row.get("rdkit_parent_structure_inchi"))
     parent_key   = safe(row.get("rdkit_parent_structure_inchi_key"))
-    if parent_key and parent_key != safe(row.get("rdkit_library_standard_inchi_key")):
+    if parent_key and parent_key != ikey:
         parent_uri = ODOD[f"parent_{slugify(parent_key)}"]
         if parent_key not in seen["parent"]:
             seen["parent"].add(parent_key)
@@ -212,7 +225,6 @@ def build_assay_format(g, row, seen):
     if fmt_id:
         g.add((uri, OWL.sameAs, URIRef(fmt_id)))
 
-    # Hierarchical format levels
     for col, prop in [
         ("bao_assay_format_l2",     ODO.assayFormatL2),
         ("bao_assay_format_l3",     ODO.assayFormatL3),
@@ -310,22 +322,18 @@ def build_protein(g, row, seen):
         if v:
             g.add((uri, prop, Literal(v)))
 
-    # PRO link
     pro_id = safe(row.get("pro_protein_name_id"))
     if pro_id:
         pro_clean = pro_id.replace("PR:", "")
         g.add((uri, OWL.sameAs, URIRef(f"http://purl.obolibrary.org/obo/PR_{pro_clean}")))
 
-    # UniProt external link
     if upid and "/" not in upid:
         add_uri_sameAs(g, uri, f"https://www.uniprot.org/uniprot/{upid}")
 
-    # InterPro link
     interpro_id = safe(row.get("interpro_protein_family_name_id"))
     if interpro_id:
         add_uri_sameAs(g, uri, f"https://www.ebi.ac.uk/interpro/entry/{interpro_id}")
 
-    # DTO link
     dto_id = safe(row.get("dto_gpcr_category_id"))
     if dto_id:
         g.add((uri, OWL.sameAs, URIRef(dto_id)))
@@ -373,11 +381,11 @@ def build_tissue(g, row, seen):
         g.add((uri, RDFS.label, Literal(tname)))
     if btoid:
         g.add((uri, ODO.btoId, Literal(btoid)))
-        # Use only the first BTO ID if multiple are listed (e.g. "BTO:0000620; 0001427")
-        bto_first = btoid.split(";")[0].strip()
-        bto_clean = bto_first.replace("BTO:", "").replace("BTO_", "").strip()
-        if re.match(r'^\d+$', bto_clean):
-            g.add((uri, OWL.sameAs, URIRef(f"http://purl.obolibrary.org/obo/BTO_{bto_clean}")))
+        # Add owl:sameAs for every semicolon-separated BTO ID
+        for bto_entry in btoid.split(";"):
+            bto_clean = bto_entry.strip().replace("BTO:", "").replace("BTO_", "").strip()
+            if re.match(r'^\d+$', bto_clean):
+                g.add((uri, OWL.sameAs, URIRef(f"http://purl.obolibrary.org/obo/BTO_{bto_clean}")))
 
     ncbi = safe(row.get("ncbi_tissue_taxonomy"))
     ncbi_id = safe(row.get("ncbi_tissue_taxonomy_id"))
@@ -391,7 +399,6 @@ def build_tissue(g, row, seen):
 
 def build_organism(g, row, seen):
     taxon = safe(row.get("ncbi_target_taxonomy"))
-    # Normalize species name to standard binomial casing (e.g. "Homo Sapiens" → "Homo sapiens")
     if taxon:
         parts = taxon.strip().split()
         if len(parts) >= 2:
@@ -430,10 +437,9 @@ def build_model_system(g, row, cell_uri, tissue_uri, organism_uri, seen):
     if not base:
         return None
 
-    # Unique key per combination of model-system type + specific biological material
-    cell_key  = safe(row.get("cellosaurus_cell_line_id")) or safe(row.get("clo_cell_line_id")) or safe(row.get("cell_line_name")) or ""
+    cell_key   = safe(row.get("cellosaurus_cell_line_id")) or safe(row.get("clo_cell_line_id")) or safe(row.get("cell_line_name")) or ""
     tissue_key = safe(row.get("bto_tissue_id")) or safe(row.get("tissue_name")) or ""
-    org_key   = safe(row.get("ncbi_target_taxonomy_id")) or safe(row.get("ncbi_target_taxonomy")) or ""
+    org_key    = safe(row.get("ncbi_target_taxonomy_id")) or safe(row.get("ncbi_target_taxonomy")) or ""
     key = f"{base}_{slugify(cell_key)}_{slugify(tissue_key)}_{slugify(org_key)}"
 
     uri = ODOD[f"modelsystem_{slugify(key)}"]
@@ -454,33 +460,44 @@ def build_model_system(g, row, cell_uri, tissue_uri, organism_uri, seen):
     return uri
 
 
-def build_signaling_pathway(g, row, seen):
-    sp_name = safe(row.get("embl_ebi_gpcr_signaling_pathway"))
-    sp_id   = safe(row.get("embl_ebi_gpcr_signaling_pathway_id"))
-    # Take only the first pathway if multiple are comma-separated
-    if sp_name:
-        sp_name = sp_name.split(",")[0].strip()
-    key = sp_id or (slugify(sp_name) if sp_name else None)
-    if not key or key in seen["signaling"]:
-        return ODOD[f"signaling_{slugify(key)}"] if key else None
-    seen["signaling"].add(key)
+def build_signaling_pathways(g, row, seen):
+    """Build all signaling pathway nodes from comma-separated values; return list of URIs."""
+    sp_name_raw = safe(row.get("embl_ebi_gpcr_signaling_pathway"))
+    sp_id_raw   = safe(row.get("embl_ebi_gpcr_signaling_pathway_id"))
+    if not sp_name_raw and not sp_id_raw:
+        return []
 
-    uri = ODOD[f"signaling_{slugify(key)}"]
-    g.add((uri, RDF.type, ODO.SignalingPathway))
-    if sp_name:
-        g.add((uri, ODO.pathwayName, Literal(sp_name)))
-        g.add((uri, RDFS.label, Literal(sp_name)))
-    if sp_id:
-        go_clean = sp_id.replace("GO:", "")
-        g.add((uri, ODO.goId, Literal(sp_id)))
-        g.add((uri, OWL.sameAs, URIRef(f"http://purl.obolibrary.org/obo/GO_{go_clean}")))
+    names = [n.strip() for n in sp_name_raw.split(",")] if sp_name_raw else []
+    ids   = [i.strip() for i in sp_id_raw.split(",")] if sp_id_raw else []
 
-    return uri
+    max_len = max(len(names), len(ids))
+    while len(names) < max_len:
+        names.append(None)
+    while len(ids) < max_len:
+        ids.append(None)
+
+    uris = []
+    for sp_name, sp_id in zip(names, ids):
+        key = sp_id or (slugify(sp_name) if sp_name else None)
+        if not key:
+            continue
+        uri = ODOD[f"signaling_{slugify(key)}"]
+        if key not in seen["signaling"]:
+            seen["signaling"].add(key)
+            g.add((uri, RDF.type, ODO.SignalingPathway))
+            if sp_name:
+                g.add((uri, ODO.pathwayName, Literal(sp_name)))
+                g.add((uri, RDFS.label, Literal(sp_name)))
+            if sp_id:
+                go_clean = sp_id.replace("GO:", "")
+                g.add((uri, ODO.goId, Literal(sp_id)))
+                g.add((uri, OWL.sameAs, URIRef(f"http://purl.obolibrary.org/obo/GO_{go_clean}")))
+        uris.append(uri)
+    return uris
 
 
 def build_document(g, row, seen):
     pmid  = safe(row.get("pubmed_id"))
-    # Excel stores numeric IDs as floats (e.g. 24107104.0) – normalize to integer string
     if pmid:
         try:
             pmid = str(int(float(pmid)))
@@ -496,7 +513,6 @@ def build_document(g, row, seen):
     uri = ODOD[f"doc_{slugify(key)}"]
     g.add((uri, RDF.type, ODO.Document))
 
-    # pubmedId uses the already-normalized integer string, not the raw float from row
     if pmid:
         g.add((uri, ODO.pubmedId, Literal(pmid, datatype=XSD.string)))
 
@@ -517,12 +533,10 @@ def build_document(g, row, seen):
             except Exception:
                 g.add((uri, prop, Literal(str(v))))
 
-    # Label for the document
     label = doi or pmid or chdoc
     if label:
         g.add((uri, RDFS.label, Literal(label)))
 
-    # External links
     if pmid:
         add_uri_sameAs(g, uri, f"https://pubmed.ncbi.nlm.nih.gov/{pmid}")
     if doi:
@@ -531,9 +545,21 @@ def build_document(g, row, seen):
     return uri
 
 
-def build_activity(g, row_idx, row, compound_uri, assay_uri, target_uri,
-                   doc_uri, signaling_uri):
-    uri = ODOD[f"activity_{row_idx}"]
+def build_activity(g, row, compound_uri, assay_uri, target_uri, doc_uri, signal_uris):
+    # Content-based URI: stable across re-runs as long as key measurement fields are unchanged
+    ckey = (safe(row.get("chembl_compound_id")) or
+            safe(row.get("rdkit_library_standard_inchi_key")) or "")
+    h = hashlib.sha1("|".join([
+        ckey,
+        safe(row.get("chembl_assay_id")) or "",
+        safe(row.get("chembl_target_id")) or "",
+        safe(row.get("endpoint")) or "",
+        str(safe(row.get("endpoint_value")) or ""),
+        safe(row.get("endpoint_qualifier")) or "",
+        str(safe(row.get("pubmed_id")) or ""),
+    ]).encode()).hexdigest()[:16]
+    uri = ODOD[f"activity_{h}"]
+
     g.add((uri, RDF.type, ODO.Activity))
 
     if compound_uri:
@@ -544,8 +570,8 @@ def build_activity(g, row_idx, row, compound_uri, assay_uri, target_uri,
         g.add((uri, ODO.hasTarget, target_uri))
     if doc_uri:
         g.add((uri, ODO.publishedIn, doc_uri))
-    if signaling_uri:
-        g.add((uri, ODO.hasSignalingPathway, signaling_uri))
+    for signal_uri in signal_uris:
+        g.add((uri, ODO.hasSignalingPathway, signal_uri))
 
     for col, prop, dtype in [
         ("endpoint",                  ODO.endpointType,           XSD.string),
@@ -587,7 +613,7 @@ def build_activity(g, row_idx, row, compound_uri, assay_uri, target_uri,
     rov = safe(row.get("ncit_route_of_administration"))
     dose = safe(row.get("chembl_dose_administered"))
     if rov or dose:
-        invivo_uri = ODOD[f"invivo_{row_idx}"]
+        invivo_uri = ODOD[f"invivo_{h}"]
         g.add((invivo_uri, RDF.type, ODO.InVivoParameters))
         g.add((uri, ODO.hasInVivoParameters, invivo_uri))
         if rov:
@@ -614,7 +640,6 @@ def main():
     df = pd.read_excel(EXCEL_PATH, sheet_name="2025_ODO_Database")
     print(f"  {len(df):,} rows × {len(df.columns)} columns")
 
-    # Separate graphs per entity type for easier partial imports
     graphs = {
         "compounds":       Graph(),
         "assays":          Graph(),
@@ -633,26 +658,31 @@ def main():
         "target": set(), "protein": set(),
         "cell_line": set(), "tissue": set(), "organism": set(),
         "model_system": set(), "signaling": set(), "document": set(),
+        "target_protein": {},  # target_key → protein_key, for conflict detection
     }
 
-    gc = graphs["compounds"]
-    ga = graphs["assays"]
+    gc  = graphs["compounds"]
+    ga  = graphs["assays"]
     gact = graphs["activities"]
     gms = graphs["model_systems"]
     gpt = graphs["proteins_targets"]
-    gd = graphs["documents"]
+    gd  = graphs["documents"]
     gsp = graphs["signaling"]
 
     total = len(df)
-    for i, (row_idx, row) in enumerate(df.iterrows()):
+    conflicts = 0
+    for i, (_, row) in enumerate(df.iterrows()):
         if (i + 1) % 5000 == 0:
             print(f"  Processing row {i+1:,}/{total:,}…")
 
-        # Track whether target/assay are newly created before building them
+        # Determine new-entity flags before building (seen sets not yet updated)
         _tcid  = safe(row.get("chembl_target_id"))
         _tname = safe(row.get("target_name"))
         _tkey  = _tcid or (slugify(_tname) if _tname else None)
         target_is_new = bool(_tkey and _tkey not in seen["target"])
+
+        _aid = safe(row.get("chembl_assay_id"))
+        assay_is_new = bool(_aid and _aid not in seen["assay"])
 
         # Build entity nodes
         compound_uri  = build_compound(gc, row, seen)
@@ -665,11 +695,12 @@ def main():
         tissue_uri    = build_tissue(gms, row, seen)
         organism_uri  = build_organism(gms, row, seen)
         ms_uri        = build_model_system(gms, row, cell_uri, tissue_uri, organism_uri, seen)
-        signal_uri    = build_signaling_pathway(gsp, row, seen)
+        signal_uris   = build_signaling_pathways(gsp, row, seen)
         doc_uri       = build_document(gd, row, seen)
 
-        # Wire assay → format / bioassay_type / model_system / protein / target
-        if assay_uri:
+        # Wire assay → format / bioassay_type / model_system / target / protein
+        # Only on first encounter to prevent accumulating conflicting links across rows
+        if assay_uri and assay_is_new:
             if fmt_uri:
                 ga.add((assay_uri, ODO.hasAssayFormat, fmt_uri))
             if bt_uri:
@@ -680,23 +711,38 @@ def main():
                 ga.add((assay_uri, ODO.targetsReceptor, target_uri))
             if protein_uri:
                 ga.add((assay_uri, ODO.hasProtein, protein_uri))
-            if doc_uri:
-                ga.add((assay_uri, ODO.publishedIn, doc_uri))
+        # publishedIn runs unconditionally: same assay can appear in multiple papers
+        if assay_uri and doc_uri:
+            ga.add((assay_uri, ODO.publishedIn, doc_uri))
 
-        # Wire target → protein only when the target node is first created,
-        # preventing spurious multi-protein links on single-protein targets
+        # Wire target → protein only when target node is first created
         if target_uri and protein_uri and target_is_new:
             gpt.add((target_uri, ODO.encodedBy, protein_uri))
+            pkey = safe(row.get("uniprot_protein_id")) or (
+                slugify(safe(row.get("protein_name"))) if safe(row.get("protein_name")) else None)
+            if _tkey and pkey:
+                seen["target_protein"][_tkey] = pkey
+        elif not target_is_new and _tkey and protein_uri:
+            # Detect if a different protein is being associated with an already-seen target
+            existing_pkey = seen["target_protein"].get(_tkey)
+            new_pkey = safe(row.get("uniprot_protein_id")) or (
+                slugify(safe(row.get("protein_name"))) if safe(row.get("protein_name")) else None)
+            if existing_pkey and new_pkey and existing_pkey != new_pkey:
+                print(f"  [CONFLICT] target {_tkey}: recorded={existing_pkey}, "
+                      f"conflicting={new_pkey} (row {i+1})")
+                conflicts += 1
 
         # Wire compound → assay
         if compound_uri and assay_uri:
             gc.add((compound_uri, ODO.testedIn, assay_uri))
 
-        # Build activity node (one per row)
-        build_activity(gact, row_idx, row, compound_uri, assay_uri, target_uri,
-                       doc_uri, signal_uri)
+        # Build activity node (one per row, content-addressed)
+        build_activity(gact, row, compound_uri, assay_uri, target_uri, doc_uri, signal_uris)
 
-    # Serialize
+    if conflicts:
+        print(f"\n  [WARNING] {conflicts} target/protein conflict(s) detected "
+              f"(first-encountered protein retained for each target).")
+
     print("\nSerializing TTL files…")
     for name, g in graphs.items():
         path = os.path.join(OUTPUT_DIR, f"{name}.ttl")

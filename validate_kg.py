@@ -172,7 +172,7 @@ SELECT ?proteinName ?uniprotId ?gpcr_category WHERE {
   ?p a odo:Protein .
   OPTIONAL { ?p odo:proteinName ?proteinName }
   OPTIONAL { ?p odo:uniprotId   ?uniprotId }
-  OPTIONAL { ?p odo:gpcr_category ?gpcr_category }
+  OPTIONAL { ?p odo:gpcrCategory ?gpcr_category }
 } ORDER BY ?proteinName
 """, "12. Proteins with UniProt IDs and GPCR category")
 
@@ -202,6 +202,26 @@ SELECT ?subject ?externalURI WHERE {
   FILTER (!STRSTARTS(STR(?externalURI), "http://odo-project.org"))
 } LIMIT 20
 """, "14. Sample owl:sameAs links to external databases")
+
+    # ── 15. Targets without any linked protein ────────────────────────────
+    sparql("""
+PREFIX odo: <http://odo-project.org/ontology#>
+SELECT ?targetName ?chemblTargetId WHERE {
+  ?target a odo:Target .
+  OPTIONAL { ?target odo:targetName ?targetName }
+  OPTIONAL { ?target odo:chemblTargetId ?chemblTargetId }
+  FILTER NOT EXISTS { ?target odo:encodedBy ?protein }
+} ORDER BY ?targetName
+""", "15. Targets with no linked protein (possible source-data gaps)")
+
+    # ── 16. Activities not linked to any compound ─────────────────────────
+    sparql("""
+PREFIX odo: <http://odo-project.org/ontology#>
+SELECT (COUNT(*) AS ?unlinked) WHERE {
+  ?a a odo:Activity .
+  FILTER NOT EXISTS { ?a odo:hasCompound ?c }
+}
+""", "16. Activity nodes missing odo:hasCompound (should be 0 after InChIKey fallback)")
 
     print("\n\nValidation complete.")
     print(f"Open http://localhost:7200/sparql for interactive queries.")

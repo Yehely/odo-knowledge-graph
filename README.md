@@ -1,6 +1,6 @@
 # ODO Knowledge Graph – Opioid Drug-Receptor Interactions
 
-A knowledge graph built from the ODO 2025 database, containing **37,362 biological activity measurements** across **13,350 chemical compounds** tested against opioid receptors (mu, kappa, delta, NOP).
+A knowledge graph built from the ODO 2025 database, containing **37,362 biological activity measurements** across **~13,350 chemical compounds** tested against opioid receptors (mu, kappa, delta, NOP).
 
 Built as a final project for a B.Sc. in Bioinformatics.
 
@@ -10,15 +10,15 @@ Built as a final project for a B.Sc. in Bioinformatics.
 
 | Entity | Count |
 |---|---|
-| Chemical compounds | 13,350 |
+| Chemical compounds | ~13,350 |
 | Activity measurements (Ki / IC50 / EC50 / ...) | 37,362 |
-| Scientific publications | 1,045 |
+| Scientific publications | 1,165 |
 | Biological targets (receptors) | 55 |
 | Proteins (GPCRs) | 12 |
-| Cell lines | 65 |
+| Cell lines | 63 |
 | Tissues | 20 |
-| Biological species | 10 |
-| **Total RDF triples** | **~870,000** |
+| Biological species | 13 |
+| **Total RDF triples** | **~960,000** |
 
 The graph is linked to external databases via `owl:sameAs`: **ChEMBL**, **PubChem**, **UniProt**, **Cellosaurus**, **BTO**.
 
@@ -61,7 +61,7 @@ For detailed setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md) (Hebrew).
 
 ```
 odo-knowledge-graph/
-├── build_kg.py           # ETL pipeline: Excel → RDF Turtle (~870K triples)
+├── build_kg.py           # ETL pipeline: Excel → RDF Turtle (~960K triples)
 ├── setup_graphdb.py      # Creates GraphDB repository and imports data
 ├── validate_kg.py        # 14 SPARQL validation queries
 ├── odo_ontology.ttl      # OWL ontology: classes and properties
