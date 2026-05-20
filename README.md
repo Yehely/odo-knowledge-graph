@@ -1,68 +1,71 @@
-# ODO Knowledge Graph – גרף ידע לאינטראקציות תרופות אופיואידיות
+# ODO Knowledge Graph – Opioid Drug-Receptor Interactions
 
-פרויקט סיום לתואר ראשון בביואינפורמטיקה.  
-גרף ידע המבוסס על מסד נתונים של **37,362 מדידות ביולוגיות** על **13,350 תרכובות כימיות** שנבדקו על קולטנים אופיאידיים (mu, kappa, delta, NOP).
+A knowledge graph built from the ODO 2025 database, containing **37,362 biological activity measurements** across **13,350 chemical compounds** tested against opioid receptors (mu, kappa, delta, NOP).
+
+Built as a final project for a B.Sc. in Bioinformatics.
 
 ---
 
-## מה הגרף מכיל
+## What the Graph Contains
 
-| ישות | כמות |
+| Entity | Count |
 |---|---|
-| תרכובות כימיות | 13,350 |
-| מדידות פעילות (Ki / IC50 / EC50 / ...) | 37,362 |
-| מאמרים מדעיים | 1,045 |
-| קולטנים ויעדים ביולוגיים | 55 |
-| חלבונים (GPCRs) | 12 |
-| קווי תאים | 65 |
-| רקמות | 20 |
-| מינים ביולוגיים | 10 |
-| **סה"כ triples** | **~870,000** |
+| Chemical compounds | 13,350 |
+| Activity measurements (Ki / IC50 / EC50 / ...) | 37,362 |
+| Scientific publications | 1,045 |
+| Biological targets (receptors) | 55 |
+| Proteins (GPCRs) | 12 |
+| Cell lines | 65 |
+| Tissues | 20 |
+| Biological species | 10 |
+| **Total RDF triples** | **~870,000** |
 
-הגרף מקושר לבסיסי נתונים חיצוניים: **ChEMBL**, **PubChem**, **UniProt**, **Cellosaurus**, **BTO**.
+The graph is linked to external databases via `owl:sameAs`: **ChEMBL**, **PubChem**, **UniProt**, **Cellosaurus**, **BTO**.
 
 ---
 
-## דרישות מקדימות
+## Requirements
 
 - Python 3.8+
-- Conda (מומלץ) עם סביבת `odo`:
+- Conda (recommended) with an `odo` environment:
   ```bash
   conda create -n odo python=3.10
   conda activate odo
   pip install pandas openpyxl rdflib requests
   ```
-- [GraphDB Free](https://www.ontotext.com/products/graphdb/download/) מותקן ורץ על `localhost:7200`
-- קובץ הנתונים: `Final_updated_Dataset_v2025_11-12.xlsx` (לא מסופק בגיטהאב)
+- [GraphDB Free](https://www.ontotext.com/products/graphdb/download/) installed and running on `localhost:7200`
+- Source data file: `Final_updated_Dataset_v2025_11-12.xlsx` (not included in this repo)
 
 ---
 
-## הרצה מהירה
+## Quick Start
 
 ```bash
-# שלב 1 – יצירת קבצי RDF מתוך ה-Excel
+# Step 1 – Generate RDF files from the Excel dataset
 conda run -n odo python3 build_kg.py
 
-# שלב 2 – יצירת repository ב-GraphDB וייבוא הנתונים
+# Step 2 – Create the GraphDB repository and import data
 conda run -n odo python3 setup_graphdb.py
 
-# שלב 3 – אימות הנתונים (אופציונלי)
+# Step 3 – Validate the data (optional)
 conda run -n odo python3 validate_kg.py
 ```
 
-לאחר ההרצה, גלוש ל: **http://localhost:7200**
+Then open: **http://localhost:7200**
+
+For detailed setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md) (Hebrew).
 
 ---
 
-## מבנה הקבצים
+## Repository Structure
 
 ```
-knowledge-graph/
-├── build_kg.py           # ETL: Excel → RDF Turtle (~870K triples)
-├── setup_graphdb.py      # יצירת repository וייבוא ל-GraphDB
-├── validate_kg.py        # 14 שאילתות SPARQL לאימות הנתונים
-├── odo_ontology.ttl      # הגדרות האונטולוגיה (מחלקות ופרופרטיות)
-└── output/               # קבצי RDF שנוצרים (נוצרים על ידי build_kg.py)
+odo-knowledge-graph/
+├── build_kg.py           # ETL pipeline: Excel → RDF Turtle (~870K triples)
+├── setup_graphdb.py      # Creates GraphDB repository and imports data
+├── validate_kg.py        # 14 SPARQL validation queries
+├── odo_ontology.ttl      # OWL ontology: classes and properties
+└── output/               # Generated RDF files (produced by build_kg.py)
     ├── compounds.ttl
     ├── assays.ttl
     ├── activities.ttl
@@ -74,29 +77,29 @@ knowledge-graph/
 
 ---
 
-## אונטולוגיה – מחלקות עיקריות
+## Ontology – Main Classes
 
 ```
-odo:Compound        – תרכובת כימית
-odo:Target          – יעד ביולוגי (קולטן)
-odo:Protein         – חלבון ספציפי
-odo:Assay           – ניסוי ביולוגי
-odo:Activity        – תוצאת מדידה (Ki/IC50/EC50...)
-odo:CellLine        – קו תאים (CHO, HEK293...)
-odo:Tissue          – רקמה (brain, vas deferens...)
-odo:Organism        – מין (Homo sapiens, Rattus norvegicus...)
-odo:Document        – מאמר מדעי
-odo:SignalingPathway – נתיב סיגנל תאי
+odo:Compound         – Chemical compound
+odo:Target           – Biological target (receptor)
+odo:Protein          – Specific protein (GPCR)
+odo:Assay            – Biological assay
+odo:Activity         – Measurement result (Ki / IC50 / EC50 ...)
+odo:CellLine         – Cell line (CHO, HEK293 ...)
+odo:Tissue           – Tissue (brain, vas deferens ...)
+odo:Organism         – Species (Homo sapiens, Rattus norvegicus ...)
+odo:Document         – Scientific publication
+odo:SignalingPathway – Intracellular signaling pathway
 ```
 
 Namespace: `http://odo-project.org/ontology#`
 
 ---
 
-## דוגמת שאילתת SPARQL
+## Example SPARQL Query
 
 ```sparql
-# תרכובות עם Ki < 1 nM על קולטן mu
+-- Compounds with Ki < 1 nM at the mu opioid receptor
 PREFIX odo: <http://odo-project.org/ontology#>
 SELECT ?chemblId ?ki WHERE {
   ?act odo:endpointType "Ki" ;
@@ -108,10 +111,10 @@ SELECT ?chemblId ?ki WHERE {
 } ORDER BY ?ki LIMIT 20
 ```
 
-הרץ שאילתות ב: **http://localhost:7200/sparql**
+Run queries at: **http://localhost:7200/sparql**
 
 ---
 
-## רישיון
+## License
 
-לשימוש אקדמי בלבד. הנתונים מבוססים על מסד הנתונים ODO 2025.
+For academic use only. Data sourced from the ODO 2025 database.
