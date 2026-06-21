@@ -124,7 +124,7 @@ EXP_SETTINGS   = ["in vitro", "in vivo", "other"]
 
 MIN_PCHEMBL       = 2.0
 MAX_PCHEMBL       = 15.0
-TEMPORAL_CUTOFF   = 2015   # first year of test partition
+TEMPORAL_CUTOFF   = 2016   # first year of test partition (train ≤ 2015)
 TEST_MAX_YEAR     = 2020   # last year of test partition (inclusive)
 VAL_FRAC_OF_TRAIN = 0.10
 SEED              = 42

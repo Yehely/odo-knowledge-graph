@@ -42,7 +42,7 @@ EXACT_QUALIFIER = "="   # only "=" measurements used as training labels
 # ---------------------------------------------------------------------------
 COMPOUND_HIDDEN = 256   # projection dimension for compound features
 TARGET_HIDDEN   = 256   # projection dimension for target features
-GNN_LAYERS      = 3     # number of bipartite SAGEConv rounds
+GNN_LAYERS      = 2     # 2-hop bipartite SAGEConv (as per report)
 DROPOUT         = 0.3
 EDGE_HEAD_DIMS  = [512, 256, 128, 1]  # MLP dims (input=256+256+edge_dim, output=1)
 
