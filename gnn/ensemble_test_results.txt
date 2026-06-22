@@ -1,0 +1,15 @@
+ODO GNN Ensemble — Test Set Results
+Models: 5  Seeds: [42, 123, 456, 789, 1024]
+
+Individual models:
+  seed=42: RMSE=1.2561  MAE=0.9927  r=0.5184  R²=0.1860
+  seed=123: RMSE=1.2908  MAE=1.0208  r=0.4940  R²=0.1404
+  seed=456: RMSE=1.2463  MAE=0.9902  r=0.5198  R²=0.1987
+  seed=789: RMSE=1.2486  MAE=0.9868  r=0.5210  R²=0.1958
+  seed=1024: RMSE=1.2682  MAE=1.0068  r=0.5053  R²=0.1702
+
+Ensemble:
+  RMSE     : 1.2328
+  MAE      : 0.9765
+  Pearson r: 0.5277
+  R²       : 0.2159

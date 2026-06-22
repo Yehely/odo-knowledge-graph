@@ -65,6 +65,15 @@ def build_dataset(verbose: bool = True):
     data[et].val_mask   = data[et].split_val   & supervision
     data[et].test_mask  = data[et].split_test  & supervision
 
+    # Per-edge temporal weights: recent experiments weighted up to 2×, oldest 0.5×
+    years = data[et].doc_year.clone()
+    valid = ~torch.isnan(years)
+    weights = torch.ones(years.shape[0])
+    min_y, max_y = 1977.0, 2015.0
+    weights[valid] = 0.5 + 1.5 * (years[valid] - min_y) / (max_y - min_y)
+    weights = weights.clamp(0.5, 2.0)
+    data[et].sample_weight = weights
+
     if verbose:
         E = data[et].edge_index.shape[1]
         print(f"  Compounds   : {data['compound'].num_nodes:,}")

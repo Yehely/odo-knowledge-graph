@@ -19,7 +19,7 @@ os.makedirs(CHECKPOINT_DIR, exist_ok=True)
 # ---------------------------------------------------------------------------
 # Feature engineering
 # ---------------------------------------------------------------------------
-MORGAN_BITS   = 2048   # Morgan fingerprint size (ECFP4, radius=2)
+MORGAN_BITS   = 512    # Morgan fingerprint size — reduced from 2048 to curb memorization
 MORGAN_RADIUS = 2
 
 ADMET_COLS = [
@@ -43,7 +43,7 @@ EXACT_QUALIFIER = "="   # only "=" measurements used as training labels
 COMPOUND_HIDDEN = 256   # projection dimension for compound features
 TARGET_HIDDEN   = 256   # projection dimension for target features
 GNN_LAYERS      = 2     # 2-hop bipartite SAGEConv (as per report)
-DROPOUT         = 0.3
+DROPOUT         = 0.4   # increased from 0.3 for stronger regularization
 EDGE_HEAD_DIMS  = [512, 256, 128, 1]  # MLP dims (input=256+256+edge_dim, output=1)
 
 # ---------------------------------------------------------------------------
@@ -62,7 +62,7 @@ SEED          = 42
 TRAIN_FRAC    = 0.80   # kept for backward compat; temporal split is used instead
 VAL_FRAC      = 0.10
 LR            = 1e-3
-WEIGHT_DECAY  = 1e-5
+WEIGHT_DECAY  = 1e-4   # increased from 1e-5 for stronger L2 regularization
 MAX_EPOCHS    = 200
 PATIENCE      = 20     # early stopping patience
 LR_PATIENCE   = 10     # ReduceLROnPlateau patience

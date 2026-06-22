@@ -40,22 +40,26 @@ def asymmetric_loss(
     target: torch.Tensor,
     alpha: float = _ALPHA,
     threshold: float = _HIGH_AFFINITY_THRESHOLD,
+    sample_weights: torch.Tensor | None = None,
 ) -> torch.Tensor:
     """
-    MSE-based asymmetric loss.
+    MSE-based asymmetric loss with optional per-sample temporal weighting.
 
-    For high-affinity interactions (target >= threshold) where the model
-    under-predicts (pred < target), the squared error is multiplied by alpha.
-    All other errors use unit weight (standard MSE).
+    High-affinity under-predictions (target >= threshold, pred < target) are
+    penalised alpha times more. sample_weights multiplies each edge's loss
+    before averaging (used for temporal weighting: recent edges > old edges).
     """
     error = pred - target  # negative = under-prediction
     sq_err = error ** 2
 
     high_affinity = (target >= threshold).float()
     under_predict = (error < 0).float()
+    affinity_weight = 1.0 + (alpha - 1.0) * high_affinity * under_predict
 
-    weight = 1.0 + (alpha - 1.0) * high_affinity * under_predict
-    return (weight * sq_err).mean()
+    loss_per_sample = affinity_weight * sq_err
+    if sample_weights is not None:
+        loss_per_sample = loss_per_sample * sample_weights
+    return loss_per_sample.mean()
 
 
 # ---------------------------------------------------------------------------
@@ -99,7 +103,8 @@ def train_epoch(model, data, optimizer, device):
 
         optimizer.zero_grad()
         pred = model(data, edge_index=ei.to(device), edge_attr=ea)
-        loss = asymmetric_loss(pred, lbls)
+        sw = data[et].sample_weight[batch_idx].to(device)
+        loss = asymmetric_loss(pred, lbls, sample_weights=sw)
         loss.backward()
         nn.utils.clip_grad_norm_(model.parameters(), 5.0)
         optimizer.step()

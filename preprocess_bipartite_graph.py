@@ -86,8 +86,9 @@ ROOT        = os.path.dirname(os.path.abspath(__file__))
 EXCEL_PATH  = os.path.join(ROOT, "Final ODO Dataset_v2026-06-10.xlsx")
 OUTPUT_PATH = os.path.join(ROOT, "processed_bipartite_graph.pt")
 
-MORGAN_BITS   = 2048
+MORGAN_BITS   = 512    # reduced from 2048 to curb memorization
 MORGAN_RADIUS = 2
+SPLIT_MODE    = "temporal"   # "temporal" | "random"
 
 # Internal DataFrame column names for the 10 ADMET properties
 ADMET_COLS = [
@@ -324,7 +325,7 @@ def build_activity_table(raw: pd.DataFrame) -> pd.DataFrame:
 # ──────────────────────────────────────────────────────────────────────────────
 
 def _morgan_fp(smiles: str | None) -> np.ndarray:
-    """Return 2048-bit ECFP4 as float32; zero vector for invalid/missing SMILES."""
+    """Return MORGAN_BITS-bit ECFP4 as float32; zero vector for invalid/missing SMILES."""
     fp = np.zeros(MORGAN_BITS, dtype=np.float32)
     if not _RDKIT or not smiles:
         return fp
@@ -338,13 +339,13 @@ def _morgan_fp(smiles: str | None) -> np.ndarray:
 
 def build_compound_features(compounds_df: pd.DataFrame) -> torch.FloatTensor:
     """
-    Returns FloatTensor [N_c, 2060].
+    Returns FloatTensor [N_c, MORGAN_BITS + 12].
     NaN ADMET values are imputed with the column mean before StandardScaler.
     All-NaN columns (degenerate case) fall back to 0 after imputation.
     """
     n = len(compounds_df)
     print(f"  Computing Morgan fingerprints for {n:,} compounds …")
-    fps = np.stack([_morgan_fp(s) for s in compounds_df["smiles"]], axis=0)   # [N, 2048]
+    fps = np.stack([_morgan_fp(s) for s in compounds_df["smiles"]], axis=0)   # [N, MORGAN_BITS]
 
     raw_admet  = compounds_df[ADMET_COLS].values.astype(np.float64)           # [N, 10]
     col_means  = np.nanmean(raw_admet, axis=0)
@@ -360,9 +361,10 @@ def build_compound_features(compounds_df: pd.DataFrame) -> torch.FloatTensor:
 
     x = np.concatenate(
         [fps, admet_norm, max_phase[:, None], is_radio[:, None]], axis=1
-    )  # [N, 2060]
+    )  # [N, MORGAN_BITS + 12]
 
-    assert x.shape == (n, 2060), f"Compound feature shape mismatch: {x.shape}"
+    expected = MORGAN_BITS + 12
+    assert x.shape == (n, expected), f"Compound feature shape mismatch: {x.shape} (expected {expected})"
     return torch.from_numpy(x)
 
 
@@ -452,19 +454,40 @@ def make_temporal_splits(
     """
     Returns (split_train, split_val, split_test) BoolTensors of shape [E].
 
-    Test  : doc_year in [TEMPORAL_CUTOFF, TEST_MAX_YEAR]
-    Val   : random VAL_FRAC_OF_TRAIN fraction of non-test edges
-    Train : all remaining non-test edges  (unknown year → train)
+    SPLIT_MODE="temporal":
+      Test  : doc_year in [TEMPORAL_CUTOFF, TEST_MAX_YEAR]
+      Val   : random VAL_FRAC_OF_TRAIN fraction of non-test edges
+      Train : all remaining non-test edges  (unknown year → train)
+
+    SPLIT_MODE="random":
+      80/10/10 random split across all edges (ignores year).
     """
     E = len(doc_years)
+    rng = np.random.default_rng(SEED)
 
+    if SPLIT_MODE == "random":
+        perm   = rng.permutation(E)
+        n_test = int(E * 0.20)
+        n_val  = int(E * 0.10)
+        test_np  = np.zeros(E, dtype=bool)
+        val_np   = np.zeros(E, dtype=bool)
+        train_np = np.zeros(E, dtype=bool)
+        test_np[perm[:n_test]]                    = True
+        val_np[perm[n_test:n_test + n_val]]       = True
+        train_np[perm[n_test + n_val:]]           = True
+        return (
+            torch.from_numpy(train_np),
+            torch.from_numpy(val_np),
+            torch.from_numpy(test_np),
+        )
+
+    # --- temporal split (default) ---
     test_np = np.array(
         [not np.isnan(y) and TEMPORAL_CUTOFF <= y <= TEST_MAX_YEAR for y in doc_years],
         dtype=bool,
     )
 
     pre_idx = np.where(~test_np)[0]
-    rng     = np.random.default_rng(SEED)
     perm    = rng.permutation(len(pre_idx))
     n_val   = max(1, int(len(pre_idx) * VAL_FRAC_OF_TRAIN))
 
