@@ -1,6 +1,6 @@
 # ODO Knowledge Graph — Opioid Drug-Receptor Interactions
 
-A knowledge graph and GNN prediction pipeline built from the ODO 2025 database,
+A knowledge graph and GNN prediction pipeline built from the ODO 2026 database,
 containing **~34,000 biological activity measurements** across **~12,906 chemical
 compounds** tested against opioid receptors (MOR, DOR, KOR, NOP).
 
@@ -158,4 +158,4 @@ odo-knowledge-graph/
 
 ## License
 
-For academic use only. Data sourced from the ODO 2025 database.
+For academic use only. Data sourced from the ODO 2026 database.
