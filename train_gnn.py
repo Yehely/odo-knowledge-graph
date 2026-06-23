@@ -73,20 +73,65 @@ def run_sanity_check(data, model, device):
 
 # ---------------------------------------------------------------------------
 
+def _graph_path(split: str, fp_bits: int) -> str:
+    return os.path.join(ROOT, f"processed_{split}_{fp_bits}fp.pt")
+
+
+def _auto_preprocess(split: str, fp_bits: int):
+    """Run preprocessing if the required .pt file does not exist."""
+    path = _graph_path(split, fp_bits)
+    if not os.path.exists(path):
+        print(f"  Graph file not found: {os.path.basename(path)}")
+        print("  Running preprocessing …")
+        import subprocess
+        cmd = [
+            sys.executable, "preprocess_bipartite_graph.py",
+            "--split", split,
+            "--fp-bits", str(fp_bits),
+        ]
+        subprocess.run(cmd, check=True)
+    return path
+
+
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--sanity", action="store_true",
-                        help="Run 10-epoch overfitting test then exit")
+    parser = argparse.ArgumentParser(
+        description="Train OpioidGNN on the ODO bipartite graph."
+    )
+    parser.add_argument(
+        "--split",
+        choices=["temporal", "random", "compound_random"],
+        default="temporal",
+        help=(
+            "Split strategy: "
+            "'temporal' (default, paper model), "
+            "'compound_random' (honest random), "
+            "'random' (edge-level, diagnostic)."
+        ),
+    )
+    parser.add_argument(
+        "--fp-bits",
+        type=int,
+        choices=[512, 1024, 2048],
+        default=2048,
+        help="Morgan fingerprint size (default: 2048).",
+    )
+    parser.add_argument(
+        "--sanity",
+        action="store_true",
+        help="Run 10-epoch overfitting test then exit.",
+    )
     args = parser.parse_args()
 
     print("=" * 60)
     print("  ODO Knowledge Graph — GNN Training")
+    print(f"  Split: {args.split}  |  FP bits: {args.fp_bits}")
     print("=" * 60)
 
     # -----------------------------------------------------------------------
     print("\n[1/4] Loading & building dataset …")
-    data, meta = build_dataset(verbose=True)
-    edge_dim = data[("compound","activity","target")].edge_attr.shape[1]
+    graph_path = _auto_preprocess(args.split, args.fp_bits)
+    data, meta = build_dataset(verbose=True, graph_path=graph_path)
+    edge_dim = data[("compound", "activity", "target")].edge_attr.shape[1]
     print(f"  Edge feature dim: {edge_dim}")
 
     # -----------------------------------------------------------------------
@@ -108,19 +153,21 @@ def main():
 
     # -----------------------------------------------------------------------
     print("\n[4/4] Saving artefacts …")
-    plot_path = os.path.join(ROOT, "gnn", "training_curve.png")
+    tag = f"{args.split}_{args.fp_bits}fp"
+    plot_path = os.path.join(ROOT, "gnn", f"training_curve_{tag}.png")
     plot_history(history, plot_path)
 
-    results_path = os.path.join(ROOT, "gnn", "test_results.txt")
+    results_path = os.path.join(ROOT, "gnn", f"test_results_{tag}.txt")
     with open(results_path, "w") as f:
         test = history["test"]
-        f.write("ODO GNN — Test Set Results\n")
+        f.write(f"ODO GNN — Test Set Results  [{tag}]\n")
+        f.write(f"Split    : {args.split}\n")
+        f.write(f"FP bits  : {args.fp_bits}\n")
         f.write(f"RMSE     : {test['rmse']:.4f}\n")
         f.write(f"MAE      : {test['mae']:.4f}\n")
         f.write(f"Pearson r: {test['pearson_r']:.4f}\n")
         f.write(f"R²       : {test['r2']:.4f}\n")
     print(f"  Results saved → {results_path}")
-
     print("\nDone. Best model checkpoint at:", os.path.join(CHECKPOINT_DIR, "best_model.pt"))
 
 

@@ -8,6 +8,7 @@ improves out-of-distribution (temporal) generalisation.
 Usage:
     conda run -n odo python3 train_ensemble.py
 """
+import argparse
 import math
 import os
 import sys
@@ -46,13 +47,46 @@ def ensemble_metrics(preds: list[np.ndarray], target: np.ndarray) -> dict:
     return {"rmse": rmse, "mae": mae, "pearson_r": r, "r2": r2, "predictions": avg}
 
 
+def _graph_path(split: str, fp_bits: int) -> str:
+    return os.path.join(ROOT, f"processed_{split}_{fp_bits}fp.pt")
+
+
+def _auto_preprocess(split: str, fp_bits: int) -> str:
+    path = _graph_path(split, fp_bits)
+    if not os.path.exists(path):
+        print(f"  Graph file not found: {os.path.basename(path)}")
+        print("  Running preprocessing …")
+        import subprocess
+        cmd = [
+            sys.executable, "preprocess_bipartite_graph.py",
+            "--split", split, "--fp-bits", str(fp_bits),
+        ]
+        subprocess.run(cmd, check=True)
+    return path
+
+
 def main():
+    parser = argparse.ArgumentParser(
+        description="Ensemble training for OpioidGNN."
+    )
+    parser.add_argument(
+        "--split",
+        choices=["temporal", "random", "compound_random"],
+        default="temporal",
+    )
+    parser.add_argument(
+        "--fp-bits", type=int, choices=[512, 1024, 2048], default=2048,
+    )
+    args = parser.parse_args()
+
     print("=" * 60)
     print("  ODO GNN — Ensemble Training")
     print(f"  Models: {N_MODELS}  |  Seeds: {SEEDS}")
+    print(f"  Split: {args.split}  |  FP bits: {args.fp_bits}")
     print("=" * 60)
 
-    data, _ = build_dataset(verbose=True)
+    graph_path = _auto_preprocess(args.split, args.fp_bits)
+    data, _ = build_dataset(verbose=True, graph_path=graph_path)
     et = ("compound", "activity", "target")
     edge_dim = data[et].edge_attr.shape[1]
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -118,7 +152,7 @@ def main():
                 f"  seed={seed}: RMSE={res['rmse']:.4f}  MAE={res['mae']:.4f}"
                 f"  r={res['pearson_r']:.4f}  R²={res['r2']:.4f}\n"
             )
-        f.write(f"\nEnsemble:\n")
+        f.write("\nEnsemble:\n")
         f.write(f"  RMSE     : {ens['rmse']:.4f}\n")
         f.write(f"  MAE      : {ens['mae']:.4f}\n")
         f.write(f"  Pearson r: {ens['pearson_r']:.4f}\n")

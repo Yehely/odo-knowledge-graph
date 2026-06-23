@@ -21,7 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GRAPH_PATH = os.path.join(ROOT, "processed_bipartite_graph.pt")
 
 
-def build_dataset(verbose: bool = True):
+def build_dataset(verbose: bool = True, graph_path: str | None = None):
     """
     Load the preprocessed bipartite graph and return (data, meta).
 
@@ -35,16 +35,18 @@ def build_dataset(verbose: bool = True):
     data[et].val_mask           BoolTensor  [E]          temporal-val  ∩ supervised
     data[et].test_mask          BoolTensor  [E]          temporal-test ∩ supervised
     """
-    if not os.path.exists(GRAPH_PATH):
+    path = graph_path or GRAPH_PATH
+    if not os.path.exists(path):
         raise FileNotFoundError(
-            f"Preprocessed graph not found: {GRAPH_PATH}\n"
-            "Run:  conda run -n odo python3 preprocess_bipartite_graph.py"
+            f"Preprocessed graph not found: {path}\n"
+            "Run:  conda run -n odo python3 preprocess_bipartite_graph.py "
+            "--split <temporal|compound_random|random> --fp-bits <512|2048>"
         )
 
     if verbose:
-        print(f"  Loading {os.path.basename(GRAPH_PATH)} …")
+        print(f"  Loading {os.path.basename(path)} …")
 
-    data = torch.load(GRAPH_PATH, weights_only=False)
+    data = torch.load(path, weights_only=False)
     et = ("compound", "activity", "target")
 
     # Target embedding index (0 … N_t-1) required by OpioidGNN

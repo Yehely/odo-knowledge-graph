@@ -683,4 +683,36 @@ def main() -> HeteroData:
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Build ODO bipartite graph from Excel dataset."
+    )
+    parser.add_argument(
+        "--split",
+        choices=["temporal", "random", "compound_random"],
+        default="temporal",
+        help=(
+            "Split strategy: "
+            "'temporal' = train≤2015 / test 2016-2020 (paper model); "
+            "'compound_random' = 70/10/20 compound-level split (no leakage); "
+            "'random' = 80/10/10 edge-level split (diagnostic only)."
+        ),
+    )
+    parser.add_argument(
+        "--fp-bits",
+        type=int,
+        choices=[512, 1024, 2048],
+        default=2048,
+        help="Morgan fingerprint bit size (default: 2048).",
+    )
+    args = parser.parse_args()
+
+    # Override module-level constants before main() uses them
+    globals()["SPLIT_MODE"] = args.split
+    globals()["MORGAN_BITS"] = args.fp_bits
+    globals()["OUTPUT_PATH"] = os.path.join(
+        ROOT, f"processed_{args.split}_{args.fp_bits}fp.pt"
+    )
+
     main()
