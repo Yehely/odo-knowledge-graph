@@ -1,5 +1,5 @@
 ODO GNN — Test Set Results
-RMSE     : 0.8324
-MAE      : 0.6031
-Pearson r: 0.8192
-R²       : 0.6461
+RMSE     : 0.9284
+MAE      : 0.6909
+Pearson r: 0.7655
+R²       : 0.5507

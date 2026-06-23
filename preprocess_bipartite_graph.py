@@ -88,7 +88,7 @@ OUTPUT_PATH = os.path.join(ROOT, "processed_bipartite_graph.pt")
 
 MORGAN_BITS   = 512    # reduced from 2048 to curb memorization
 MORGAN_RADIUS = 2
-SPLIT_MODE    = "temporal"   # "temporal" | "random"
+SPLIT_MODE    = "compound_random"  # "temporal" | "random" | "compound_random"
 
 # Internal DataFrame column names for the 10 ADMET properties
 ADMET_COLS = [
@@ -450,6 +450,7 @@ def build_edge_tensors(
 
 def make_temporal_splits(
     doc_years: np.ndarray,
+    compound_src: np.ndarray | None = None,
 ) -> tuple[torch.BoolTensor, torch.BoolTensor, torch.BoolTensor]:
     """
     Returns (split_train, split_val, split_test) BoolTensors of shape [E].
@@ -460,10 +461,34 @@ def make_temporal_splits(
       Train : all remaining non-test edges  (unknown year → train)
 
     SPLIT_MODE="random":
-      80/10/10 random split across all edges (ignores year).
+      80/10/10 random split across all edges (ignores year) — edge-level.
+      WARNING: same compound can appear in both train and test.
+
+    SPLIT_MODE="compound_random":
+      70/10/20 split at COMPOUND level — each compound appears in exactly
+      one partition. No data leakage between train and test compounds.
     """
     E = len(doc_years)
     rng = np.random.default_rng(SEED)
+
+    if SPLIT_MODE == "compound_random":
+        assert compound_src is not None, "compound_src required for compound_random split"
+        n_compounds = int(compound_src.max()) + 1
+        perm = rng.permutation(n_compounds)
+        n_test = int(n_compounds * 0.20)
+        n_val  = int(n_compounds * 0.10)
+        test_compounds  = set(perm[:n_test].tolist())
+        val_compounds   = set(perm[n_test:n_test + n_val].tolist())
+        train_compounds = set(perm[n_test + n_val:].tolist())
+
+        test_np  = np.array([c in test_compounds  for c in compound_src], dtype=bool)
+        val_np   = np.array([c in val_compounds   for c in compound_src], dtype=bool)
+        train_np = np.array([c in train_compounds for c in compound_src], dtype=bool)
+        return (
+            torch.from_numpy(train_np),
+            torch.from_numpy(val_np),
+            torch.from_numpy(test_np),
+        )
 
     if SPLIT_MODE == "random":
         perm   = rng.permutation(E)
@@ -608,7 +633,10 @@ def main() -> HeteroData:
 
     # ── Step 5: Temporal split ─────────────────────────────────────────────
     print("\n[4/5] Computing temporal split …")
-    split_train, split_val, split_test = make_temporal_splits(doc_years)
+    compound_src_np = edge_index[0].numpy()
+    split_train, split_val, split_test = make_temporal_splits(
+        doc_years, compound_src=compound_src_np
+    )
 
     known     = doc_years[~np.isnan(doc_years)]
     train_yrs = doc_years[split_train.numpy().astype(bool) & ~np.isnan(doc_years)]
