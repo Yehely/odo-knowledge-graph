@@ -17,3 +17,35 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+# Generated reports and visualizations (reproducible artifacts)
+schema_visualization.html
+schema_visualization_en.html
+opioid_insights_report.docx
+ODO_Knowledge_Graph_Schema.pdf
+gnn/model_report.html
+bipartite_graph_interactive.html
+bipartite_graph_visualization.png
+gnn/training_curve.png
+
+# Large binary graph files (regenerate with preprocess_bipartite_graph.py)
+*.pt
+
+# Internal notes
+claudecode_instructions.md
+
+# GNN training checkpoints
+gnn/checkpoints/
+
+# Heterogeneous GNN — regenerate with hetero_gnn/run_preprocess.py + run_train.py
+hetero_gnn/checkpoints/
+hetero_gnn/target_reference.csv
+hetero_gnn/training_curve.png
+hetero_gnn/test_results.txt
+hetero_gnn/best_hparams.json
+
+# OS temp files
+.DS_Store
+Thumbs.db
+*.swp
+*~
