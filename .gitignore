@@ -37,6 +37,13 @@ claudecode_instructions.md
 # GNN training checkpoints
 gnn/checkpoints/
 
+# Heterogeneous GNN — regenerate with hetero_gnn/run_preprocess.py + run_train.py
+hetero_gnn/checkpoints/
+hetero_gnn/target_reference.csv
+hetero_gnn/training_curve.png
+hetero_gnn/test_results.txt
+hetero_gnn/best_hparams.json
+
 # OS temp files
 .DS_Store
 Thumbs.db
