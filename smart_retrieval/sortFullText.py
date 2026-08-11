@@ -1,5 +1,5 @@
 """
-sortFullText.py – splits literature/Cleaned_Text_Articles/ into likely
+sortFullText.py – splits smart_retrieval/Cleaned_Text_Articles/ into likely
 full-text vs. likely abstract-only files, using a simple keyword+length
 heuristic. Useful before feeding files to llama_extractor/, which does
 better with genuine full text (tables, methods, results) than with bare

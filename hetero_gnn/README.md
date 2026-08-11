@@ -1,6 +1,6 @@
 # Heterogeneous GNN — ODO Opioid Binding-Affinity Predictor
 
-Implementation of [`HETEROGENEOUS_GNN_ARCHITECTURE.md`](../docs/HETEROGENEOUS_GNN_ARCHITECTURE.md):
+Part of System 2 of ODO's three systems (see the [Wiki](https://github.com/Yehely/odo-project/wiki) for the full narrative). Implementation of [`HETEROGENEOUS_GNN_ARCHITECTURE.md`](../docs/HETEROGENEOUS_GNN_ARCHITECTURE.md):
 a 5-node-type Heterogeneous GNN (**Compound, Target, Assay, Model System,
 Document**) predicting pKi for compound–target binding. This package is
 fully independent of `gnn/` (the earlier 2-node-type bipartite model) —

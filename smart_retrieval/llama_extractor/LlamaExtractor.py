@@ -1,6 +1,6 @@
 """
 LlamaExtractor.py – runs an LLM (Llama 3.3 via Groq) over
-literature/Cleaned_Text_Articles/*.txt (from CleanFiles.py) to extract
+smart_retrieval/Cleaned_Text_Articles/*.txt (from CleanFiles.py) to extract
 drug-target binding experiments from tables, saved as
 labeled_data_from_llama.json.
 """

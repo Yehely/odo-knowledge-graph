@@ -154,17 +154,17 @@ conda run -n odo python3 kg/validate_kg.py
 
 ---
 
-## Literature Extraction (optional)
+## Smart Retrieval (optional)
 
-`literature/` fetches and cleans the full-text source papers behind the
+`smart_retrieval/` fetches and cleans the full-text source papers behind the
 dataset's `pubmed_id` column (via NCBI Entrez/PMC), not part of the
 KG/GNN pipeline itself. Two extraction tools build on top of it:
-`literature/chembl_extractor/`, which auto-generates new ODO-schema
+`smart_retrieval/chembl_extractor/`, which auto-generates new ODO-schema
 database rows for a given ChEMBL compound from 6 external data sources
 plus trained ML models (CLI + local web UI), and
-`literature/llama_extractor/`, which runs an LLM directly over paper text
+`smart_retrieval/llama_extractor/`, which runs an LLM directly over paper text
 to extract drug-target experiments. See
-[`literature/README.md`](literature/README.md).
+[`smart_retrieval/README.md`](smart_retrieval/README.md).
 
 ---
 
@@ -193,7 +193,7 @@ odo-project/
 │   ├── model.py / config.py / dataset.py / preprocess.py
 │   ├── train.py / run_train.py / run_preprocess.py / search_hparams.py
 │   └── predict.py
-├── literature/                    # PMC full-text acquisition + cleaning
+├── smart_retrieval/                    # PMC full-text acquisition + cleaning
 │   ├── GetFiles.py / CleanFiles.py
 │   ├── chembl_extractor/          # ChEMBL API + ML based row generator
 │   ├── llama_extractor/           # LLM-based experiment extraction
@@ -239,7 +239,7 @@ Full spec: [`docs/HETEROGENEOUS_GNN_ARCHITECTURE.md`](docs/HETEROGENEOUS_GNN_ARC
 - [`docs/HETEROGENEOUS_GNN_ARCHITECTURE.md`](docs/HETEROGENEOUS_GNN_ARCHITECTURE.md) — heterogeneous GNN architecture spec
 - [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md) — full project install/setup walkthrough
 - [`hetero_gnn/README.md`](hetero_gnn/README.md) — implementation notes and design rationale for the heterogeneous model
-- [`literature/README.md`](literature/README.md) — literature extraction usage
+- [`smart_retrieval/README.md`](smart_retrieval/README.md) — literature extraction usage
 - **[Wiki](../../wiki)** — project overview, pipeline walkthrough, and model comparison narrative
 
 ---

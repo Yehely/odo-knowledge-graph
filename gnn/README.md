@@ -1,6 +1,6 @@
 # Bipartite GNN — `gnn/`
 
-**OpioidGNN**: a 2-node-type bipartite GraphSAGE model predicting pChEMBL
+Part of System 2 of ODO's three systems (see the [Wiki](https://github.com/Yehely/odo-project/wiki) for the full narrative). **OpioidGNN**: a 2-node-type bipartite GraphSAGE model predicting pChEMBL
 binding affinity from `Compound` ↔ `Target` edges (one edge per bioassay
 experiment). The earlier of the two GNN packages in this repo — see
 [`hetero_gnn/`](../hetero_gnn/README.md) for the newer 5-node-type model.
