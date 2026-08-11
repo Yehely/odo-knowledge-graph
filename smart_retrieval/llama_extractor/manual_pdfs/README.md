@@ -2,7 +2,7 @@
 
 Place manually downloaded PDF articles here before running
 `LlamaExtractorDownloaded.py`. This is for papers that aren't available as
-PMC full-text XML via `literature/GetFiles.py` (no PMC link, paywalled,
+PMC full-text XML via `smart_retrieval/GetFiles.py` (no PMC link, paywalled,
 etc.) and were sourced by hand instead.
 
 PDFs are **not** committed to this repo — most are under journal copyright

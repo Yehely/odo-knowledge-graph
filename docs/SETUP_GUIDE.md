@@ -1,7 +1,7 @@
 # Setup Guide
 
 Covers every part of the project: the knowledge-graph pipeline, both GNN
-packages, and the `literature/` tools (paper acquisition, ChEMBL
+packages, and the `smart_retrieval/` tools (paper acquisition, ChEMBL
 auto-extraction, Llama-based extraction).
 
 ---
@@ -108,7 +108,7 @@ See [`hetero_gnn/README.md`](../hetero_gnn/README.md) for the full option set (h
 
 ---
 
-## 4. Literature tools (`literature/`)
+## 4. Smart Retrieval tools (`smart_retrieval/`)
 
 ### 4.1 Paper acquisition (`GetFiles.py` + `CleanFiles.py`)
 
@@ -116,19 +116,19 @@ See [`hetero_gnn/README.md`](../hetero_gnn/README.md) for the full option set (h
 pip install pandas biopython beautifulsoup4 lxml openpyxl
 export ENTREZ_EMAIL="you@example.com"   # required by NCBI's usage policy
 
-conda run -n odo python3 literature/GetFiles.py     # -> literature/Full_Text_Articles/
-conda run -n odo python3 literature/CleanFiles.py   # -> literature/Cleaned_Text_Articles/
+conda run -n odo python3 smart_retrieval/GetFiles.py     # -> smart_retrieval/Full_Text_Articles/
+conda run -n odo python3 smart_retrieval/CleanFiles.py   # -> smart_retrieval/Cleaned_Text_Articles/
 
 # optional: verified re-download if you suspect a mismatched article
-conda run -n odo python3 literature/Fix_GetFiles.py   # -> literature/Verified_Full_Text/
+conda run -n odo python3 smart_retrieval/Fix_GetFiles.py   # -> smart_retrieval/Verified_Full_Text/
 # optional: filter out abstract-only stubs before running an extractor
-conda run -n odo python3 literature/sortFullText.py   # -> literature/Sort_Full_Text_And_Not/
+conda run -n odo python3 smart_retrieval/sortFullText.py   # -> smart_retrieval/Sort_Full_Text_And_Not/
 ```
 
-### 4.2 ChEMBL auto-extractor (`literature/chembl_extractor/`)
+### 4.2 ChEMBL auto-extractor (`smart_retrieval/chembl_extractor/`)
 
 ```bash
-cd literature/chembl_extractor
+cd smart_retrieval/chembl_extractor
 pip install -r requirements.txt
 
 python3 train_qikprop_models.py     # train supporting ML models (once)
@@ -138,12 +138,12 @@ python3 chembl_fetcher.py --ids CHEMBL101454 --output outputs/result.xlsx   # CL
 python3 app.py                                                              # or web UI, http://localhost:5050
 ```
 
-See [`literature/README.md`](../literature/README.md) for accuracy-evaluation commands.
+See [`smart_retrieval/README.md`](../smart_retrieval/README.md) for accuracy-evaluation commands.
 
-### 4.3 Llama extractor (`literature/llama_extractor/`)
+### 4.3 Llama extractor (`smart_retrieval/llama_extractor/`)
 
 ```bash
-cd literature/llama_extractor
+cd smart_retrieval/llama_extractor
 pip install -r requirements.txt
 export GROQ_API_KEY="your-groq-key"   # https://console.groq.com
 

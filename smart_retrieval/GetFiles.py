@@ -2,7 +2,7 @@
 GetFiles.py – downloads PMC full-text XML for every pubmed_id referenced
 in the ODO dataset, via NCBI Entrez. Source paper for each activity row,
 kept locally as raw material for literature-backed extraction/validation
-of the dataset (see literature/README.md).
+of the dataset (see smart_retrieval/README.md).
 """
 import os
 import time

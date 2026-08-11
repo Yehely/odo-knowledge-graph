@@ -1,8 +1,7 @@
-# Literature Extraction
+# Smart Retrieval — `smart_retrieval/`
 
-Tools for acquiring, cleaning, and extracting structured data from the
-literature behind the ODO dataset. Not part of the KG/GNN pipeline itself
-— a preprocessing/data-enrichment layer that feeds it.
+System 3 of ODO's three systems (see the [Wiki](https://github.com/Yehely/odo-project/wiki) for the full narrative). Tools for acquiring, cleaning, and extracting structured data from the
+literature behind the ODO dataset — growing the dataset itself, independent of the [`kg/`](../kg/README.md)/[`gnn/`](../gnn/README.md) pipelines.
 
 ```
 GetFiles.py / Fix_GetFiles.py  →  CleanFiles.py  →  sortFullText.py (optional)
@@ -35,8 +34,8 @@ GetFiles.py / Fix_GetFiles.py  →  CleanFiles.py  →  sortFullText.py (optiona
 ```bash
 export ENTREZ_EMAIL="you@example.com"   # required by NCBI's Entrez usage policy
 
-conda run -n odo python3 literature/GetFiles.py
-conda run -n odo python3 literature/CleanFiles.py
+conda run -n odo python3 smart_retrieval/GetFiles.py
+conda run -n odo python3 smart_retrieval/CleanFiles.py
 ```
 
 Requires `pandas`, `biopython`, `beautifulsoup4`, `lxml`, `openpyxl` in the
