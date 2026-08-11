@@ -1,6 +1,6 @@
 """
 build_kg.py – ODO Knowledge Graph Builder
-Reads Final_updated_Dataset_v2025_11-12.xlsx and produces RDF Turtle files
+Reads Final ODO Dataset_v2026-06-10.xlsx and produces RDF Turtle files
 in the output/ directory, ready to be loaded into GraphDB.
 """
 
@@ -31,7 +31,7 @@ CELLOS   = Namespace("https://www.cellosaurus.org/")
 DTO      = Namespace("http://www.drugtargetontology.org/dto/")
 
 EXCEL_PATH = os.path.join(os.path.dirname(__file__),
-                          "Final_updated_Dataset_v2025_11-12.xlsx")
+                          "Final ODO Dataset_v2026-06-10.xlsx")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
 
