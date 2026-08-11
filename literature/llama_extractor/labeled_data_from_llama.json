@@ -1,0 +1,245 @@
+[
+    {
+        "drug_name": "300",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "75",
+        "units": "pM",
+        "measure_type": "Ki",
+        "source_sentence": "TRK-820 (300) was a selective, very-high-affinity agonist for κ-ORs, and a partial agonist for μ-ORs and δ-ORs (Ki (κ-OR) = 75 pM, Ki (μ-OR) = 5.2 nM, Ki (δ-OR) = 161 nM, μ/κ = 69.3, δ/κ = 2146) [317].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "300",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "5.2",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "TRK-820 (300) was a selective, very-high-affinity agonist for κ-ORs, and a partial agonist for μ-ORs and δ-ORs (Ki (κ-OR) = 75 pM, Ki (μ-OR) = 5.2 nM, Ki (δ-OR) = 161 nM, μ/κ = 69.3, δ/κ = 2146) [317].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "300",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "161",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "TRK-820 (300) was a selective, very-high-affinity agonist for κ-ORs, and a partial agonist for μ-ORs and δ-ORs (Ki (κ-OR) = 75 pM, Ki (μ-OR) = 5.2 nM, Ki (δ-OR) = 161 nM, μ/κ = 69.3, δ/κ = 2146) [317].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301a",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "0.07",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "the nonselective OR antagonist 11C-diprenorphine ([11C]DPN, 301a, (Ki (μ) = 0.07 nM, Ki (δ) = 0.23 nM, Ki (κ) = 0.02 nM, Figure 75) [333, 334].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301a",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "0.23",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "the nonselective OR antagonist 11C-diprenorphine ([11C]DPN, 301a, (Ki (μ) = 0.07 nM, Ki (δ) = 0.23 nM, Ki (κ) = 0.02 nM, Figure 75) [333, 334].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301a",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "0.02",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "the nonselective OR antagonist 11C-diprenorphine ([11C]DPN, 301a, (Ki (μ) = 0.07 nM, Ki (δ) = 0.23 nM, Ki (κ) = 0.02 nM, Figure 75) [333, 334].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301b",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "1.5",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "the partial μOR agonist and kappa antagonist 11C-buprenorphine ([11C]BPN, 301b) [334, 335] (Ki (μ) = 1.5 nM, Ki (δ) = 6.1 nM, Ki (κ) = 2.5 nM, Ki (NOP) = 77.4).",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301b",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "6.1",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "the partial μOR agonist and kappa antagonist 11C-buprenorphine ([11C]BPN, 301b) [334, 335] (Ki (μ) = 1.5 nM, Ki (δ) = 6.1 nM, Ki (κ) = 2.5 nM, Ki (NOP) = 77.4).",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301b",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "2.5",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "the partial μOR agonist and kappa antagonist 11C-buprenorphine ([11C]BPN, 301b) [334, 335] (Ki (μ) = 1.5 nM, Ki (δ) = 6.1 nM, Ki (κ) = 2.5 nM, Ki (NOP) = 77.4).",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "302a",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "0.18",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Following the development of the agonist ligand 11C-phenethyl-orvinol (302a, [11C]PEO) (Ki (μ) = 0.18 nM, Ki (δ) = 5.1 nM, Ki (κ) = 0.12 nM) [336].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "302a",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "5.1",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Following the development of the agonist ligand 11C-phenethyl-orvinol (302a, [11C]PEO) (Ki (μ) = 0.18 nM, Ki (δ) = 5.1 nM, Ki (κ) = 0.12 nM) [336].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "302a",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "0.12",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Following the development of the agonist ligand 11C-phenethyl-orvinol (302a, [11C]PEO) (Ki (μ) = 0.18 nM, Ki (δ) = 5.1 nM, Ki (κ) = 0.12 nM) [336].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "302b",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "0.10",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Schoultz et al. reported its 18F-fluorine-labeled version, 18F-phenethyl-orvinol (302b, [18F]FE-PEO, (Ki (μ) = 0.10 nM, Ki (δ) = 0.49 nM, Ki (κ) = 0.08 nM) [337, 338, 339].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "302b",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "0.49",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Schoultz et al. reported its 18F-fluorine-labeled version, 18F-phenethyl-orvinol (302b, [18F]FE-PEO, (Ki (μ) = 0.10 nM, Ki (δ) = 0.49 nM, Ki (κ) = 0.08 nM) [337, 338, 339].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "302b",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "0.08",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Schoultz et al. reported its 18F-fluorine-labeled version, 18F-phenethyl-orvinol (302b, [18F]FE-PEO, (Ki (μ) = 0.10 nM, Ki (δ) = 0.49 nM, Ki (κ) = 0.08 nM) [337, 338, 339].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301c",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "0.24",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Subsequently, Schoultz et al. [341] elaborated a more efficient method for the synthesis of [18F]FE-DPN (301c) and [18F]FEOTos, and they also extended their method to the radiosynthesis of 6-O-(2-[18F]-fluoroethyl)-6-O-desmethyl-buprenorphine (301d, [18F]FE-BPN, Ki (μ) = 0.24 nM, Ki (δ) = 2.10 nM, Ki (κ) = 0.12 nM) [341].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301c",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "8.00",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "In 2000, Wester et al. reported the radiosynthesis of the antagonist ligand 6-O-(2-[18F]fluoroethyl)-6-O-desmethyl-diprenorphine ([18F]FE-DPN, 301c, Ki (μ) = 0.24 nM, Ki (δ) = 8.00 nM, Ki (κ) = 0.20 nM, Figure 75) [340].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301c",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "0.20",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "In 2000, Wester et al. reported the radiosynthesis of the antagonist ligand 6-O-(2-[18F]fluoroethyl)-6-O-desmethyl-diprenorphine ([18F]FE-DPN, 301c, Ki (μ) = 0.24 nM, Ki (δ) = 8.00 nM, Ki (κ) = 0.20 nM, Figure 75) [340].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301d",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "0.24",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Subsequently, Schoultz et al. [341] elaborated a more efficient method for the synthesis of [18F]FE-DPN (301c) and [18F]FEOTos, and they also extended their method to the radiosynthesis of 6-O-(2-[18F]-fluoroethyl)-6-O-desmethyl-buprenorphine (301d, [18F]FE-BPN, Ki (μ) = 0.24 nM, Ki (δ) = 2.10 nM, Ki (κ) = 0.12 nM) [341].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301d",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "2.10",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Subsequently, Schoultz et al. [341] elaborated a more efficient method for the synthesis of [18F]FE-DPN (301c) and [18F]FEOTos, and they also extended their method to the radiosynthesis of 6-O-(2-[18F]-fluoroethyl)-6-O-desmethyl-buprenorphine (301d, [18F]FE-BPN, Ki (μ) = 0.24 nM, Ki (δ) = 2.10 nM, Ki (κ) = 0.12 nM) [341].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "301d",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "0.12",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "Subsequently, Schoultz et al. [341] elaborated a more efficient method for the synthesis of [18F]FE-DPN (301c) and [18F]FEOTos, and they also extended their method to the radiosynthesis of 6-O-(2-[18F]-fluoroethyl)-6-O-desmethyl-buprenorphine (301d, [18F]FE-BPN, Ki (μ) = 0.24 nM, Ki (δ) = 2.10 nM, Ki (κ) = 0.12 nM) [341].",
+        "pmid": "10206545"
+    },
+    {
+        "drug_name": "DPI-287",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "0.1",
+        "units": "pM",
+        "measure_type": "Ki",
+        "source_sentence": "The Ki values of the two compounds for DOP were determined using a membrane concentration of 20 to 40 μg of proteins per well and 1 × 10^5 counts per minute (cpm) of the radiolabeled ligand (specific activity, ~1700 Ci/mmol). Membranes and the radioligand were incubated for 60 min at room temperature with increasing concentrations of DPI-287 or KGCHM07 (0.1 pM to 10 μM).",
+        "pmid": "10340623"
+    },
+    {
+        "drug_name": "DPI-287",
+        "target_name": "Mu opioid receptor",
+        "value_numeric": "2",
+        "units": "nM",
+        "measure_type": "Ki",
+        "source_sentence": "The Ki values of DPI-287 for MOP was achieved by competition binding assays with [^125I]DAMGO (specific activity, ~2200 Ci/mmol; Kd = 2 nM) and HEK cells expressing the human Flag-MOP (obtained from M. von Zastrow, University of California, San Francisco, CA).",
+        "pmid": "10340623"
+    },
+    {
+        "drug_name": "KGCHM07",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "0.1",
+        "units": "pM",
+        "measure_type": "Ki",
+        "source_sentence": "The Ki values of the two compounds for DOP were determined using a membrane concentration of 20 to 40 μg of proteins per well and 1 × 10^5 counts per minute (cpm) of the radiolabeled ligand (specific activity, ~1700 Ci/mmol). Membranes and the radioligand were incubated for 60 min at room temperature with increasing concentrations of DPI-287 or KGCHM07 (0.1 pM to 10 μM).",
+        "pmid": "10340623"
+    },
+    {
+        "drug_name": "4",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "3.2",
+        "units": "nM",
+        "measure_type": "K_B",
+        "source_sentence": "The novel cyclic arodyn analog  4  cyclized between Tyr(All) residues incorporated in positions 2 and 3 exhibited potent κ opioid receptor antagonism in the [ 35 S]GTPγS assay (K B  = 3.2 nM) similar to arodyn.",
+        "pmid": "10447942"
+    },
+    {
+        "drug_name": "3",
+        "target_name": "Kappa opioid receptor",
+        "value_numeric": "27.5",
+        "units": "nM",
+        "measure_type": "K_B",
+        "source_sentence": "Analog  3  cyclized between Tyr(All) residues in positions 1 and 2 also exhibited nanomolar κ opioid receptor antagonist potency (K B  = 27.5 nM) in this assay.",
+        "pmid": "10447942"
+    },
+    {
+        "drug_name": "12",
+        "target_name": "Delta opioid receptor",
+        "value_numeric": "sub-nM",
+        "units": "nM",
+        "measure_type": "potency",
+        "source_sentence": "We identified a lead compound  12  (SRI-22136) with sub-nM DOR potency, high selectivity, and high inhibition of β-secretase activity.",
+        "pmid": "10479286"
+    }
+]
