@@ -39,3 +39,42 @@ current dataset (930+ papers, ~127MB combined at time of writing).
 
 Not every `pubmed_id` has a linked PMC full-text record — `GetFiles.py`
 prints `"No PMC link"` for those and simply skips them.
+
+## `chembl_extractor/` — automatic ChEMBL data extraction
+
+A separate tool: given a ChEMBL compound ID (or SMILES), fetches and
+combines data from **6 external sources** (ChEMBL, PubChem, UniProt,
+InterPro, OLS4/BTO, PubMed) plus two trained ML models (assay-format
+classifiers, QikProp-style property predictors) into a fully-populated
+131-column row matching the ODO database schema — i.e. it auto-generates
+new database rows for a given compound, rather than working from existing
+rows like `GetFiles.py`/`CleanFiles.py` do. Reached ~81% field-level
+accuracy against the real database after several rounds of NLP-assisted
+refinement; full write-up (Hebrew) in
+[`chembl_extractor/EXPLANATION_HE.md`](chembl_extractor/EXPLANATION_HE.md).
+
+```bash
+cd literature/chembl_extractor
+pip install -r requirements.txt
+
+# Step 1 — train the two supporting ML models (once)
+python3 train_qikprop_models.py
+python3 train_nlp_models.py
+
+# Step 2a — CLI: fetch one or more compounds
+python3 chembl_fetcher.py --ids CHEMBL101454 --output outputs/result.xlsx
+
+# Step 2b — or the web UI (http://localhost:5050)
+python3 app.py
+
+# Step 3 — optional: score output accuracy against the real DB
+python3 compare_accuracy.py --output outputs/result.xlsx
+# or sample-evaluate the fetcher directly against the DB
+python3 evaluate_accuracy.py --fraction 0.05
+```
+
+`labeled_data_from_manual_pdfs.json` is manually-labeled ground truth
+(~2,126 rows) used to validate the NLP-predicted fields during development.
+
+`nlp_models/`, `qikprop_models/`, and `outputs/` (all model/run artifacts)
+are gitignored — regenerate with the training/fetch commands above.

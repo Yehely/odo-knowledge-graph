@@ -52,6 +52,12 @@ gnn/ensemble_test_results.txt
 literature/Full_Text_Articles/
 literature/Cleaned_Text_Articles/
 
+# chembl_extractor — trained models + fetch/evaluation run output (regenerable)
+literature/chembl_extractor/nlp_models/
+literature/chembl_extractor/qikprop_models/
+literature/chembl_extractor/outputs/
+literature/chembl_extractor/accuracy_reports/
+
 # Local-only material — never committed (contains personal/course info or large drafts)
 reports/
 Presentation_Materials/

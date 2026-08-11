@@ -1,0 +1,2126 @@
+[
+  {
+    "drug_name": "SNC-80",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "8.7",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "δ (pIC50) =8.7, µ (pIC50) = <5",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "SNC-80",
+    "target_name": "mu opioid receptor",
+    "value_numeric": "5",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "δ (pIC50) =8.7, µ (pIC50) = <5",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "1b",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "9.2",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "δ (pIC50) = 9.2",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "15",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "9.9",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "15 — — 9.9 <5 5.9 459 2.1 23 ER = 1 100 lg/kg",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "16",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "9.8",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "16 –CH2–CO2H — 9.8 — — 445 1.1 6 ER = 2 1000 lg/kg",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "17",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "10.7",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "17 . CO2H — 10.7 — — 507 2.3 3 ER > 5 NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2a",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "7.6",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2a –CH2–CO2H –OMe 7.6 NT NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2b",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "9.3",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2b –CH2–CO2H –OH 9.3 6.9 5.9",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2c",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "6.2",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2c –(CH2)2–CO2H –OMe 6.2 <5 <5",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2d",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "9.0",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2d –(CH2)2–CO2H –OH 9.0 6.2 5.1",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2e",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "7.6",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2e –(CH2)2–CO2H –F 7.6 NT NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2f",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "7.2",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2f –(CH2)2–CO2H –H 7.2 NT NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2g",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "9.5",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2g O CO2H –OH 9.5 7.3 5.4",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2h",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "8.5",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2h CO2H –OH 8.5 NT NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2i",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "8.8",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2i O HO2C –OH 8.8 7.0 5.9",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "2j",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "8.1",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "2j O HO2C –OH 8.1 5.5 6.4",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3a",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "8.7",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3a –CH2–CO2H –OMe 8.7d 5.3 5.9",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3a",
+    "target_name": "human d-opioid receptor",
+    "value_numeric": "8.3",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3a –CH2–CO2H –OMe 8.7d 5.3 5.9",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3b",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "10.4",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3b –CH2–CO2H –OH 10.4 6.5 6.0",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3c",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "7.9",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3c –(CH2)2–CO2H –OMe 7.9 <5 6",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3d",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "11.3",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3d –(CH2)2–CO2H –OH 11.3 6 5.3",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3e",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "7.0",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3e –(CH2)2–CO2H –F 7.0 NT NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3f",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "7.8",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3f –CO–CH2–CO2H –OMe 7.8 NT NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3g",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "12",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3g –CO–CH2–CO2H –OH 12 6.7 6.4",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3h",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "7.7",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3h –CO–CH2–CO2H –F 7.7 NT NT",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "3i",
+    "target_name": "d-opioid receptor",
+    "value_numeric": "11.8",
+    "units": "pIC50",
+    "measure_type": "pIC50",
+    "source_sentence": "3i –CO–CO2H –OH 11.8 6.7 6.4",
+    "pmid": "16290934"
+  },
+  {
+    "drug_name": "N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.80",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "N/OFQ-NH2 7.80 (7.74-7.86) 93 ± 2",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Aib7]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "8.35",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Aib7]N/OFQ-NH2 8.35 (8.24-8.46) 96 ± 3",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Aib11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "8.05",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Aib11]N/OFQ-NH2 8.05 (7.88-8.22) 91 ± 5",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Ac3c7]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.08",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Ac3c7]N/OFQ-NH2 7.08 (6.82-7.34) 98 ± 1",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Ac5c7]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.60",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Ac5c7]N/OFQ-NH2 7.60 (7.40-7.80) 98 ± 1",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Ac6c7]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.20",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Ac6c7]N/OFQ-NH2 7.20 (6.86-7.54) 87 ± 1",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[(aMe)D/L-Val7]N/OFQ-NH2(1)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.26",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[(aMe)D/L-Val7]N/OFQ-NH2(1) 7.26 (7.00-7.52) 88 ± 1",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[(aMe)D/L-Val7]N/OFQ-NH2(2)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.56",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[(aMe)D/L-Val7]N/OFQ-NH2(2) 7.56 (7.34-7.78) 95 ± 1",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[(aMe)D/L-Leu7]N/OFQ-NH2(1)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.33",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[(aMe)D/L-Leu7]N/OFQ-NH2(1) 7.33 (7.04-7.62) 84 ± 1",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[(aMe)D/L-Leu7]N/OFQ-NH2(2)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.12",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[(aMe)D/L-Leu7]N/OFQ-NH2(2) 7.12 (7.02-7.22) 95 ± 2",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Iva7]N/OFQ-NH2(1)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.83",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Iva7]N/OFQ-NH2(1) 7.83 (7.74-7.92) 91 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Iva7]N/OFQ-NH2(2)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.62",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Iva7]N/OFQ-NH2(2) 7.62 (7.32-7.92) 88 ± 3",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Deg7]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.91",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Deg7]N/OFQ-NH2 7.91 (7.53-8.27) 89 ± 2",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Dpg7]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.90",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Dpg7]N/OFQ-NH2 7.90 (7.71-8.11) 91 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Ac3c11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.78",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Ac3c11]N/OFQ-NH2 7.78 (7.62-7.94) 91 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Ac5c11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "8.08",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Ac5c11]N/OFQ-NH2 8.08 (7.93-8.23) 89 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Ac6c11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.79",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Ac6c11]N/OFQ-NH2 7.79 (7.53-8.05) 89 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[(aMe)D/L-Val11]N/OFQ-NH2 (1)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.71",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[(aMe)D/L-Val11]N/OFQ-NH2 (1) 7.71 (7.37-8.05) 93 ± 2",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[(aMe)D/L-Val11]N/OFQ-NH2 (2)",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.83",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[(aMe)D/L-Val11]N/OFQ-NH2 (2) 7.83 (7.67-7.99) 86 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[(aMe)D/L-Leu11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.87",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[(aMe)D/L-Leu11]N/OFQ-NH2 7.87 (7.67-8.07) 91 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[D/L-Iva11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "8.12",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[D/L-Iva11]N/OFQ-NH2 8.12 (7.78-8.46) 90 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Deg11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.75",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Deg11]N/OFQ-NH2 7.75 (7.43-7.89) 87 ± 4",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "[Dpg11]N/OFQ-NH2",
+    "target_name": "NOP receptor",
+    "value_numeric": "7.53",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "[Dpg11]N/OFQ-NH2 7.53 (7.17-8.04) 86 ± 3",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-111",
+    "target_name": "NOP receptor",
+    "value_numeric": "9.75",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-111 9.75",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-112",
+    "target_name": "NOP receptor",
+    "value_numeric": "10.55",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-112 10.55",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-113",
+    "target_name": "NOP receptor",
+    "value_numeric": "10.26",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-113 10.26",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-111",
+    "target_name": "MOP receptor",
+    "value_numeric": "<5",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-111 <5",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-112",
+    "target_name": "MOP receptor",
+    "value_numeric": "7.13",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-112 7.13",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-113",
+    "target_name": "MOP receptor",
+    "value_numeric": "6.45",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-113 6.45",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-111",
+    "target_name": "DOP receptor",
+    "value_numeric": "<5",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-111 <5",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-112",
+    "target_name": "DOP receptor",
+    "value_numeric": "6.37",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-112 6.37",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-113",
+    "target_name": "DOP receptor",
+    "value_numeric": "5.69",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-113 5.69",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-111",
+    "target_name": "KOP receptor",
+    "value_numeric": "6.17",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-111 6.17",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-112",
+    "target_name": "KOP receptor",
+    "value_numeric": "8.36",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-112 8.36",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-113",
+    "target_name": "KOP receptor",
+    "value_numeric": "7.55",
+    "units": "pKi",
+    "measure_type": "pKi",
+    "source_sentence": "UFP-113 7.55",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "N/OFQ",
+    "target_name": "NOP receptor",
+    "value_numeric": "9.04",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "N/OFQ 9.04 (8.80-9.28) 100%",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-112",
+    "target_name": "NOP receptor",
+    "value_numeric": "10.55",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "UFP-112 10.55 (10.30-10.80) 103 ± 7%",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-113",
+    "target_name": "NOP receptor",
+    "value_numeric": "9.72",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "UFP-113 9.72 (9.51-9.93) 79 ± 3%",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-111",
+    "target_name": "NOP receptor",
+    "value_numeric": "8.68",
+    "units": "pA2",
+    "measure_type": "pA2",
+    "source_sentence": "UFP-111 8.68 (8.45-8.91)",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-112",
+    "target_name": "NOP receptor",
+    "value_numeric": "9.24",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "UFP-112 9.24 (8.97-9.51) 84 ± 6%",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "UFP-113",
+    "target_name": "NOP receptor",
+    "value_numeric": "9.10",
+    "units": "pEC50",
+    "measure_type": "pEC50",
+    "source_sentence": "UFP-113 9.10 (8.95-9.30) Variable agonist effects",
+    "pmid": "17490886"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Phe-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "δ opioid receptors",
+    "value_numeric": "15",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The binding affinities of 1 at both δ/μ opioid receptors were in the 10 nM range (Ki )15 nM, δ opioid; 28 nM, μ opioid)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Phe-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "μ opioid receptors",
+    "value_numeric": "28",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The binding affinities of 1 at both δ/μ opioid receptors were in the 10 nM range (Ki )15 nM, δ opioid; 28 nM, μ opioid)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Phe-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "rNK1 receptors",
+    "value_numeric": "0.88",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The binding affinity of 1 at rNK1 was very potent with a subnanomolar Ki value (0.88 nM)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-D-Phe-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "δ opioid receptors",
+    "value_numeric": "93",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "However, the peptide possessing a D-amino acid in position 5 (2) was found to have drastically lower affinities than 1 (Ki = 93 nM, δ opioid; 380 nM, μ opioid; 3.0 nM, rNK1)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-D-Phe-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "μ opioid receptors",
+    "value_numeric": "380",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "However, the peptide possessing a D-amino acid in position 5 (2) was found to have drastically lower affinities than 1 (Ki = 93 nM, δ opioid; 380 nM, μ opioid; 3.0 nM, rNK1)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-D-Phe-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "rNK1 receptors",
+    "value_numeric": "3.0",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "However, the peptide possessing a D-amino acid in position 5 (2) was found to have drastically lower affinities than 1 (Ki = 93 nM, δ opioid; 380 nM, μ opioid; 3.0 nM, rNK1)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Gly-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "δ opioid receptors",
+    "value_numeric": "36",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Although the binding assays (Table 2) of 3 showed lower affinity for δ opioid receptors (Ki = 36 nM) than did 1, the affinities at both μ opioid and rNK1 receptors were maintained (Ki ) 27, μ opioid; 1.0 nM, rNK1)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Gly-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "μ opioid receptors",
+    "value_numeric": "27",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Although the binding assays (Table 2) of 3 showed lower affinity for δ opioid receptors (Ki = 36 nM) than did 1, the affinities at both μ opioid and rNK1 receptors were maintained (Ki ) 27, μ opioid; 1.0 nM, rNK1)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Gly-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "rNK1 receptors",
+    "value_numeric": "1.0",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Although the binding assays (Table 2) of 3 showed lower affinity for δ opioid receptors (Ki = 36 nM) than did 1, the affinities at both μ opioid and rNK1 receptors were maintained (Ki ) 27, μ opioid; 1.0 nM, rNK1)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Leu-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "δ opioid receptors",
+    "value_numeric": "5.0",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "As can be seen in Table 2, binding affinity at δ opioid receptors of 4 was improved from that of 3 (Ki = 5.0nM) and its Ki value at μ opioid receptors was 23 nM with 4.7-fold δ receptor selectivity over μ receptors",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Leu-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "μ opioid receptors",
+    "value_numeric": "23",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "As can be seen in Table 2, binding affinity at δ opioid receptors of 4 was improved from that of 3 (Ki = 5.0nM) and its Ki value at μ opioid receptors was 23 nM with 4.7-fold δ receptor selectivity over μ receptors",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Met-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "δ opioid receptors",
+    "value_numeric": "2.8",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "In the case of peptide 5, there was a large increase in δ opioid activity (Ki = 2.8 nM), and 13-fold δ selectivity was seen over μ opioid receptors in the binding assays",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Met-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "μ opioid receptors",
+    "value_numeric": "32",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "In the case of peptide 5, there was no Ki value at μ opioid receptors mentioned, however, it was mentioned that there was a 13-fold δ selectivity over μ opioid receptors in the binding assays",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Met-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "rNK1 receptors",
+    "value_numeric": "0.29",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Although the substance P antagonist activity of 5 in the GPI assay was less than that of 3, it still retained good activity (Ke = 25 nM) with excellent affinity for rNK1 receptors (Ki = 0.29 nM)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Met(O)-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "δ opioid receptors",
+    "value_numeric": "5.5",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "In fact, this modification led to better binding affinity at the μ opioid receptors than that of 5 (Ki = 5.5 nM) but a decreased Ki value at δ opioid receptors which led to almost equivalent affinities at both δ and μ opioid receptors (δ selectivity, 1.1-fold)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Nle-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "δ opioid receptors",
+    "value_numeric": "1.8",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "In receptor binding assays, ligand 7 showed the best affinity for δ opioid receptors (Ki = 1.8 nM), and its Ki value at μ opioid receptors was less than 10 nM (9.8 nM; 5.4-fold δ selectivity)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Nle-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "μ opioid receptors",
+    "value_numeric": "9.8",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "In receptor binding assays, ligand 7 showed the best affinity for δ opioid receptors (Ki = 1.8 nM), and its Ki value at μ opioid receptors was less than 10 nM (9.8 nM; 5.4-fold δ selectivity)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "H-Tyr-D-Ala-Gly-Phe-Nle-Pro-Leu-Trp-O-3,5-Bzl(CF3)2",
+    "target_name": "rNK1 receptors",
+    "value_numeric": "0.60",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The rNK1 affinity of 7 was slightly decreased and substance P antagonist activity of 7 was increased from that of 5 (Ki = 0.60 nM and Ke = 7.9 nM, respectively)",
+    "pmid": "17516639"
+  },
+  {
+    "drug_name": "TY027",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "1.3",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "As seen in Table 1, compound 1 had a Ki of 1.3 nM at the δ opioid receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "TY027",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "14",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "As seen in Table 1, compound 1 had a Ki of 14 nM at the μ opioid receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "2",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "5.0",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "As seen in Table 1, compound 2, which has a disulfide bond between D-Cys2 and Cys5, retained good affinity at the δ receptor but weaker affinity at the μ receptor (Ki = 5.0 and 200 nM, respectively).",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "2",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "200",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "As seen in Table 1, compound 2, which has a disulfide bond between D-Cys2 and Cys5, retained good affinity at the δ receptor but weaker affinity at the μ receptor (Ki = 5.0 and 200 nM, respectively).",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "3",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "4.5",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The other cyclic derivative of 1 at the second and fifth residues, c[D-Cys2, D-Cys5]TY027 (3) showed a similar right shift in binding affinities as seen for 2, with a Ki of 4.5 nM at the δ opioid receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "3",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "210",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The other cyclic derivative of 1 at the second and fifth residues, c[D-Cys2, D-Cys5]TY027 (3) showed a similar right shift in binding affinities as seen for 2, with a Ki of 210 nM at the μ opioid receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "6.2",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The cyclized derivative of 1 at the second and seventh positions c[D-Cys2, Cys7]TY027 (4) did not significantly alter the binding affinity at δ opioid receptors, with a Ki of 6.2 nM.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "56",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The cyclized derivative of 1 at the second and seventh positions c[D-Cys2, Cys7]TY027 (4) shifted the affinity at μ receptors moderately by about 4 fold, with a Ki of 56 nM.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "5",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "12",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The derivative c[D-Cys2, D-Cys7]TY027 (5) exhibits lower affinity for both δ and μ opioid receptors, with a Ki of 12 nM at the δ opioid receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "5",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "200",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The derivative c[D-Cys2, D-Cys7]TY027 (5) exhibits lower affinity for both δ and μ opioid receptors, with a Ki of 200 nM at the μ opioid receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "1",
+    "target_name": "hNK1 receptor",
+    "value_numeric": "0.43",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The peptide derivatives 1–3 had the common sequence in the NK1 antagonist pharmacophore, with 1 having a Ki of 0.43 nM at the hNK1 receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "2",
+    "target_name": "hNK1 receptor",
+    "value_numeric": "2.5",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "c[D-Cys2, Cys5]TY027 (2) showed the largest decrease in its binding affinities at both human and rat NK1 receptors, with a Ki of 2.5 nM at the hNK1 receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "3",
+    "target_name": "hNK1 receptor",
+    "value_numeric": "1.1",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "c[D-Cys2, D-Cys5]TY027 (3) also showed a right shift in the affinity at both hNK1 and rNK1 receptors compared to those of 1, with a Ki of 1.1 nM at the hNK1 receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "hNK1 receptor",
+    "value_numeric": "1.7",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "4 and 5 had the half cystine residue at the seventh position in the middle of their NK1 pharmacophores, with 4 having a Ki of 1.7 nM at the hNK1 receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "5",
+    "target_name": "hNK1 receptor",
+    "value_numeric": "0.41",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "4 and 5 had the half cystine residue at the seventh position in the middle of their NK1 pharmacophores, with 5 having a Ki of 0.41 nM at the hNK1 receptor.",
+    "pmid": "19762245"
+  },
+  {
+    "drug_name": "Morphine",
+    "target_name": "Mu Opioid Receptor",
+    "value_numeric": "50",
+    "units": "uM",
+    "measure_type": "IC50",
+    "source_sentence": "The most commonly used opioids such as morphine have little effect on such pain and possess a high risk of addiction, constipation, and other toxicities.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 10",
+    "target_name": "delta opioid receptor",
+    "value_numeric": "0.21",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "In the binding assay, 10 showed a 14-fold increase in affinity at the delta receptor (Ki = 0.21 nM) and a 5-fold increase in affinity at the mu receptor (Ki = 0.13 nM) as compared to 9, thus resulting in balanced affinities at both receptors.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 10",
+    "target_name": "mu opioid receptor",
+    "value_numeric": "0.13",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "In the binding assay, 10 showed a 14-fold increase in affinity at the delta receptor (Ki = 0.21 nM) and a 5-fold increase in affinity at the mu receptor (Ki = 0.13 nM) as compared to 9, thus resulting in balanced affinities at both receptors.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 10",
+    "target_name": "CCK receptor",
+    "value_numeric": "940",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "Ligand 10 showed CCK antagonist activity (Ke = 940 nM) in the GPI/LMMP assay.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 2",
+    "target_name": "delta opioid receptor",
+    "value_numeric": "3.5",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The ligand showed potent binding affinities at delta and mu opioid receptors (Ki = 3.5 nM and 7.4 nM, respectively), but lost its binding affinities at CCK-1 and CCK-2 receptors.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 2",
+    "target_name": "mu opioid receptor",
+    "value_numeric": "7.4",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The ligand showed potent binding affinities at delta and mu opioid receptors (Ki = 3.5 nM and 7.4 nM, respectively), but lost its binding affinities at CCK-1 and CCK-2 receptors.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 3",
+    "target_name": "CCK-1 receptor",
+    "value_numeric": "560",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "However in the case of cyclization using the Lys residue (ligand 3), the ligand was able to retain modest binding affinities at CCK-1 and CCK-2 receptors (Ki = 560 nM and 930 nM, respectively).",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 3",
+    "target_name": "CCK-2 receptor",
+    "value_numeric": "930",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "However in the case of cyclization using the Lys residue (ligand 3), the ligand was able to retain modest binding affinities at CCK-1 and CCK-2 receptors (Ki = 560 nM and 930 nM, respectively).",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 3",
+    "target_name": "MC-4 receptor",
+    "value_numeric": "32",
+    "units": "nM",
+    "measure_type": "IC50",
+    "source_sentence": "It is clear that the hydrophobic Nle residue is essential for the CCK activities. It is envisioned that ligand 2 will lose its binding affinity at MC-4 receptor due to the difficulty in making a turn structure at the N-terminal. For the opposite reason, ligand 3 showed the best binding affinity (IC50 = 32 nM) at MC-4 receptor.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 7",
+    "target_name": "delta opioid receptor",
+    "value_numeric": "0.91",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The application resulted in delta opioid receptor selective binding affinity (Ki = 0.91 nM at hDOR, mu/delta= 51) with strong antagonist activity (Ke =2.5 nM) in 7 and it did not affect the binding and biological activities at the CCK and MC receptors.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 7",
+    "target_name": "mu opioid receptor",
+    "value_numeric": "47",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The application resulted in delta opioid receptor selective binding affinity (Ki = 0.91 nM at hDOR, mu/delta= 51) with strong antagonist activity (Ke =2.5 nM) in 7 and it did not affect the binding and biological activities at the CCK and MC receptors.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 8",
+    "target_name": "CCK-2 receptor",
+    "value_numeric": "9",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The CCK-2 selectivity (CCK-1/CCK-2 = 78) of 8 with a DPhe6 residue over the CCK-1 receptor was reversed by a factor of 1000 in CCK-1 selectivity (CCK-1/CCK-2 = 0.075) by replacement of the 2'-DNal6 in 9 (Table 2).",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 9",
+    "target_name": "CCK-1 receptor",
+    "value_numeric": "120",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The CCK-2 selectivity (CCK-1/CCK-2 = 78) of 8 with a DPhe6 residue over the CCK-1 receptor was reversed by a factor of 1000 in CCK-1 selectivity (CCK-1/CCK-2 = 0.075) by replacement of the 2'-DNal6 in 9 (Table 2).",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Ligand 12",
+    "target_name": "CCK-1 receptor",
+    "value_numeric": "190",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "This modification also resulted in a highly CCK-1 selective trivalent ligand (CCK-2/CCK-1 = 119) by increasing the binding affinity from 9 nM to 1.6 nM at CCK-2 receptor but decreasing it from 120 nM to 190 nM at CCK-1 receptor.",
+    "pmid": "20547453"
+  },
+  {
+    "drug_name": "Compound 3",
+    "target_name": "human NK1 receptor",
+    "value_numeric": "10",
+    "units": "fold",
+    "measure_type": "decrease in binding affinity",
+    "source_sentence": "Although this modification was made in the opioid-agonist pharmacophore, 3 showed a 10-fold decrease in binding affinity at the human NK1 (hNK1) receptor compared to that of 2, indicating the influence of the N-terminus (Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 3",
+    "target_name": "rat NK1 receptor",
+    "value_numeric": "0.46",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "This implies that the first residues of the peptide sequences work as an address region for the hNK1 receptor. It should be noted that the Dmt1-introduction induced relatively smaller shifts in binding affinity for the rat NK1 (rNK1) receptor, as well as in the functional activity using the GPI (Table 2).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 3",
+    "target_name": "μ opioid receptor (MOR)",
+    "value_numeric": "1.8",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "3 had improved binding affinity at the μ opioid receptor (MOR) in the low nanomolar range, while the affinity at the δ opioid receptor (DOR) was 10-fold less than that of 2.",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 4",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "0.46",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Compound 4, which has an N-methylated C-terminus, showed high affinities for both the δ- and μ-opioid receptors, implying that the C-terminus modification has a strong influence on the opioid activities (Ki = 0.46 and 1.8 nM, respectively; Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 4",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "1.8",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Compound 4, which has an N-methylated C-terminus, showed high affinities for both the δ- and μ-opioid receptors, implying that the C-terminus modification has a strong influence on the opioid activities (Ki = 0.46 and 1.8 nM, respectively; Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 5",
+    "target_name": "human NK1 receptor",
+    "value_numeric": "1.0",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Compound 5 exhibited decreased NK1 binding affinities (Ki = 1.0 and 140 nM for human and rat NK1 receptors, respectively) and lower functional activity (Ke = 24 nM) compared to those of 3 (Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 5",
+    "target_name": "rat NK1 receptor",
+    "value_numeric": "140",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Compound 5 exhibited decreased NK1 binding affinities (Ki = 1.0 and 140 nM for human and rat NK1 receptors, respectively) and lower functional activity (Ke = 24 nM) compared to those of 3 (Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 6",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "0.15",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The affinities of 5 were better at opioid receptors similar to those of 3. The introduction of electron-dominating methoxy groups at the C-terminus was also tested (6, Figure 1). Interestingly, compound 6 had the best opioid affinities among the tested ligands 3-7 with subnanomolar Ki values both at the δ- and μ-opioid receptors (0.15 and 0.34 nM, respectively).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 6",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.34",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "The introduction of electron-dominating methoxy groups at the C-terminus was also tested (6, Figure 1). Interestingly, compound 6 had the best opioid affinities among the tested ligands 3-7 with subnanomolar Ki values both at the δ- and μ-opioid receptors (0.15 and 0.34 nM, respectively).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 6",
+    "target_name": "human NK1 receptor",
+    "value_numeric": "0.95",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "However, the NK1 affinities of 6 were decreased (Ki = 0.95 and 320 nM for human and rat NK1 receptors, respectively).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 6",
+    "target_name": "rat NK1 receptor",
+    "value_numeric": "320",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "However, the NK1 affinities of 6 were decreased (Ki = 0.95 and 320 nM for human and rat NK1 receptors, respectively).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 7",
+    "target_name": "human NK1 receptor",
+    "value_numeric": "0.18",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Compound 7 also showed potent antagonist activity against substance P stimulation in the GPI tissue in the presence of naloxone. At the opioid receptors, the affinities of 7 were improved from those of 1 and 2, showing subnanomolar opioid affinities at the DOR and a potent Ki value at the MOR (Ki = 0.18 and 2.0 nM, respectively) (Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 7",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "2.0",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Compound 7 also showed potent antagonist activity against substance P stimulation in the GPI tissue in the presence of naloxone. At the opioid receptors, the affinities of 7 were improved from those of 1 and 2, showing subnanomolar opioid affinities at the DOR and a potent Ki value at the MOR (Ki = 0.18 and 2.0 nM, respectively) (Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "Compound 7",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "0.18",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Compound 7 also showed potent antagonist activity against substance P stimulation in the GPI tissue in the presence of naloxone. At the opioid receptors, the affinities of 7 were improved from those of 1 and 2, showing subnanomolar opioid affinities at the DOR and a potent Ki value at the MOR (Ki = 0.18 and 2.0 nM, respectively) (Table 1).",
+    "pmid": "21366266"
+  },
+  {
+    "drug_name": "N-BPE-8-CAC (1)",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.30",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "N-BPE-8-CAC (1)",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "0.74",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "N-BPE-8-CAC (1)",
+    "target_name": "κ opioid receptor",
+    "value_numeric": "1.8",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "8-CAC (2)",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.31",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "8-CAC (2)",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "5.2",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "8-CAC (2)",
+    "target_name": "κ opioid receptor",
+    "value_numeric": "0.06",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.065",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "6.7",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "κ opioid receptor",
+    "value_numeric": "1.8",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "5",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.064",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "5",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "8.2",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "5",
+    "target_name": "κ opioid receptor",
+    "value_numeric": "2.2",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "6",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.33",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "6",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "9.2",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "6",
+    "target_name": "κ opioid receptor",
+    "value_numeric": "3.3",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "7",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.61",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "7",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "14",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "7",
+    "target_name": "κ opioid receptor",
+    "value_numeric": "2.6",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "8",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.82",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "8",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "6.5",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "8",
+    "target_name": "κ opioid receptor",
+    "value_numeric": "1.4",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Table 1",
+    "pmid": "23434225"
+  },
+  {
+    "drug_name": "Morphine",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.4",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "morphine, 7.4 ± 0.1, 100 ± 1, 6.3 ± 0.1, 100 ± 3",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Buprenorphine",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "8.7",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "buprenorphine, 8.7 ± 0.1, 55 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 1",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.3",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "1, 6.3 ± 0.1, 74 ± 1, 5.7 ± 0.4, 32 ± 5",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 2",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "5.0",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "2, 5.0 ± 0.1, 41 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 3",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.4",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "3, 7.4 ± 0.1, 108 ± 3, 5.8 ± 0.2, 236 ± 19",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 4",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "5.8",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "4, 5.8 ± 0.1, 79 ± 2, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 5",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.6",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "5, 6.6 ± 0.1, 96 ± 3, 5.2 ± 0.2, 55 ± 7",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 6",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.1",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "6, 7.1 ± 0.1, 72 ± 2, 6.2 ± 0.4, 27 ± 4",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-6",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.5",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-6, 7.5 ± 0.1, 79 ± 1, 6.4 ± 0.3, 20 ± 2",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(S)-6",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.3",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(S)-6, 6.3 ± 0.1, 110 ± 4, 5.1 ± 0.1, 165 ± 3",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 7",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.4",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "7, 6.4 ± 0.1, 104 ± 2, 5.1 ± 0.2, 56 ± 6",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-8",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.3",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-8, 6.3 ± 0.1, 75 ± 2, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-9",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.0",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-9, 6.0 ± 0.1, 65 ± 2, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-10",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "5.5",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-10, 5.5 ± 0.1, 84 ± 4, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "Compound 11",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.3",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "11, 7.3 ± 0.1, 74 ± 1, 6.7 ± 0.4, 16 ± 2",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-11",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.9",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-11, 7.9 ± 0.1, 82 ± 2, 6.8 ± 0.3, 17 ± 2",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(S)-11",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.2",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(S)-11, 6.2 ± 0.1, 109 ± 2, 4.8 ± 0.1, 79 ± 5",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-12",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "8.0",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-12, 8.0 ± 0.2, 30 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-13",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "8.6",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-13, 8.6 ± 0.1, 91 ± 1, 7.3 ± 0.3, 59 ± 6",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-14",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.8",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-14, 6.8 ± 0.1, 34 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-15",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.7",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-15, 6.7 ± 0.1, 53 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-16",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "5.9",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-16, 5.9 ± 0.1, 31 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-17",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.2",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-17, 6.2 ± 0.1, 35 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-18",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.1",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-18, 6.1 ± 0.1, 84 ± 2, 5.7 ± 0.3, 23 ± 3",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-19",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.8",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-19, 7.8 ± 0.1, 95 ± 1, 6.6 ± 0.3, 15 ± 2",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-20",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.9",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-20, 7.9 ± 0.1, 89 ± 1, 7.2 ± 0.3, 12 ± 1",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-21",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "6.8",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-21, 6.8 ± 0.1, 87 ± 4, 4.7 ± 0.1, 245 ± 21",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-22",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.5",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-22, 7.5 ± 0.1, 69 ± 2, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-23",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "8.2",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-23, 8.2 ± 0.1, 75 ± 1, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-24",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "8.3",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-24, 8.3 ± 0.1, 101 ± 1, 6.4 ± 0.2, 95 ± 8",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-25",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "7.8",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-25, 7.8 ± 0.1, 9, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "(R)-30",
+    "target_name": "μ Opioid Receptor",
+    "value_numeric": "8.2",
+    "units": "pEC50",
+    "measure_type": "cAMP accumulation assay",
+    "source_sentence": "(R)-30, 8.2, NQ, NQ, NQ",
+    "pmid": "24063433"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "MOR",
+    "value_numeric": "1.9",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "Thus, it was not surprising that 4 was also a non-selective opioid receptor pure antagonist with Ke values of 1.9, 32.7, and 12.9 nM at the μ, δ, and κ receptors, respectively.",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "DOR",
+    "value_numeric": "32.7",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "Thus, it was not surprising that 4 was also a non-selective opioid receptor pure antagonist with Ke values of 1.9, 32.7, and 12.9 nM at the μ, δ, and κ receptors, respectively.",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "KOR",
+    "value_numeric": "12.9",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "Thus, it was not surprising that 4 was also a non-selective opioid receptor pure antagonist with Ke values of 1.9, 32.7, and 12.9 nM at the μ, δ, and κ receptors, respectively.",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5a",
+    "target_name": "MOR",
+    "value_numeric": "19.5",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "The EC50 at μ was 19.5 nM (Emax = 74%), and the EC50 at δ was 7.5 nM (Emax = 101%).",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5a",
+    "target_name": "DOR",
+    "value_numeric": "7.5",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "The EC50 at μ was 19.5 nM (Emax = 74%), and the EC50 at δ was 7.5 nM (Emax = 101%).",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5a",
+    "target_name": "KOR",
+    "value_numeric": "10.1",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "The Ke value for 5a at the κ receptor was 10.1 nM.",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5b",
+    "target_name": "MOR",
+    "value_numeric": "6.5",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "The addition of a methyl group to 5b to give the 7α-dimethylamino analogue 5f resulted in a potent μ agonist (EC50 = 6.5 nM, Emax = 104%)",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5b",
+    "target_name": "DOR",
+    "value_numeric": "14.8",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "Compound 5b had an EC50 = 14.8 at DOR",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5c",
+    "target_name": "MOR",
+    "value_numeric": "33",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "Increasing the size of 5b by one methylene group to give the N-ethylamino analogue 5c resulted in a reduction of agonist activity at the μ receptor (EC50 = 33 nM and Emax = 14%)",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5d",
+    "target_name": "MOR",
+    "value_numeric": "18",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "Similar to 5c, 5d was an agonist at the μ receptor (EC50 = 18nM, Emax = 57%).",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5e",
+    "target_name": "MOR",
+    "value_numeric": "130",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "The addition of a cyclopropylmethyl group to 5a gave 5e which was a weak agonist at the μ receptor (EC50 = 130 nM, Emax = 52%)",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5f",
+    "target_name": "MOR",
+    "value_numeric": "6.5",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "The addition of a methyl group to 5b to give the 7α-dimethylamino analogue 5f resulted in a potent μ agonist (EC50 = 6.5 nM, Emax = 104%)",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5h",
+    "target_name": "MOR",
+    "value_numeric": "2.7",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "Surprisingly, adding a methyl group to 5e to give the 7α-methylcyclopropylmethyl analogue 5h resulted in the most potent μ agonist in the series (EC50 = 2.7 nM, Emax = 109%)",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5h",
+    "target_name": "DOR",
+    "value_numeric": "10.3",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "Surprisingly, adding a methyl group to 5e to give the 7α-methylcyclopropylmethyl analogue 5h resulted in the most potent μ agonist in the series (EC50 = 2.7 nM, Emax = 109%) with somewhat weaker agonist efficacy at the δ (EC50 = 10.3 nM, Emax = 24%)",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5h",
+    "target_name": "KOR",
+    "value_numeric": "40",
+    "units": "nM",
+    "measure_type": "EC50",
+    "source_sentence": "Surprisingly, adding a methyl group to 5e to give the 7α-methylcyclopropylmethyl analogue 5h resulted in the most potent μ agonist in the series (EC50 = 2.7 nM, Emax = 109%) with somewhat weaker agonist efficacy at the δ (EC50 = 10.3 nM, Emax = 24%) and κ (EC50 = 40 nM, Emax = 38%) receptors.",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5h",
+    "target_name": "MOR",
+    "value_numeric": "0.43",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "5h has a Ki value of 0.43 and 0.92 nM at the MOR and KOR, respectively.",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "5h",
+    "target_name": "KOR",
+    "value_numeric": "0.92",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "5h has a Ki value of 0.43 and 0.92 nM at the MOR and KOR, respectively.",
+    "pmid": "24144404"
+  },
+  {
+    "drug_name": "NP30",
+    "target_name": "DOR",
+    "value_numeric": "27",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "For compound 1, GTPγS binding was 27 and 10 nM, respectively, at the DOR and MOR",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "NP30",
+    "target_name": "MOR",
+    "value_numeric": "10",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "For compound 1, GTPγS binding was 27 and 10 nM, respectively, at the DOR and MOR",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "2",
+    "target_name": "DOR",
+    "value_numeric": "160",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "However, changing the linker to β-Ala (2) led to decreased GTPγS binding for both the MOR (59 nM) and the DOR (160 nM)",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "2",
+    "target_name": "MOR",
+    "value_numeric": "59",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "However, changing the linker to β-Ala (2) led to decreased GTPγS binding for both the MOR (59 nM) and the DOR (160 nM)",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "3",
+    "target_name": "DOR",
+    "value_numeric": "0.38",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "However, changing the linker to Nle caused a 70-fold increase in the GTPγS for the DOR (0.38 nM) and only a 2-fold decrease at the MOR (25 nM) compared to 1",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "3",
+    "target_name": "MOR",
+    "value_numeric": "25",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "However, changing the linker to Nle caused a 70-fold increase in the GTPγS for the DOR (0.38 nM) and only a 2-fold decrease at the MOR (25 nM) compared to 1",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "MOR",
+    "value_numeric": "4.2",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "Changing the Phe residue to a pF-Phe 4 increased the mu opioid potency",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "4",
+    "target_name": "rNK1",
+    "value_numeric": "0.042",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The binding affinity for the rNK1 also increased 100-fold with only a slight effect on the hNK1 receptor, compared to those in 1",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "7",
+    "target_name": "hNK1",
+    "value_numeric": "0.03",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "While, 7 displayed good affinity at the hNK1 receptor and excellent antagonist activity in GPI assay using substance P stimulation (Ki = 0.030 nM and Ke = 5.0 nM, respectively)",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "7",
+    "target_name": "hNK1",
+    "value_numeric": "5.0",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "While, 7 displayed good affinity at the hNK1 receptor and excellent antagonist activity in GPI assay using substance P stimulation (Ki = 0.030 nM and Ke = 5.0 nM, respectively)",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "8",
+    "target_name": "hNK1",
+    "value_numeric": "5.0",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "However, 8 has decreased affinities for hNK1 and rNK1 receptors as well as for DOR and MOR",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "10",
+    "target_name": "DOR",
+    "value_numeric": "12",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "The second messenger function of 10 shows improvement of the GTPγS binding at the DOR going to 12 nM as compared to 27 nM for 1",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "10",
+    "target_name": "MOR",
+    "value_numeric": "27",
+    "units": "nM",
+    "measure_type": "GTPγS binding",
+    "source_sentence": "The second messenger function of 10 shows improvement of the GTPγS binding at the DOR going to 12 nM as compared to 27 nM for 1",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "10",
+    "target_name": "rNK1",
+    "value_numeric": "1.6",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "Furthermore, this ligand shows enhanced binding at the rNK1 receptor while only slightly decreased binding at the hNK1 receptor",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "11",
+    "target_name": "MOR",
+    "value_numeric": "110",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "The GPI assay against substance P stimulation gave Ke value of 110 nM",
+    "pmid": "26212775"
+  },
+  {
+    "drug_name": "Ligand 17",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "0.1",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "Ligand 17 showed excellent binding affinity (0.1 nM) at the μ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Ligand 17",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "0.5",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "Ligand 17 showed excellent binding affinity (0.5 nM) at the δ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Ligand 17",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "56",
+    "units": "nM",
+    "measure_type": "IC50",
+    "source_sentence": "The lead bivalent ligand 17 showed very potent agonist activities in MVD (56 +/- 5.9 nM) and GPI (4.6 +/− 1.9 nM) assays.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Ligand 17",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "4.6",
+    "units": "nM",
+    "measure_type": "IC50",
+    "source_sentence": "The lead bivalent ligand 17 showed very potent agonist activities in MVD (56 +/- 5.9 nM) and GPI (4.6 +/− 1.9 nM) assays.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "4-anilidopiperidine derivatives",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "580",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The 4-anilidopiperidine small molecules 1 and 2 showed moderate binding affinity of 580 nM and 760 nM respectively towards the μ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "4-anilidopiperidine derivatives",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "760",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The 4-anilidopiperidine small molecules 1 and 2 showed moderate binding affinity of 580 nM and 760 nM respectively towards the μ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Compound 3",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "40",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The compound 3 showed good binding affinity 40 nM with 250 fold selectivity towards the μ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Bivalent ligand 8",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "10",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The bivalent ligands 8 and 9 containing small molecule 1 and 2 attached to the C-terminus of enkephalin analogues showed good binding affinity (10 nM) towards the μ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Bivalent ligand 8",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "320",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The bivalent ligands 8 and 9 showed moderate binding affinity (320 nM and 723 nM) respectively at the δ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Bivalent ligand 9",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "723",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The bivalent ligands 8 and 9 showed moderate binding affinity (320 nM and 723 nM) respectively at the δ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Bivalent ligand 10",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "3",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The bivalent ligand 10 showed a good binding affinity of 3 nM, a 3 fold increase at μ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Bivalent ligand 16",
+    "target_name": "μ opioid receptor",
+    "value_numeric": "1",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The compound 16 showed good binding affinity towards both μ (1 nM) and δ opioid receptor.",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "Bivalent ligand 16",
+    "target_name": "δ opioid receptor",
+    "value_numeric": "34",
+    "units": "nM",
+    "measure_type": "binding affinity",
+    "source_sentence": "The compound 16 showed good binding affinity towards both μ (1 nM) and δ opioid receptor (34 nM).",
+    "pmid": "26323872"
+  },
+  {
+    "drug_name": "cyclodal",
+    "target_name": "MOR",
+    "value_numeric": "63.7",
+    "units": "pM",
+    "measure_type": "Ki",
+    "source_sentence": "Head-to-tail cyclization of [Dmt1]DALDA resulted in a compound, c[-D-Arg-Phe-Lys-Dmt-] (\\u201ccyclodal\\u201d), with extraordinary MOR binding affinity in the subnanomolar range (Kiμ = 63.7 ± 4.7 pM) and relatively lower DOR and KOR binding affinities, thus exhibiting marked MOR binding selectivity (Table 1).",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "cyclodal",
+    "target_name": "DOR",
+    "value_numeric": "13000",
+    "units": "pM",
+    "measure_type": "Ki",
+    "source_sentence": "Head-to-tail cyclization of [Dmt1]DALDA resulted in a compound, c[-D-Arg-Phe-Lys-Dmt-] (\\u201ccyclodal\\u201d), with extraordinary MOR binding affinity in the subnanomolar range (Kiμ = 63.7 ± 4.7 pM) and relatively lower DOR and KOR binding affinities, thus exhibiting marked MOR binding selectivity (Table 1).",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "cyclodal",
+    "target_name": "KOR",
+    "value_numeric": "63000",
+    "units": "pM",
+    "measure_type": "Ki",
+    "source_sentence": "Head-to-tail cyclization of [Dmt1]DALDA resulted in a compound, c[-D-Arg-Phe-Lys-Dmt-] (\\u201ccyclodal\\u201d), with extraordinary MOR binding affinity in the subnanomolar range (Kiμ = 63.7 ± 4.7 pM) and relatively lower DOR and KOR binding affinities, thus exhibiting marked MOR binding selectivity (Table 1).",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "cyclodal",
+    "target_name": "MOR",
+    "value_numeric": "3.26",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "It also antagonized the MOR agonist effects of its linear parent [Dmt1]DALDA (Ke = 3.12 ± 0.20 nM), morphine (Ke = 3.06 ± 0.62 nM), and fentanyl (Ke = 4.96 ± 0.57 nM).",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "cyclodal",
+    "target_name": "KOR",
+    "value_numeric": "40.3",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "In that same assay it showed moderate KOR antagonist activity against the KOR agonists trans-3,4-dichloro-N-methyl-N-[2-(1-pyrrolidinyl)cyclohexyl]benzeneacetamide (U50,488)25 (Ke = 40.3 ± 2.6 nM) and dynorphin A(1–13) (Ke = 206 ± 24 nM).",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "c[-Arg-D-Phe-D-Lys-D-Dmt-]",
+    "target_name": "MOR",
+    "value_numeric": "1.38",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "Surprisingly, the optical antipode of cyclodal, c[-Arg-D-Phe-D-Lys-D-Dmt-] (2) still retained high MOR binding affinity (Kiμ = 1.38 ± 0.19 nM) and higher MOR vs DOR and MOR vs KOR binding selectivity as compared to cyclodal.",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "c[-Arg-D-Phe-D-Lys-D-Dmt-]",
+    "target_name": "MOR",
+    "value_numeric": "83.7",
+    "units": "nM",
+    "measure_type": "Ke",
+    "source_sentence": "In the GPI assay it showed MOR antagonist activity against TAPP (Ke = 83.7 ± 7.2 nM) and morphine (Ke = 51.4 ± 12.6 nM) and KOR antagonist activity against U50,488 (Ke = 1320 ± 100 nM) and dynorphin A(1–13) (Ke = 856 ± 36 nM).",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "c[-D-Cit-Phe-Lys-Dmt-]",
+    "target_name": "MOR",
+    "value_numeric": "8300",
+    "units": "pM",
+    "measure_type": "Ki",
+    "source_sentence": "Deletion of the side chain positive charge of D-Arg by its replacement with D-citrulline (Cit) resulted in a compound, c[-D-Cit-Phe-Lys-Dmt-] (3) showing 130-fold reduced MOR binding affinity and a similar opioid receptor selectivity profile as the cyclodal parent.",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "c[-D-Arg-Phe-Nle-Dmt-]",
+    "target_name": "MOR",
+    "value_numeric": "1500",
+    "units": "pM",
+    "measure_type": "Ki",
+    "source_sentence": "Substitution of norleucine (Nle) for Lys in cyclodal led to an analogue c[-D-Arg-Phe-Nle-Dmt-] (4) with 24-fold reduced MOR binding affinity and with lower MOR binding selectivity.",
+    "pmid": "27676089"
+  },
+  {
+    "drug_name": "c[-D-Arg-Phe-LysΨ[CH2NH]Dmt-]",
+    "target_name": "MOR",
+    "value_numeric": "9.02",
+    "units": "nM",
+    "measure_type": "Ki",
+    "source_sentence": "This compound retained quite good MOR binding affinity (Kiμ = 9.02 nM) and still showed MOR binding selectivity.",
+    "pmid": "27676089"
+  }
+]
