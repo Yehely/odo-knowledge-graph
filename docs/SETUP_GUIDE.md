@@ -88,11 +88,11 @@ Both packages read the same dataset file directly (no GraphDB required).
 ### 3.1 Bipartite GNN (`gnn/`)
 
 ```bash
-pip install -r requirements_gnn.txt
+pip install -r gnn/requirements.txt
 # one-command setup + default training run:
-chmod +x run_full_pipeline.sh && ./run_full_pipeline.sh
+chmod +x gnn/run_full_pipeline.sh && ./gnn/run_full_pipeline.sh
 # or train a specific variant, e.g.:
-conda run -n odo python3 train_gnn.py --split compound_random --fp-bits 2048
+conda run -n odo python3 gnn/train_gnn.py --split compound_random --fp-bits 2048
 ```
 
 See the model list and results table in the main [README](../README.md#gnn-models--how-to-run-each).

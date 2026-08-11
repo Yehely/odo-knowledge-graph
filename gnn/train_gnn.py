@@ -1,9 +1,9 @@
 """
 Main entry point for training the ODO GNN.
 
-Usage:
-    conda run -n odo python3 train_gnn.py
-    conda run -n odo python3 train_gnn.py --sanity   # quick 10-epoch overfitting test
+Usage (from the repo root):
+    conda run -n odo python3 gnn/train_gnn.py
+    conda run -n odo python3 gnn/train_gnn.py --sanity   # quick 10-epoch overfitting test
 """
 import sys
 import os
@@ -13,7 +13,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# repo root (this file lives in gnn/), so `gnn` resolves as a sibling package
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from gnn.dataset import build_dataset
 from gnn.model import build_model
@@ -85,7 +86,7 @@ def _auto_preprocess(split: str, fp_bits: int):
         print("  Running preprocessing …")
         import subprocess
         cmd = [
-            sys.executable, "preprocess_bipartite_graph.py",
+            sys.executable, os.path.join(ROOT, "preprocess_bipartite_graph.py"),
             "--split", split,
             "--fp-bits", str(fp_bits),
         ]
@@ -154,10 +155,10 @@ def main():
     # -----------------------------------------------------------------------
     print("\n[4/4] Saving artefacts …")
     tag = f"{args.split}_{args.fp_bits}fp"
-    plot_path = os.path.join(ROOT, "gnn", f"training_curve_{tag}.png")
+    plot_path = os.path.join(ROOT, f"training_curve_{tag}.png")
     plot_history(history, plot_path)
 
-    results_path = os.path.join(ROOT, "gnn", f"test_results_{tag}.txt")
+    results_path = os.path.join(ROOT, f"test_results_{tag}.txt")
     with open(results_path, "w") as f:
         test = history["test"]
         f.write(f"ODO GNN — Test Set Results  [{tag}]\n")

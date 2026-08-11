@@ -5,10 +5,10 @@ Standalone preprocessing pipeline: reads the ODO Excel dataset directly and
 outputs a PyTorch Geometric HeteroData bipartite graph object ready for a
 GraphSAGE model.
 
-Run:
-    conda run -n odo python3 preprocess_bipartite_graph.py
+Run (from the repo root):
+    conda run -n odo python3 gnn/preprocess_bipartite_graph.py
 
-Output: processed_bipartite_graph.pt
+Output: gnn/processed_bipartite_graph.pt
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Graph schema
@@ -83,7 +83,7 @@ except ImportError:
 # ──────────────────────────────────────────────────────────────────────────────
 
 ROOT        = os.path.dirname(os.path.abspath(__file__))
-EXCEL_PATH  = os.path.join(ROOT, "Final ODO Dataset_v2026-06-10.xlsx")
+EXCEL_PATH  = os.path.join(ROOT, os.pardir, "Final ODO Dataset_v2026-06-10.xlsx")
 OUTPUT_PATH = os.path.join(ROOT, "processed_bipartite_graph.pt")
 
 MORGAN_BITS   = 512    # reduced from 2048 to curb memorization
