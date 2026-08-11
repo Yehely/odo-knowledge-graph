@@ -1,27 +1,39 @@
 # Literature Extraction
 
-Downloads and cleans the full-text source papers behind the ODO dataset's
-`pubmed_id` column, via NCBI Entrez/PMC. Output is raw material for
-LLM-assisted extraction or validation of assay data against the papers
-that originally reported it — a preprocessing step, not part of the
-KG/GNN pipeline itself.
+Tools for acquiring, cleaning, and extracting structured data from the
+literature behind the ODO dataset. Not part of the KG/GNN pipeline itself
+— a preprocessing/data-enrichment layer that feeds it.
 
-## Scripts
+```
+GetFiles.py / Fix_GetFiles.py  →  CleanFiles.py  →  sortFullText.py (optional)
+                                        │
+                                        ├──→ chembl_extractor/  (API + ML based)
+                                        └──→ llama_extractor/   (LLM based)
+```
+
+## Paper acquisition
 
 - **`GetFiles.py`** — reads every unique `pubmed_id` from the ODO dataset
   (`Final ODO Dataset_v2026-06-10.xlsx` at the repo root), looks up each
   PubMed ID's linked PMC full-text record via `Bio.Entrez`, and downloads
   the full-text XML to `Full_Text_Articles/{pmid}.xml`. Rate-limited to
   NCBI's ~3 requests/second policy.
+- **`Fix_GetFiles.py`** — a slower, verified variant: fetches the real
+  title from PubMed and confirms it actually appears in the downloaded PMC
+  XML before saving (to `Verified_Full_Text/`), catching PMC linking to
+  the wrong article. Use this if you suspect `GetFiles.py` pulled in
+  mismatched articles.
 - **`CleanFiles.py`** — parses each `Full_Text_Articles/*.xml`, strips
-  reference lists/tables/figures, extracts the abstract + body paragraph
-  text, and writes plain text to `Cleaned_Text_Articles/{pmid}.txt`.
-
-## Usage
+  reference lists/figures, converts tables to marked-up plain text
+  (`--- TABLE START/END ---`, since binding-affinity values usually live
+  in tables), and writes the result to `Cleaned_Text_Articles/{pmid}.txt`.
+- **`sortFullText.py`** *(optional)* — splits `Cleaned_Text_Articles/`
+  into `Sort_Full_Text_And_Not/{Full_Text,Not_Full_Text}/` using a
+  keyword+length heuristic, to filter out abstract-only stubs before
+  running an extractor over them.
 
 ```bash
-# set your own contact email — required by NCBI's Entrez usage policy
-export ENTREZ_EMAIL="you@example.com"
+export ENTREZ_EMAIL="you@example.com"   # required by NCBI's Entrez usage policy
 
 conda run -n odo python3 literature/GetFiles.py
 conda run -n odo python3 literature/CleanFiles.py
@@ -31,14 +43,13 @@ Requires `pandas`, `biopython`, `beautifulsoup4`, `lxml`, `openpyxl` in the
 `odo` conda environment (not currently pinned in `requirements_gnn.txt`,
 which covers only the GNN pipeline — install separately if needed).
 
-## Output
-
-`Full_Text_Articles/` and `Cleaned_Text_Articles/` are gitignored — not
-committed, entirely regenerable by re-running the two scripts against the
-current dataset (930+ papers, ~127MB combined at time of writing).
-
 Not every `pubmed_id` has a linked PMC full-text record — `GetFiles.py`
 prints `"No PMC link"` for those and simply skips them.
+
+`Full_Text_Articles/`, `Verified_Full_Text/`, `Cleaned_Text_Articles/`,
+and `Sort_Full_Text_And_Not/` are all gitignored — not committed, entirely
+regenerable by re-running the scripts above against the current dataset
+(930+ papers, ~127MB combined at time of writing).
 
 ## `chembl_extractor/` — automatic ChEMBL data extraction
 
@@ -48,33 +59,15 @@ InterPro, OLS4/BTO, PubMed) plus two trained ML models (assay-format
 classifiers, QikProp-style property predictors) into a fully-populated
 131-column row matching the ODO database schema — i.e. it auto-generates
 new database rows for a given compound, rather than working from existing
-rows like `GetFiles.py`/`CleanFiles.py` do. Reached ~81% field-level
-accuracy against the real database after several rounds of NLP-assisted
-refinement; full write-up (Hebrew) in
-[`chembl_extractor/EXPLANATION_HE.md`](chembl_extractor/EXPLANATION_HE.md).
+rows the way the paper-acquisition scripts above do. Reached ~81%
+field-level accuracy against the real database after several rounds of
+NLP-assisted refinement. See
+[`chembl_extractor/README.md`](chembl_extractor/README.md).
 
-```bash
-cd literature/chembl_extractor
-pip install -r requirements.txt
+## `llama_extractor/` — LLM-based experiment extraction
 
-# Step 1 — train the two supporting ML models (once)
-python3 train_qikprop_models.py
-python3 train_nlp_models.py
-
-# Step 2a — CLI: fetch one or more compounds
-python3 chembl_fetcher.py --ids CHEMBL101454 --output outputs/result.xlsx
-
-# Step 2b — or the web UI (http://localhost:5050)
-python3 app.py
-
-# Step 3 — optional: score output accuracy against the real DB
-python3 compare_accuracy.py --output outputs/result.xlsx
-# or sample-evaluate the fetcher directly against the DB
-python3 evaluate_accuracy.py --fraction 0.05
-```
-
-`labeled_data_from_manual_pdfs.json` is manually-labeled ground truth
-(~2,126 rows) used to validate the NLP-predicted fields during development.
-
-`nlp_models/`, `qikprop_models/`, and `outputs/` (all model/run artifacts)
-are gitignored — regenerate with the training/fetch commands above.
+A third tool: runs Llama 3.3 (via Groq) directly over paper text — from
+`Cleaned_Text_Articles/` or from manually-downloaded PDFs — to extract
+drug-target binding experiments, including for compounds that never made
+it into any structured database. See
+[`llama_extractor/README.md`](llama_extractor/README.md).
