@@ -159,7 +159,10 @@ conda run -n odo python3 validate_kg.py
 `literature/` fetches and cleans the full-text source papers behind the
 dataset's `pubmed_id` column (via NCBI Entrez/PMC) — raw material for
 LLM-assisted extraction or validation, not part of the KG/GNN pipeline
-itself. See [`literature/README.md`](literature/README.md).
+itself. It also includes `literature/chembl_extractor/`, a tool that
+auto-generates new ODO-schema database rows for a given ChEMBL compound
+from 6 external data sources plus trained ML models, with a CLI and a
+local web UI. See [`literature/README.md`](literature/README.md).
 
 ---
 
