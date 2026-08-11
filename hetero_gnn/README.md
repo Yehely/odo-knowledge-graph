@@ -1,6 +1,6 @@
 # Heterogeneous GNN — ODO Opioid Binding-Affinity Predictor
 
-Implementation of [`HETEROGENEOUS_GNN_ARCHITECTURE.md`](../HETEROGENEOUS_GNN_ARCHITECTURE.md):
+Implementation of [`HETEROGENEOUS_GNN_ARCHITECTURE.md`](../docs/HETEROGENEOUS_GNN_ARCHITECTURE.md):
 a 5-node-type Heterogeneous GNN (**Compound, Target, Assay, Model System,
 Document**) predicting pKi for compound–target binding. This package is
 fully independent of `gnn/` (the earlier 2-node-type bipartite model) —
@@ -231,7 +231,7 @@ input).
 `binds_to` alone can't support the doc's Assay-hub message passing (§7
 needs Assay to see Document/ModelSystem/Target, and Compound/Target to see
 Assay) — so 4 additional edge types are built from the same activity rows,
-**de-duplicated to unique pairs** (so hop mean-aggregation averages over
+**de-duplicated to unique pairs** (so hop attention-pooling weighs
 distinct neighbours, not once per repeated row):
 
 ```
@@ -243,38 +243,41 @@ distinct neighbours, not once per repeated row):
 
 ### Encoders (§6)
 
-All 5 node types: `Linear → BatchNorm → ReLU → Dropout(0.3)` into the shared
-256-dim space — dropout is the one explicit figure the doc gives (§6), so
-it's reused for the prediction head's Dropout too (§8 doesn't give its own
-number).
+All 5 node types: `Linear → BatchNorm → ReLU → Dropout(0.4)` into the shared
+256-dim space — dropout was tuned empirically (started at the doc's 0.3,
+tried 0.5, settled on 0.4), and the same figure is reused for the
+prediction head's Dropout too (§8 doesn't give its own number).
 
-### Message passing (§7) — a custom hub-and-spoke scheme, not generic HeteroConv
+### Message passing (§7) — a custom hub-and-spoke scheme, with learned attention pooling
 
-This is *not* implemented as a multi-relation `HeteroConv` sum — the doc's
-"mean-aggregates the vectors of its neighbors: Document, Model System, and
-Target" reads as one **pooled** mean over the union of those neighbours,
-which is only equivalent to summing three separately-averaged relations
-when each relation contributes exactly one neighbour. Instead, `model.py`
-manually concatenates the three neighbour-vector/destination-index pairs
-and calls `torch_geometric.utils.scatter(..., reduce="mean")` once per hop
-— a true pooled mean regardless of how many neighbours each relation
-contributes:
+This is *not* implemented as a multi-relation `HeteroConv` sum, and it no
+longer uses a plain pooled mean either — the doc's "mean-aggregates the
+vectors of its neighbors" is implemented as **attention-weighted** pooling:
+each hop has its own small scoring head (`Linear → Tanh → Linear`, output
+dim 1) that scores every neighbour vector, `torch_geometric.utils.softmax`
+normalizes those scores per destination node, and the neighbours are summed
+weighted by the resulting attention weights (`scatter(..., reduce="sum")`
+over the weighted vectors) instead of averaged unweighted. This lets the
+model learn to weight, say, a high-quality assay's contribution to a
+Compound differently from a noisy one, rather than treating every neighbour
+equally:
 
-- **Hop 1 → Assay:** pool {Document, ModelSystem, Target} (pre-message
-  vectors) → concat with Assay's own vector → `W1` → LeakyReLU.
-- **Hop 2 → Compound and Target:** pool the **updated** Assay vectors (same
-  Assay neighbourhood as hop 1, message flowing the opposite direction) →
-  concat with own vector → `W2_compound` / `W2_target` (separate, "analogous"
+- **Hop 1 → Assay:** attention-pool {Document, ModelSystem, Target}
+  (pre-message vectors) via `attn_hop1` → concat with Assay's own vector →
+  `W1` → LeakyReLU.
+- **Hop 2 → Compound and Target:** attention-pool the **updated** Assay
+  vectors (same Assay neighbourhood as hop 1, message flowing the opposite
+  direction) via `attn_hop2_c` / `attn_hop2_t` (separate heads) → concat
+  with own vector → `W2_compound` / `W2_target` (separate, "analogous"
   matrices, not tied) → LeakyReLU.
 
 Document and Model System only ever *send* — they're never targets of
 aggregation, matching Document's explicit "not a strong direct predictor"
 role (§2.E) and Assay's role as the sole hub. A brand-new query compound (no
-recorded assay history) naturally gets a zero-vector hop-2 context — verified
-empirically that `scatter(..., reduce="mean")` returns `0`, not `NaN`, for
-an empty group — so `predict.py` degrades gracefully to scoring on
-structure/ADMET alone, which is the only honest thing to do for a compound
-that's never been tested.
+recorded assay history) still degrades gracefully: with zero neighbours the
+weighted-sum pooling naturally produces a zero-vector hop-2 context, so
+`predict.py` falls back to scoring on structure/ADMET alone, which is the
+only honest thing to do for a compound that's never been tested.
 
 ### Prediction head (§8)
 
@@ -323,8 +326,10 @@ sampler + median pruner.
   (`--search-epochs`, default 40) and tighter early-stopping
   (`--search-patience`, default 8), reporting intermediate validation RMSE
   every epoch so `optuna.pruners.MedianPruner` can kill clearly-unpromising
-  trials early (5 startup trials before pruning activates, 5-epoch warmup
-  per trial).
+  trials early (5 startup trials before pruning activates, 15-epoch warmup
+  per trial — widened from an initial 5-epoch warmup after early runs
+  pruned promising trials too aggressively before they had a chance to
+  improve).
 - **Objective** — best validation RMSE reached within the trial's budget,
   on the exact-labelled subset (same metric `train.py` uses for checkpoint
   selection elsewhere, so the search optimises the same thing a normal
