@@ -16,7 +16,7 @@ conda activate odo
 Get the code and the dataset:
 
 ```bash
-git clone https://github.com/Yehely/odo-knowledge-graph.git
+git clone https://github.com/Yehely/odo-project.git
 cd odo-knowledge-graph
 ```
 
