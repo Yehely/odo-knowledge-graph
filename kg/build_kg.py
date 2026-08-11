@@ -30,7 +30,7 @@ DOI_NS   = Namespace("https://doi.org/")
 CELLOS   = Namespace("https://www.cellosaurus.org/")
 DTO      = Namespace("http://www.drugtargetontology.org/dto/")
 
-EXCEL_PATH = os.path.join(os.path.dirname(__file__),
+EXCEL_PATH = os.path.join(os.path.dirname(__file__), os.pardir,
                           "Final ODO Dataset_v2026-06-10.xlsx")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
@@ -640,7 +640,7 @@ def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     print("Reading Excel file…")
-    df = pd.read_excel(EXCEL_PATH, sheet_name="2025_ODO_Database")
+    df = pd.read_excel(EXCEL_PATH, sheet_name="Full Dataset")
     print(f"  {len(df):,} rows × {len(df.columns)} columns")
 
     graphs = {

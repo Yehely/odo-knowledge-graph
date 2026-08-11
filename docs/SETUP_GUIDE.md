@@ -17,7 +17,7 @@ Get the code and the dataset:
 
 ```bash
 git clone https://github.com/Yehely/odo-project.git
-cd odo-knowledge-graph
+cd odo-project
 ```
 
 > Place `Final ODO Dataset_v2026-06-10.xlsx` **in the repo root** — it's
@@ -43,19 +43,19 @@ pip install pandas openpyxl rdflib requests
 ### 2.3 Run the pipeline
 
 ```bash
-# Step 1 — Excel -> RDF Turtle files in output/
-conda run -n odo python3 build_kg.py
+# Step 1 — Excel -> RDF Turtle files in kg/output/
+conda run -n odo python3 kg/build_kg.py
 
 # Step 2 — load into GraphDB (must be running on localhost:7200)
-conda run -n odo python3 setup_graphdb.py
+conda run -n odo python3 kg/setup_graphdb.py
 
 # Step 3 — 16 SPARQL validation checks
-conda run -n odo python3 validate_kg.py
+conda run -n odo python3 kg/validate_kg.py
 ```
 
 `build_kg.py` takes ~2-4 minutes and writes 7 Turtle files (~870K triples
-total) to `output/`. `setup_graphdb.py` creates the `odo-kg` repository and
-imports them (~3-5 minutes).
+total) to `kg/output/`. `setup_graphdb.py` creates the `odo-kg` repository
+and imports them (~3-5 minutes).
 
 ### 2.4 Browse the graph
 

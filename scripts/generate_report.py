@@ -763,6 +763,6 @@ organism-based format| in vivo:      17   (<1%)  ← פחות מ-1% in vivo!
 mixed                | in vitro:      5""")
 
 # Save
-out_path = "/home/yehely/מסמכים/לימודים/פרויקט ODO/knowledge graph/opioid_insights_report.docx"
+out_path = "opioid_insights_report.docx"
 doc.save(out_path)
 print(f"Saved: {out_path}")

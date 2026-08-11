@@ -5,8 +5,8 @@
 # קבצי נעילה של LibreOffice
 .~lock.*
 
-# קבצי RDF הנוצרים (ניתן לשחזר עם build_kg.py)
-output/
+# קבצי RDF הנוצרים (ניתן לשחזר עם kg/build_kg.py)
+kg/output/
 
 # Python
 __pycache__/

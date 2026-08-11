@@ -143,13 +143,13 @@ Requires GraphDB running on `localhost:7200`.
 
 ```bash
 # Step 1 — Excel → RDF Turtle files
-conda run -n odo python3 build_kg.py
+conda run -n odo python3 kg/build_kg.py
 
 # Step 2 — Load into GraphDB
-conda run -n odo python3 setup_graphdb.py
+conda run -n odo python3 kg/setup_graphdb.py
 
 # Step 3 — Validate (16 SPARQL checks)
-conda run -n odo python3 validate_kg.py
+conda run -n odo python3 kg/validate_kg.py
 ```
 
 ---
@@ -171,18 +171,20 @@ to extract drug-target experiments. See
 ## Repository Structure
 
 ```
-odo-knowledge-graph/
-├── build_kg.py                   # ETL: Excel → RDF Turtle
-├── setup_graphdb.py              # Load RDF into GraphDB
-├── validate_kg.py                # 16 SPARQL validation queries
-├── odo_ontology.ttl              # OWL ontology
-├── run_full_pipeline.sh          # One-command setup and training
+odo-project/
+├── kg/                             # Knowledge-graph ETL pipeline
+│   ├── build_kg.py                #   ETL: Excel → RDF Turtle
+│   ├── setup_graphdb.py           #   Load RDF into GraphDB
+│   ├── validate_kg.py             #   16 SPARQL validation queries
+│   └── odo_ontology.ttl           #   OWL ontology
+├── scripts/                        # Standalone report/visualization generators
+│   ├── generate_bipartite_viz.py  #   Bipartite graph HTML visualization
+│   ├── generate_report.py         #   Insights report generator
+│   └── generate_schema_pdf.py     #   Ontology schema diagram (PDF)
+├── run_full_pipeline.sh          # One-command bipartite-GNN setup and training
 ├── preprocess_bipartite_graph.py # Excel → processed_<split>_<fp>fp.pt
 ├── train_gnn.py                  # Train a single bipartite GNN model
 ├── train_ensemble.py             # Train 5-model bipartite ensemble
-├── generate_bipartite_viz.py     # Bipartite graph HTML visualization
-├── generate_report.py            # Insights report generator
-├── generate_schema_pdf.py        # Ontology schema diagram (PDF)
 ├── gnn/                           # Bipartite (2-node-type) GraphSAGE model
 │   ├── model.py                  # OpioidGNN architecture
 │   ├── train.py                  # Training loop + asymmetric loss
@@ -196,12 +198,20 @@ odo-knowledge-graph/
 │   └── predict.py
 ├── literature/                    # PMC full-text acquisition + cleaning
 │   ├── GetFiles.py / CleanFiles.py
+│   ├── chembl_extractor/          # ChEMBL API + ML based row generator
+│   ├── llama_extractor/           # LLM-based experiment extraction
 │   └── README.md
 └── docs/                          # Technical specs and setup guide
     ├── ARCHITECTURE_SKILLS.md          # Bipartite GNN architecture spec
     ├── HETEROGENEOUS_GNN_ARCHITECTURE.md  # Heterogeneous GNN architecture spec
-    └── SETUP_GUIDE.md                  # Hebrew install/setup walkthrough
+    └── SETUP_GUIDE.md                  # Full project install/setup walkthrough
 ```
+
+`preprocess_bipartite_graph.py`, `train_gnn.py`, `train_ensemble.py`,
+`run_full_pipeline.sh`, and `requirements_gnn.txt` stay at the repo root
+rather than inside `gnn/` — they import `gnn` as a sibling package
+(`sys.path`-based), so moving them would mean rewriting that import
+wiring without a way to test it end-to-end in this environment.
 
 ---
 
@@ -233,7 +243,7 @@ Full spec: [`docs/HETEROGENEOUS_GNN_ARCHITECTURE.md`](docs/HETEROGENEOUS_GNN_ARC
 
 - [`docs/ARCHITECTURE_SKILLS.md`](docs/ARCHITECTURE_SKILLS.md) — bipartite GNN architecture spec
 - [`docs/HETEROGENEOUS_GNN_ARCHITECTURE.md`](docs/HETEROGENEOUS_GNN_ARCHITECTURE.md) — heterogeneous GNN architecture spec
-- [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md) — Hebrew install/setup walkthrough
+- [`docs/SETUP_GUIDE.md`](docs/SETUP_GUIDE.md) — full project install/setup walkthrough
 - [`hetero_gnn/README.md`](hetero_gnn/README.md) — implementation notes and design rationale for the heterogeneous model
 - [`literature/README.md`](literature/README.md) — literature extraction usage
 - **[Wiki](../../wiki)** — project overview, pipeline walkthrough, and model comparison narrative

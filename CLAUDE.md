@@ -7,14 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 All scripts run inside the `odo` conda environment.
 
 ```bash
-# Step 1 – ETL: Excel → RDF Turtle files in output/
-conda run -n odo python3 build_kg.py
+# Step 1 – ETL: Excel → RDF Turtle files in kg/output/
+conda run -n odo python3 kg/build_kg.py
 
 # Step 2 – Load into GraphDB (must be running on localhost:7200)
-conda run -n odo python3 setup_graphdb.py
+conda run -n odo python3 kg/setup_graphdb.py
 
 # Step 3 – Run 16 SPARQL validation queries
-conda run -n odo python3 validate_kg.py
+conda run -n odo python3 kg/validate_kg.py
 ```
 
 GraphDB UI and SPARQL endpoint: **http://localhost:7200**  
@@ -24,9 +24,9 @@ Repository ID: **`odo-kg`**
 
 The pipeline has three stages:
 
-### 1. `build_kg.py` – ETL (Excel → Turtle)
+### 1. `kg/build_kg.py` – ETL (Excel → Turtle)
 
-Reads `Final ODO Dataset_v2026-06-10.xlsx` (sheet `Full Dataset`, ~37k rows) and writes 7 thematic Turtle files to `output/`:
+Reads `Final ODO Dataset_v2026-06-10.xlsx` (sheet `Full Dataset`, ~37k rows) and writes 7 thematic Turtle files to `kg/output/`:
 
 | File | Contents |
 |---|---|
@@ -39,7 +39,7 @@ Reads `Final ODO Dataset_v2026-06-10.xlsx` (sheet `Full Dataset`, ~37k rows) and
 | `activities.ttl` | One Activity node per row (the core measurement) |
 
 **Two namespaces:**
-- `odo:` → `http://odo-project.org/ontology#` — classes and properties (defined in `odo_ontology.ttl`)
+- `odo:` → `http://odo-project.org/ontology#` — classes and properties (defined in `kg/odo_ontology.ttl`)
 - `odod:` → `http://odo-project.org/data#` — all data instances
 
 **Entity deduplication:** A `seen` dict of sets tracks which entities have already been written. Each `build_*()` function returns the entity's URI (creating it only on first encounter) so downstream code can link to it.
@@ -50,19 +50,19 @@ Reads `Final ODO Dataset_v2026-06-10.xlsx` (sheet `Full Dataset`, ~37k rows) and
 
 **`add_uri_sameAs(g, subject, uri_str)`:** Validates the URI with a regex before adding `owl:sameAs`. Use this whenever linking to external databases (ChEMBL, PubChem, UniProt, etc.).
 
-### 2. `setup_graphdb.py` – Repository creation and import
+### 2. `kg/setup_graphdb.py` – Repository creation and import
 
 Creates the `odo-kg` repository via GraphDB's REST API (Turtle config, `rdfsplus-optimized` ruleset), clears stale data, then imports files in dependency order: compounds → proteins_targets → model_systems → signaling → documents → assays → activities. Runs 4 summary SPARQL queries after import.
 
-### 3. `validate_kg.py` – 16 SPARQL validation checks
+### 3. `kg/validate_kg.py` – 16 SPARQL validation checks
 
 Runs checks including: total triple count, entity counts per class, high-affinity binders (Ki < 1 nM), pharmacological roles per target, cell line coverage, linked-data `owl:sameAs` sampling, and integrity checks (e.g. activities with no compound).
 
 ### 4. `literature/` – optional literature acquisition (not part of the ETL pipeline)
 
-`GetFiles.py` fetches PMC full-text XML for every `pubmed_id` in the dataset via NCBI Entrez; `CleanFiles.py` strips it to plain abstract+body text. Output (`Full_Text_Articles/`, `Cleaned_Text_Articles/`) is gitignored and regenerable — raw material for LLM-assisted extraction/validation work, independent of `build_kg.py`/`setup_graphdb.py`/`validate_kg.py`.
+`GetFiles.py` fetches PMC full-text XML for every `pubmed_id` in the dataset via NCBI Entrez; `CleanFiles.py` strips it to plain abstract+body text. Output (`Full_Text_Articles/`, `Cleaned_Text_Articles/`) is gitignored and regenerable — raw material for LLM-assisted extraction/validation work, independent of `kg/build_kg.py`/`kg/setup_graphdb.py`/`kg/validate_kg.py`. Two extractor tools build on top of it: `literature/chembl_extractor/` and `literature/llama_extractor/`.
 
-### Ontology (`odo_ontology.ttl`)
+### Ontology (`kg/odo_ontology.ttl`)
 
 Defines all OWL classes and properties. Key class hierarchy:
 ```
