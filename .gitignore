@@ -44,9 +44,10 @@ hetero_gnn/training_curve.png
 hetero_gnn/test_results.txt
 hetero_gnn/best_hparams.json
 
-# Bipartite GNN — regenerate with train_gnn.py / train_ensemble.py
-gnn/test_results.txt
+# Bipartite GNN — regenerate with gnn/train_gnn.py / gnn/train_ensemble.py
+gnn/test_results*.txt
 gnn/ensemble_test_results.txt
+gnn/training_curve*.png
 
 # Literature extraction — regenerate with literature/GetFiles.py + CleanFiles.py
 literature/Full_Text_Articles/

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # ============================================================
-# ODO Knowledge Graph — Full Pipeline Setup & Training
+# ODO Bipartite GNN — Full Pipeline Setup & Training
 #
-# Usage:
-#   chmod +x run_full_pipeline.sh
-#   ./run_full_pipeline.sh
+# Usage (run from the repo root):
+#   chmod +x gnn/run_full_pipeline.sh
+#   ./gnn/run_full_pipeline.sh
 #
 # What this script does:
 #   1. Creates the 'odo' conda environment (if not exists)
@@ -14,14 +14,14 @@
 #   5. Prints the final test-set results
 #
 # Prerequisite:
-#   Place "Final ODO Dataset_v2026-06-10.xlsx" in this directory.
+#   Place "Final ODO Dataset_v2026-06-10.xlsx" in the repo root.
 # ============================================================
 
 set -e  # exit immediately on error
 
 CONDA_ENV="odo"
 EXCEL_FILE="Final ODO Dataset_v2026-06-10.xlsx"
-GRAPH_FILE="processed_bipartite_graph.pt"
+GRAPH_FILE="gnn/processed_bipartite_graph.pt"
 
 # ── Colors ──────────────────────────────────────────────────
 GREEN='\033[0;32m'
@@ -39,7 +39,7 @@ step 0 "Checking prerequisites"
 command -v conda >/dev/null 2>&1 || die "conda not found. Install Miniconda first."
 
 if [ ! -f "$EXCEL_FILE" ]; then
-    die "Dataset not found: '$EXCEL_FILE'\nPlease copy it into this directory and re-run."
+    die "Dataset not found: '$EXCEL_FILE'\nPlease copy it into the repo root and re-run this script from there."
 fi
 
 echo "  conda  : $(conda --version)"
@@ -72,19 +72,19 @@ conda run -n "$CONDA_ENV" pip install --quiet \
 echo "  All packages installed."
 
 # ── 3. Build bipartite graph ─────────────────────────────────
-step 3 "Building bipartite graph (Excel → processed_bipartite_graph.pt)"
+step 3 "Building bipartite graph (Excel → $GRAPH_FILE)"
 
 if [ -f "$GRAPH_FILE" ]; then
     warn "$GRAPH_FILE already exists — skipping preprocessing."
     warn "Delete it and re-run if you want to rebuild from scratch."
 else
-    conda run -n "$CONDA_ENV" python3 preprocess_bipartite_graph.py
+    conda run -n "$CONDA_ENV" python3 gnn/preprocess_bipartite_graph.py
 fi
 
 # ── 4. Train GNN ─────────────────────────────────────────────
 step 4 "Training the GNN model"
 
-conda run -n "$CONDA_ENV" python3 train_gnn.py
+conda run -n "$CONDA_ENV" python3 gnn/train_gnn.py
 
 # ── 5. Print results ─────────────────────────────────────────
 step 5 "Results"

@@ -5,15 +5,16 @@ Trains N_MODELS independent models with different random seeds, then averages
 their test-set predictions. Ensemble averaging reduces variance and typically
 improves out-of-distribution (temporal) generalisation.
 
-Usage:
-    conda run -n odo python3 train_ensemble.py
+Usage (from the repo root):
+    conda run -n odo python3 gnn/train_ensemble.py
 """
 import argparse
 import math
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# repo root (this file lives in gnn/), so `gnn` resolves as a sibling package
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 import torch
@@ -58,7 +59,7 @@ def _auto_preprocess(split: str, fp_bits: int) -> str:
         print("  Running preprocessing …")
         import subprocess
         cmd = [
-            sys.executable, "preprocess_bipartite_graph.py",
+            sys.executable, os.path.join(ROOT, "preprocess_bipartite_graph.py"),
             "--split", split, "--fp-bits", str(fp_bits),
         ]
         subprocess.run(cmd, check=True)
@@ -142,7 +143,7 @@ def main():
     print(f"  Pearson r: {ens['pearson_r']:.4f}")
     print(f"  R²       : {ens['r2']:.4f}")
 
-    results_path = os.path.join(ROOT, "gnn", "ensemble_test_results.txt")
+    results_path = os.path.join(ROOT, "ensemble_test_results.txt")
     with open(results_path, "w") as f:
         f.write("ODO GNN Ensemble — Test Set Results\n")
         f.write(f"Models: {N_MODELS}  Seeds: {SEEDS}\n\n")
