@@ -19,6 +19,7 @@ Full architecture spec: [`docs/ARCHITECTURE_SKILLS.md`](../docs/ARCHITECTURE_SKI
 | `predict.py` | Inference on new SMILES |
 | `validate_model.py` | Post-training validation checks |
 | `generate_model_report.py` | HTML training-run report |
+| `generate_bipartite_viz.py` | Interactive vis.js HTML visualization of the Compound↔Target bipartite graph (reads the dataset directly, not the `.pt` graph) |
 
 ## Usage
 
@@ -28,6 +29,13 @@ split, fine-tuned, ensemble, diagnostic) with commands and expected
 results. Graph preprocessing (`../preprocess_bipartite_graph.py`) runs
 automatically the first time a training command needs a graph file that
 doesn't exist yet.
+
+Run the visualization from the repo root (it reads the dataset via a
+CWD-relative path):
+
+```bash
+conda run -n odo python3 gnn/generate_bipartite_viz.py
+```
 
 ## Output
 

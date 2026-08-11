@@ -176,11 +176,9 @@ odo-project/
 │   ├── build_kg.py                #   ETL: Excel → RDF Turtle
 │   ├── setup_graphdb.py           #   Load RDF into GraphDB
 │   ├── validate_kg.py             #   16 SPARQL validation queries
-│   └── odo_ontology.ttl           #   OWL ontology
-├── scripts/                        # Standalone report/visualization generators
-│   ├── generate_bipartite_viz.py  #   Bipartite graph HTML visualization
-│   ├── generate_report.py         #   Insights report generator
-│   └── generate_schema_pdf.py     #   Ontology schema diagram (PDF)
+│   ├── odo_ontology.ttl           #   OWL ontology
+│   ├── generate_schema_pdf.py     #   Ontology schema diagram (PDF)
+│   └── generate_report.py         #   SPARQL-driven KG insights report
 ├── run_full_pipeline.sh          # One-command bipartite-GNN setup and training
 ├── preprocess_bipartite_graph.py # Excel → processed_<split>_<fp>fp.pt
 ├── train_gnn.py                  # Train a single bipartite GNN model
@@ -191,7 +189,8 @@ odo-project/
 │   ├── dataset.py                # Load .pt graph for training
 │   ├── config.py                 # Hyperparameters
 │   ├── features.py               # Feature engineering utilities
-│   └── predict.py                # Inference on new SMILES
+│   ├── predict.py                # Inference on new SMILES
+│   └── generate_bipartite_viz.py # Bipartite graph HTML visualization
 ├── hetero_gnn/                    # Heterogeneous (5-node-type) GNN model
 │   ├── model.py / config.py / dataset.py / preprocess.py
 │   ├── train.py / run_train.py / run_preprocess.py / search_hparams.py

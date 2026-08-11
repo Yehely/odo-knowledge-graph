@@ -9,8 +9,8 @@ Filter: only exact measurements with pChEMBL ≥ 9 (high-affinity binders).
 Each node and edge is hoverable and shows all its fields.
 Clicking a node highlights its connections.
 
-Run:
-    conda run -n odo python3 generate_bipartite_viz.py
+Run (from the repo root, since EXCEL below is a path relative to CWD):
+    conda run -n odo python3 gnn/generate_bipartite_viz.py
 """
 
 import json
