@@ -1,110 +1,69 @@
-# מדריך התקנה ותפעול – ODO Knowledge Graph
+# Setup Guide
+
+Covers every part of the project: the knowledge-graph pipeline, both GNN
+packages, and the `literature/` tools (paper acquisition, ChEMBL
+auto-extraction, Llama-based extraction).
 
 ---
 
-## שלב 1 – התקנת GraphDB
-
-1. גש ל: https://www.ontotext.com/products/graphdb/download/
-2. הורד **GraphDB Free** (גרסה 11.x)
-3. התקן ולחץ **Start** – GraphDB יעלה בפורט **7200**
-4. פתח דפדפן וגש ל: `http://localhost:7200`
-
----
-
-## שלב 2 – הכנת סביבת Python
+## 1. Base environment
 
 ```bash
-# יצירת סביבת conda
-conda create -n odo python=3.10
+conda create -n odo python=3.11
 conda activate odo
-
-# התקנת חבילות
-pip install pandas openpyxl rdflib requests
 ```
 
----
-
-## שלב 3 – הורדת קבצי הפרויקט
+Get the code and the dataset:
 
 ```bash
-git clone https://github.com/<username>/odo-knowledge-graph.git
+git clone https://github.com/Yehely/odo-knowledge-graph.git
 cd odo-knowledge-graph
 ```
 
-> הצב את קובץ ה-Excel `Final ODO Dataset_v2026-06-10.xlsx` **בתוך תיקיית הפרויקט** (לא מסופק ב-GitHub).
+> Place `Final ODO Dataset_v2026-06-10.xlsx` **in the repo root** — it's
+> not distributed via GitHub (see `.gitignore`).
 
 ---
 
-## שלב 4 – בניית גרף הידע
+## 2. Knowledge Graph pipeline
+
+### 2.1 Install GraphDB
+
+1. Go to https://www.ontotext.com/products/graphdb/download/
+2. Download **GraphDB Free** (v11.x)
+3. Install, then click **Start** — GraphDB comes up on port **7200**
+4. Open `http://localhost:7200` in a browser to confirm it's running
+
+### 2.2 Install Python packages
 
 ```bash
+pip install pandas openpyxl rdflib requests
+```
+
+### 2.3 Run the pipeline
+
+```bash
+# Step 1 — Excel -> RDF Turtle files in output/
 conda run -n odo python3 build_kg.py
-```
 
-**מה קורה:** הסקריפט קורא את ה-Excel ומייצר 7 קבצי Turtle (RDF) בתיקיית `output/`.  
-**זמן הרצה משוער:** 2–4 דקות  
-**פלט צפוי:**
-```
-Processing rows: 100%|████████| 37362/37362
-Compounds   : 12,906 nodes
-Activities  : 37,346 nodes
-Documents   :  1,165 nodes
-...
-Saved output/compounds.ttl (355,479 triples)
-Saved output/activities.ttl (436,226 triples)
-...
-Total triples written: 869,134
-```
-
----
-
-## שלב 5 – ייבוא לגרפDB
-
-ודא שGraphDB פועל ב-`http://localhost:7200`, ואז:
-
-```bash
+# Step 2 — load into GraphDB (must be running on localhost:7200)
 conda run -n odo python3 setup_graphdb.py
+
+# Step 3 — 16 SPARQL validation checks
+conda run -n odo python3 validate_kg.py
 ```
 
-**מה קורה:** הסקריפט יוצר Repository בשם `odo-kg` ומייבא את כל הקבצים.  
-**זמן הרצה משוער:** 3–5 דקות  
-**פלט צפוי:**
-```
-Creating repository 'odo-kg'…
-  Repository 'odo-kg' created.
+`build_kg.py` takes ~2-4 minutes and writes 7 Turtle files (~870K triples
+total) to `output/`. `setup_graphdb.py` creates the `odo-kg` repository and
+imports them (~3-5 minutes).
 
-Importing ontology…
-  Importing odo_ontology.ttl (0.0 MB)… OK
+### 2.4 Browse the graph
 
-Importing data files…
-  Importing compounds.ttl (31.3 MB)… OK
-  Importing activities.ttl (38.7 MB)… OK
-  ...
+- **Web UI**: `http://localhost:7200`
+- **Visual graph**: Explore → Visual Graph, search a full URI, e.g.
+  `http://odo-project.org/data#compound_CHEMBL70`
+- **SPARQL**: SPARQL tab → repository `odo-kg` → write a query → Run
 
-Total triples in repository: 874,147
-```
-
----
-
-## שלב 6 – גלישה בגרף
-
-### ממשק הרשת
-פתח: **http://localhost:7200**
-
-### ויזואליזציה
-1. לחץ **Explore → Visual Graph**
-2. בתיבת החיפוש הכתוב URI מלא, למשל:
-   ```
-   http://odo-project.org/data#compound_CHEMBL70
-   ```
-3. לחץ **Enter** – תראה את הצמתים המחוברים לתרכובת
-
-### שאילתות SPARQL
-1. לחץ **SPARQL** בתפריט השמאלי
-2. בחר Repository: `odo-kg`
-3. כתוב שאילתה ולחץ **Run**
-
-**דוגמה – כמה תרכובות יש לפי קולטן:**
 ```sparql
 PREFIX odo: <http://odo-project.org/ontology#>
 SELECT ?targetName (COUNT(DISTINCT ?c) AS ?n) WHERE {
@@ -113,34 +72,99 @@ SELECT ?targetName (COUNT(DISTINCT ?c) AS ?n) WHERE {
 } GROUP BY ?targetName ORDER BY DESC(?n)
 ```
 
----
+Namespace prefixes (add under GraphDB's **Setup → Namespaces**):
 
-## שלב 7 – אימות הנתונים (אופציונלי)
-
-```bash
-conda run -n odo python3 validate_kg.py
-```
-
-מריץ 16 שאילתות בדיקה ומדפיס דוח מפורט.
-
----
-
-## פתרון בעיות נפוצות
-
-| בעיה | פתרון |
-|---|---|
-| `Connection refused` בהרצת setup | ודא שGraphDB פועל ולחץ Start |
-| `Repository already exists` | לא שגיאה – הסקריפט ממשיך בייבוא |
-| `ImportError: No module named rdflib` | הרץ: `conda activate odo && pip install rdflib` |
-| הייבוא נכשל באמצע | הרץ מחדש – הסקריפט מוסיף על גבי מה שכבר יובא |
-
----
-
-## Namespace Prefixes
-
-| קיצור | URI |
+| Prefix | URI |
 |---|---|
 | `odo:` | `http://odo-project.org/ontology#` |
 | `odod:` | `http://odo-project.org/data#` |
 
-ניתן להוסיף אותם ב-GraphDB תחת **Setup → Namespaces**.
+---
+
+## 3. GNN models
+
+Both packages read the same dataset file directly (no GraphDB required).
+
+### 3.1 Bipartite GNN (`gnn/`)
+
+```bash
+pip install -r requirements_gnn.txt
+# one-command setup + default training run:
+chmod +x run_full_pipeline.sh && ./run_full_pipeline.sh
+# or train a specific variant, e.g.:
+conda run -n odo python3 train_gnn.py --split compound_random --fp-bits 2048
+```
+
+See the model list and results table in the main [README](../README.md#gnn-models--how-to-run-each).
+
+### 3.2 Heterogeneous GNN (`hetero_gnn/`)
+
+```bash
+conda run -n odo python3 hetero_gnn/run_preprocess.py
+conda run -n odo python3 hetero_gnn/run_train.py
+```
+
+See [`hetero_gnn/README.md`](../hetero_gnn/README.md) for the full option set (hyperparameter search, inference).
+
+---
+
+## 4. Literature tools (`literature/`)
+
+### 4.1 Paper acquisition (`GetFiles.py` + `CleanFiles.py`)
+
+```bash
+pip install pandas biopython beautifulsoup4 lxml openpyxl
+export ENTREZ_EMAIL="you@example.com"   # required by NCBI's usage policy
+
+conda run -n odo python3 literature/GetFiles.py     # -> literature/Full_Text_Articles/
+conda run -n odo python3 literature/CleanFiles.py   # -> literature/Cleaned_Text_Articles/
+
+# optional: verified re-download if you suspect a mismatched article
+conda run -n odo python3 literature/Fix_GetFiles.py   # -> literature/Verified_Full_Text/
+# optional: filter out abstract-only stubs before running an extractor
+conda run -n odo python3 literature/sortFullText.py   # -> literature/Sort_Full_Text_And_Not/
+```
+
+### 4.2 ChEMBL auto-extractor (`literature/chembl_extractor/`)
+
+```bash
+cd literature/chembl_extractor
+pip install -r requirements.txt
+
+python3 train_qikprop_models.py     # train supporting ML models (once)
+python3 train_nlp_models.py
+
+python3 chembl_fetcher.py --ids CHEMBL101454 --output outputs/result.xlsx   # CLI
+python3 app.py                                                              # or web UI, http://localhost:5050
+```
+
+See [`literature/README.md`](../literature/README.md) for accuracy-evaluation commands.
+
+### 4.3 Llama extractor (`literature/llama_extractor/`)
+
+```bash
+cd literature/llama_extractor
+pip install -r requirements.txt
+export GROQ_API_KEY="your-groq-key"   # https://console.groq.com
+
+# from cleaned full-text (after 4.1):
+python3 LlamaExtractor.py
+
+# from manually downloaded PDFs — place them in manual_pdfs/ first (see manual_pdfs/README.md):
+python3 LlamaExtractorDownloaded.py
+
+# validate either output against the real dataset:
+python3 Comparison.py --input labeled_data_from_llama.json
+```
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `Connection refused` running `setup_graphdb.py` | Make sure GraphDB is running (click Start) |
+| `Repository already exists` | Not an error — the script continues importing |
+| `ImportError: No module named rdflib` | `conda activate odo && pip install rdflib` |
+| Import fails partway through | Re-run — the script picks up where it left off |
+| `KeyError: 'GROQ_API_KEY'` | `export GROQ_API_KEY=...` before running a `llama_extractor` script |

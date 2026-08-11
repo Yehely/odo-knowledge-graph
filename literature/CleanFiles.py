@@ -1,6 +1,9 @@
 """
 CleanFiles.py – strips PMC full-text XML (from GetFiles.py) down to plain
 abstract + body text, ready for downstream LLM-based extraction/validation.
+Tables are converted to marked-up plain text (not dropped) since binding-
+affinity values usually live in tables — llama_extractor/LlamaExtractor.py
+looks for the "--- TABLE START/END ---" markers this produces.
 """
 import os
 
@@ -17,25 +20,34 @@ def clean_xml_robust(xml_file):
     with open(xml_file, "r", encoding="utf-8") as f:
         soup = BeautifulSoup(f, "lxml-xml")
 
-    # strip references and complex tables/figures — noise for text extraction
-    for tag in soup.find_all(["ref-list", "table-wrap", "fig"]):
+    # strip references and figures — noise for text extraction (tables are kept, see below)
+    for tag in soup.find_all(["ref-list", "fig"]):
         tag.decompose()
+
+    # convert tables to marked-up plain text instead of dropping them
+    for table in soup.find_all("table-wrap"):
+        table_text = "\n--- TABLE START ---\n"
+        for row in table.find_all("tr"):
+            cols = row.find_all(["td", "th"])
+            row_text = " | ".join(col.get_text(separator=" ").strip() for col in cols)
+            table_text += row_text + "\n"
+        table_text += "--- TABLE END ---\n"
+        table.replace_with(table_text)
 
     # extract abstract
     abstract = soup.find("abstract").get_text(separator=" ") if soup.find("abstract") else ""
 
-    # extract body — walk paragraphs to preserve order
+    # extract body — keep paragraph/table breaks
     body_text = ""
     body_tag = soup.find("body")
     if body_tag:
-        paragraphs = body_tag.find_all("p")
-        body_text = "\n".join([p.get_text(separator=" ") for p in paragraphs])
+        body_text = body_tag.get_text(separator="\n\n")
 
-    return abstract + "\n\n" + body_text
+    return f"ABSTRACT:\n{abstract}\n\nBODY:\n{body_text}"
 
 
 if __name__ == "__main__":
-    print("Starting cleaning...")
+    print("Starting cleaning (tables preserved)...")
     for filename in os.listdir(INPUT_DIR):
         if filename.endswith(".xml"):
             pmid = filename.replace(".xml", "")

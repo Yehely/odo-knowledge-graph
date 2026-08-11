@@ -157,12 +157,14 @@ conda run -n odo python3 validate_kg.py
 ## Literature Extraction (optional)
 
 `literature/` fetches and cleans the full-text source papers behind the
-dataset's `pubmed_id` column (via NCBI Entrez/PMC) — raw material for
-LLM-assisted extraction or validation, not part of the KG/GNN pipeline
-itself. It also includes `literature/chembl_extractor/`, a tool that
-auto-generates new ODO-schema database rows for a given ChEMBL compound
-from 6 external data sources plus trained ML models, with a CLI and a
-local web UI. See [`literature/README.md`](literature/README.md).
+dataset's `pubmed_id` column (via NCBI Entrez/PMC), not part of the
+KG/GNN pipeline itself. Two extraction tools build on top of it:
+`literature/chembl_extractor/`, which auto-generates new ODO-schema
+database rows for a given ChEMBL compound from 6 external data sources
+plus trained ML models (CLI + local web UI), and
+`literature/llama_extractor/`, which runs an LLM directly over paper text
+to extract drug-target experiments. See
+[`literature/README.md`](literature/README.md).
 
 ---
 

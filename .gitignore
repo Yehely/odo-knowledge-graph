@@ -50,13 +50,19 @@ gnn/ensemble_test_results.txt
 
 # Literature extraction — regenerate with literature/GetFiles.py + CleanFiles.py
 literature/Full_Text_Articles/
+literature/Verified_Full_Text/
 literature/Cleaned_Text_Articles/
+literature/Sort_Full_Text_And_Not/
 
 # chembl_extractor — trained models + fetch/evaluation run output (regenerable)
 literature/chembl_extractor/nlp_models/
 literature/chembl_extractor/qikprop_models/
 literature/chembl_extractor/outputs/
 literature/chembl_extractor/accuracy_reports/
+
+# llama_extractor — manually-sourced PDFs (copyrighted, not redistributable)
+literature/llama_extractor/manual_pdfs/*
+!literature/llama_extractor/manual_pdfs/README.md
 
 # Local-only material — never committed (contains personal/course info or large drafts)
 reports/
