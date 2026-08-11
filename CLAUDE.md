@@ -58,6 +58,10 @@ Creates the `odo-kg` repository via GraphDB's REST API (Turtle config, `rdfsplus
 
 Runs checks including: total triple count, entity counts per class, high-affinity binders (Ki < 1 nM), pharmacological roles per target, cell line coverage, linked-data `owl:sameAs` sampling, and integrity checks (e.g. activities with no compound).
 
+### 4. `literature/` – optional literature acquisition (not part of the ETL pipeline)
+
+`GetFiles.py` fetches PMC full-text XML for every `pubmed_id` in the dataset via NCBI Entrez; `CleanFiles.py` strips it to plain abstract+body text. Output (`Full_Text_Articles/`, `Cleaned_Text_Articles/`) is gitignored and regenerable — raw material for LLM-assisted extraction/validation work, independent of `build_kg.py`/`setup_graphdb.py`/`validate_kg.py`.
+
 ### Ontology (`odo_ontology.ttl`)
 
 Defines all OWL classes and properties. Key class hierarchy:

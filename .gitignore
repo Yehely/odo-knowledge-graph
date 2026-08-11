@@ -44,6 +44,21 @@ hetero_gnn/training_curve.png
 hetero_gnn/test_results.txt
 hetero_gnn/best_hparams.json
 
+# Bipartite GNN — regenerate with train_gnn.py / train_ensemble.py
+gnn/test_results.txt
+gnn/ensemble_test_results.txt
+
+# Literature extraction — regenerate with literature/GetFiles.py + CleanFiles.py
+literature/Full_Text_Articles/
+literature/Cleaned_Text_Articles/
+
+# Local-only material — never committed (contains personal/course info or large drafts)
+reports/
+Presentation_Materials/
+new ppt/
+*.pptx
+עמודות תחת כל רכיב בגרף.docx
+
 # OS temp files
 .DS_Store
 Thumbs.db

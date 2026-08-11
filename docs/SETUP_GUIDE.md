@@ -31,7 +31,7 @@ git clone https://github.com/<username>/odo-knowledge-graph.git
 cd odo-knowledge-graph
 ```
 
-> הצב את קובץ ה-Excel `Final_updated_Dataset_v2025_11-12.xlsx` **בתוך תיקיית הפרויקט** (לא מסופק ב-GitHub).
+> הצב את קובץ ה-Excel `Final ODO Dataset_v2026-06-10.xlsx` **בתוך תיקיית הפרויקט** (לא מסופק ב-GitHub).
 
 ---
 
@@ -121,7 +121,7 @@ SELECT ?targetName (COUNT(DISTINCT ?c) AS ?n) WHERE {
 conda run -n odo python3 validate_kg.py
 ```
 
-מריץ 14 שאילתות בדיקה ומדפיס דוח מפורט.
+מריץ 16 שאילתות בדיקה ומדפיס דוח מפורט.
 
 ---
 
