@@ -22,7 +22,7 @@ from hetero_gnn.train import train
 from hetero_gnn.config import (
     ASSAY_EMB_DIM, ASSAY_EMB_DIM_RANGE, CHECKPOINT_DIR, DOCUMENT_JOURNAL_EMB_DIM,
     DOCUMENT_JOURNAL_EMB_DIM_RANGE, GRAPH_PATH, MODEL_SYSTEM_EMB_DIM,
-    MODEL_SYSTEM_EMB_DIM_RANGE, PKG_DIR,
+    MODEL_SYSTEM_EMB_DIM_RANGE, PKG_DIR, POOLING_MODE,
 )
 from hetero_gnn.preprocess import main as run_preprocess
 
@@ -104,6 +104,11 @@ def main():
         help=f"Document journal-embedding size (§5 search range {DOCUMENT_JOURNAL_EMB_DIM_RANGE}); "
              f"default {DOCUMENT_JOURNAL_EMB_DIM}.",
     )
+    parser.add_argument(
+        "--pooling-mode", choices=["attention", "mean"], default=POOLING_MODE,
+        help="Hop pooling: 'attention' (current default) or 'mean' (the original, "
+             "pre-attention model — kept runnable to reproduce earlier reported results).",
+    )
     args = parser.parse_args()
 
     print("=" * 60)
@@ -121,12 +126,13 @@ def main():
 
     print("\n[2/4] Building model …")
     print(f"  assay_emb_dim={args.assay_emb_dim}  model_system_emb_dim={args.model_system_emb_dim}  "
-          f"document_journal_emb_dim={args.document_journal_emb_dim}")
+          f"document_journal_emb_dim={args.document_journal_emb_dim}  pooling_mode={args.pooling_mode}")
     model = build_model(
         data, edge_dim=edge_dim,
         assay_emb_dim=args.assay_emb_dim,
         model_system_emb_dim=args.model_system_emb_dim,
         document_journal_emb_dim=args.document_journal_emb_dim,
+        pooling_mode=args.pooling_mode,
     )
     n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  Parameters: {n_params:,}")

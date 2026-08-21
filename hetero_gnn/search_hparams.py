@@ -42,7 +42,7 @@ import torch
 
 from hetero_gnn.config import (
     ASSAY_EMB_DIM_RANGE, DOCUMENT_JOURNAL_EMB_DIM_RANGE, LR, MODEL_SYSTEM_EMB_DIM_RANGE,
-    PKG_DIR, SEED, WEIGHT_DECAY,
+    PKG_DIR, POOLING_MODE, SEED, WEIGHT_DECAY,
 )
 from hetero_gnn.dataset import build_dataset, BINDS_TO
 from hetero_gnn.model import build_model
@@ -53,7 +53,7 @@ SEARCH_PATIENCE = 8      # tighter early-stopping within a trial
 BEST_CONFIG_PATH = os.path.join(PKG_DIR, "best_hparams.json")
 
 
-def _run_trial(trial: optuna.Trial, data, device, search_epochs: int, search_patience: int) -> float:
+def _run_trial(trial: optuna.Trial, data, device, search_epochs: int, search_patience: int, pooling_mode: str) -> float:
     assay_emb_dim = trial.suggest_int("assay_emb_dim", *ASSAY_EMB_DIM_RANGE)
     model_system_emb_dim = trial.suggest_int("model_system_emb_dim", *MODEL_SYSTEM_EMB_DIM_RANGE)
     document_journal_emb_dim = trial.suggest_int("document_journal_emb_dim", *DOCUMENT_JOURNAL_EMB_DIM_RANGE)
@@ -63,6 +63,7 @@ def _run_trial(trial: optuna.Trial, data, device, search_epochs: int, search_pat
         assay_emb_dim=assay_emb_dim,
         model_system_emb_dim=model_system_emb_dim,
         document_journal_emb_dim=document_journal_emb_dim,
+        pooling_mode=pooling_mode,
     ).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
 
@@ -99,6 +100,11 @@ def main():
     parser.add_argument("--no-final-run", action="store_true",
                          help="Skip the full-budget final training run with the winning config.")
     parser.add_argument("--seed", type=int, default=SEED, help="Optuna TPE sampler seed.")
+    parser.add_argument(
+        "--pooling-mode", choices=["attention", "mean"], default=POOLING_MODE,
+        help="Hop pooling for every trial and the final run: 'attention' (current default) "
+             "or 'mean' (the original, pre-attention model).",
+    )
     args = parser.parse_args()
 
     print("=" * 60)
@@ -118,7 +124,7 @@ def main():
     pruner = optuna.pruners.MedianPruner(n_startup_trials=5, n_warmup_steps=15)
     study = optuna.create_study(direction="minimize", sampler=sampler, pruner=pruner)
     study.optimize(
-        lambda trial: _run_trial(trial, data, device, args.search_epochs, args.search_patience),
+        lambda trial: _run_trial(trial, data, device, args.search_epochs, args.search_patience, args.pooling_mode),
         n_trials=args.n_trials,
     )
 
@@ -139,7 +145,8 @@ def main():
         f"    conda run -n odo python3 hetero_gnn/run_train.py "
         f"--assay-emb-dim {p['assay_emb_dim']} "
         f"--model-system-emb-dim {p['model_system_emb_dim']} "
-        f"--document-journal-emb-dim {p['document_journal_emb_dim']}"
+        f"--document-journal-emb-dim {p['document_journal_emb_dim']} "
+        f"--pooling-mode {args.pooling_mode}"
     )
 
     if args.no_final_run:
@@ -153,6 +160,7 @@ def main():
         assay_emb_dim=p["assay_emb_dim"],
         model_system_emb_dim=p["model_system_emb_dim"],
         document_journal_emb_dim=p["document_journal_emb_dim"],
+        pooling_mode=args.pooling_mode,
     )
     train(model, data, verbose=True)
     print("\nDone. checkpoints/best_model.pt now holds the searched-and-trained best model.")

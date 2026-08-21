@@ -134,8 +134,17 @@ ENCODER_DROPOUT = 0.4   # doc §6 is explicit: Linear -> BatchNorm -> ReLU -> Dr
 # Message passing (§7) — capped at 2 hops, custom hub-and-spoke scheme
 # (not a generic multi-relation HeteroConv sum). See model.py.
 # ---------------------------------------------------------------------------
-# (no extra config needed beyond HIDDEN — W1/W2/W2_target are all
-#  Linear(2*HIDDEN, HIDDEN) inside the model)
+# "mean"      — the doc's original spec: plain mean-aggregation over each
+#               hop's neighbours. This is the model version behind the
+#               project's first reported heterogeneous-GNN results.
+# "attention" — later replacement: a small Linear->Tanh->Linear scoring head
+#               per hop, softmax-normalised per destination node, weighted
+#               sum instead of a plain mean. This is the model version
+#               behind the project's later, improved reported results.
+# Both remain runnable from this one implementation (model.py branches on
+# this flag) so either set of previously-reported numbers can still be
+# reproduced — set via --pooling-mode in run_train.py / search_hparams.py.
+POOLING_MODE = "attention"
 
 # ---------------------------------------------------------------------------
 # Prediction head (§8)

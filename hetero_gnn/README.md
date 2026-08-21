@@ -24,6 +24,10 @@ conda run -n odo python3 hetero_gnn/run_train.py
 # Optional — 10-epoch overfitting sanity check instead of full training
 conda run -n odo python3 hetero_gnn/run_train.py --sanity
 
+# Optional — train the original mean-pooling model instead of the current
+# attention-pooling default (reproduces the project's earlier reported results)
+conda run -n odo python3 hetero_gnn/run_train.py --pooling-mode mean
+
 # Optional — §5 hyperparameter search (Assay/ModelSystem/Document dims),
 # then automatically trains the final model with the winning combination
 conda run -n odo python3 hetero_gnn/search_hparams.py --n-trials 20
@@ -248,19 +252,33 @@ All 5 node types: `Linear → BatchNorm → ReLU → Dropout(0.4)` into the shar
 tried 0.5, settled on 0.4), and the same figure is reused for the
 prediction head's Dropout too (§8 doesn't give its own number).
 
-### Message passing (§7) — a custom hub-and-spoke scheme, with learned attention pooling
+### Message passing (§7) — a custom hub-and-spoke scheme, with a switchable pooling mode
 
-This is *not* implemented as a multi-relation `HeteroConv` sum, and it no
-longer uses a plain pooled mean either — the doc's "mean-aggregates the
-vectors of its neighbors" is implemented as **attention-weighted** pooling:
-each hop has its own small scoring head (`Linear → Tanh → Linear`, output
-dim 1) that scores every neighbour vector, `torch_geometric.utils.softmax`
-normalizes those scores per destination node, and the neighbours are summed
-weighted by the resulting attention weights (`scatter(..., reduce="sum")`
-over the weighted vectors) instead of averaged unweighted. This lets the
-model learn to weight, say, a high-quality assay's contribution to a
-Compound differently from a noisy one, rather than treating every neighbour
-equally:
+This is *not* implemented as a multi-relation `HeteroConv` sum. Two pooling
+modes are implemented and both remain runnable — set via
+`config.POOLING_MODE` or `--pooling-mode {attention,mean}` on
+`run_train.py`/`search_hparams.py`:
+
+- **`mean`** — the doc's literal spec: "mean-aggregates the vectors of its
+  neighbors" (`scatter(..., reduce="mean")`), no scoring heads. This is the
+  model version behind the project's first reported heterogeneous-GNN
+  results.
+- **`attention`** *(current default)* — each hop gets its own small scoring
+  head (`Linear → Tanh → Linear`, output dim 1) that scores every neighbour
+  vector, `torch_geometric.utils.softmax` normalizes those scores per
+  destination node, and the neighbours are summed weighted by the resulting
+  attention weights (`scatter(..., reduce="sum")` over the weighted
+  vectors) instead of averaged unweighted. This lets the model learn to
+  weight, say, a high-quality assay's contribution to a Compound
+  differently from a noisy one, rather than treating every neighbour
+  equally. This is the model version behind the project's later, improved
+  reported results.
+
+Both variants are kept in one implementation (branching inside
+`message_pass()`) rather than as two duplicated model files, so either set
+of previously-reported numbers can still be reproduced. The
+`attn_hop1`/`attn_hop2_c`/`attn_hop2_t` scoring heads below are only
+constructed when `pooling_mode="attention"`:
 
 - **Hop 1 → Assay:** attention-pool {Document, ModelSystem, Target}
   (pre-message vectors) via `attn_hop1` → concat with Assay's own vector →
@@ -274,8 +292,11 @@ equally:
 Document and Model System only ever *send* — they're never targets of
 aggregation, matching Document's explicit "not a strong direct predictor"
 role (§2.E) and Assay's role as the sole hub. A brand-new query compound (no
-recorded assay history) still degrades gracefully: with zero neighbours the
-weighted-sum pooling naturally produces a zero-vector hop-2 context, so
+recorded assay history) still degrades gracefully in both pooling modes:
+with zero neighbours, both the weighted-sum (attention) and
+`scatter(..., reduce="mean")` (mean) paths naturally produce a zero-vector
+hop-2 context — verified empirically that PyG's `scatter` with
+`reduce="mean"` returns `0`, not `NaN`, for an empty group — so
 `predict.py` falls back to scoring on structure/ADMET alone, which is the
 only honest thing to do for a compound that's never been tested.
 
