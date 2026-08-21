@@ -211,7 +211,14 @@ Linear → BatchNorm → ReLU → Dropout(0.4)
 
 Capped at 2 hops to avoid oversmoothing across 5 node types.
 
-**Hop 1 — collect into Assay:**
+Two pooling modes are implemented, selected via `config.POOLING_MODE` /
+`--pooling-mode` (`run_train.py`, `search_hparams.py`): **`attention`**
+(the current default, described below) and **`mean`** (this section's
+original spec — plain mean-aggregation over each hop's neighbors, no
+scoring heads). Both stay runnable from the same `hetero_gnn/model.py` so
+either set of previously-reported results can be reproduced.
+
+**Hop 1 — collect into Assay** (`pooling_mode="attention"`):
 Each neighbor of an Assay node (Document, Model System, Target) gets a
 learned attention score (a small `Linear → Tanh → Linear` head over its
 256-dim vector), softmax-normalized per Assay, and the neighbors are
@@ -219,7 +226,7 @@ summed with those weights (attention-weighted pooling, not a plain mean).
 Concatenate the pooled vector with the Assay's own vector, multiply by a
 learned weight matrix `W1`, apply `LeakyReLU`.
 
-**Hop 2 — collect into Compound and Target:**
+**Hop 2 — collect into Compound and Target** (`pooling_mode="attention"`):
 Compound attention-pools the updated 256-dim vectors of every Assay it
 connects to (same scoring-head + softmax + weighted-sum scheme as hop 1,
 via its own attention head), concatenates with its own vector, multiplies
