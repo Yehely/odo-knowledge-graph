@@ -49,6 +49,9 @@ gnn/test_results*.txt
 gnn/ensemble_test_results.txt
 gnn/training_curve*.png
 
+# Graph-free baseline prediction dumps — regenerate with baselines/run_baselines.py
+baselines/predictions_*.npz
+
 # Literature extraction — regenerate with smart_retrieval/GetFiles.py + CleanFiles.py
 smart_retrieval/Full_Text_Articles/
 smart_retrieval/Verified_Full_Text/
