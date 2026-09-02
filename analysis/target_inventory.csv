@@ -1,0 +1,44 @@
+target_key,name,uniprot,n_uniprot_distinct,species,n_rows,n_exact,n_test,receptor
+CHEMBL233,Mu opioid receptor,P35372;P35372 / P41143;P41145;P42866,4,Homo sapiens,7339,4385,1553,MOR
+CHEMBL237,Kappa opioid receptor,A0A5F9CQG0;P41145,2,Homo sapiens,6915,4150,1245,KOR
+CHEMBL236,Delta opioid receptor,P41143,1,Homo sapiens,5079,2956,551,DOR
+CHEMBL270,Mu opioid receptor,P33535;P42866,2,Rattus norvegicus,3129,2523,282,MOR
+CHEMBL4354,Mu opioid receptor,P35372;P42866;P97166;P97266,4,Cavia porcellus,2225,1670,174,MOR
+CHEMBL3952,Kappa opioid receptor,P41143;P41144;Q2KIP6,3,Cavia porcellus,1746,1318,145,KOR
+CHEMBL269,Delta opioid receptor,P33533,1,Rattus norvegicus,1723,1353,218,DOR
+CHEMBL2014,Nociceptin receptor,P41146,1,Homo sapiens,1707,1168,269,NOP
+CHEMBL3222,Delta opioid receptor,P32300;P41143,2,Mus musculus,1611,1025,88,DOR
+Mu_opioid_receptor,Mu opioid receptor,P33535;P35372;P42866,3,Homo sapiens,1478,5,420,MOR
+Delta_opioid_receptor,Delta opioid receptor,P32300;P33533;P41143,3,Homo sapiens,742,0,380,DOR
+CHEMBL2858,Mu opioid receptor,P42866,1,Mus musculus,656,415,120,MOR
+CHEMBL2094129,Opioid receptor,(none),0,Rattus norvegicus,523,371,4,
+CHEMBL2095149,Opioid receptors; mu & delta,P35372;P35372 / P41143,2,Homo sapiens,507,231,27,
+CHEMBL4329,Kappa opioid receptor,P33534,1,Mus musculus,374,196,58,KOR
+CHEMBL3614,Kappa opioid receptor,P34975,1,Rattus norvegicus,365,179,25,KOR
+Kappa_opioid_receptor,Kappa opioid receptor,P33534;P34975;P41144;P41145,4,Mus musculus,147,4,37,KOR
+CHEMBL3621,Nociceptin receptor,P35377,1,Mus musculus,145,89,0,NOP
+CHEMBL2095192,Opioid receptor,P32300,1,Mus musculus,141,28,0,
+Opioid_receptor,Opioid receptor,(none),0,Mus musculus,138,25,66,
+CHEMBL2095181,Opioid receptors; mu/kappa/delta,(none),0,Homo sapiens,104,82,0,
+CHEMBL4503,Nociceptin receptor,P35370,1,Rattus norvegicus,96,73,0,NOP
+Nociceptin_receptor,Nociceptin receptor,P41146,1,Homo sapiens,76,0,0,NOP
+D_3__dopamine_receptor,D(3) dopamine receptor,P35462,1,Homo sapiens,76,0,0,
+CHEMBL4295527,Delta opioid receptor,A0A286XTF2,1,Cavia porcellus,51,43,9,DOR
+MOR-DOR,MOR-DOR,P35372 / P41143,1,Homo sapiens,46,0,46,
+NTS1_receptor,NTS1 receptor,P30989;P30990;P30991;P30992;P30993;P30994;P30995;P30996;P30997;P30998;P30999;P31000;P31001;P31002;P31003;P31004;P31005,17,Homo sapiens,40,0,40,
+D_2__dopamine_receptor,D(2) dopamine receptor,P14416,1,Homo sapiens,33,0,0,
+CHEMBL5492,Nociceptin receptor,P47748,1,Cavia porcellus,27,20,0,NOP
+CHEMBL2221343,Opioid receptors; mu and delta,(none),0,Mus musculus,27,15,0,
+opioid_receptors,opioid receptors,(none),0,Mus musculus,18,0,18,
+NTS2_receptor,NTS2 receptor,O95649;O95650;O95651;O95652;O95653;O95654;O95655;O95656;O95657;O95658;O95659;O95660;O95661;O95662;O95663;O95664;O95665,17,Homo sapiens,17,0,17,
+CHEMBL3611961,Mu opioid receptor-like OR2,B8JHS2,1,Danio rerio,14,14,6,MOR
+CHEMBL3038507,Nociceptin/mu opioid receptor,(none),0,Rattus norvegicus,8,4,0,MOR
+CHEMBL3041,Mu opioid receptor,(none),0,Bos taurus,6,5,0,MOR
+CHEMBL4105711,"Opioid receptor, delta 1b",3DH72,1,Danio rerio,6,6,6,
+CHEMBL4105897,Delta1a,3DH72;A3QJX7,2,Danio rerio,6,6,6,
+CHEMBL2111465,Opioid receptor (mu and kappa),(none),0,Cavia porcellus,6,6,0,
+CHEMBL3038518,mu/kappa opioid receptor,P97266,1,Cavia porcellus,5,4,3,KOR
+CHEMBL5799,Mu-type opioid receptor,Q9MYW9,1,Macaca mulatta,4,4,4,MOR
+CHEMBL4295551,Kappa-type opioid receptor,Q9MYW9,1,Macaca mulatta,4,4,4,KOR
+CHEMBL5430,Mu-opioid receptor,P42866,1,Mus musculus,1,1,0,MOR
+CHEMBL2095151,Opioid receptors; delta & kappa,(none),0,Homo sapiens,1,1,0,

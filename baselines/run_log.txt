@@ -1,0 +1,13 @@
+ODO baselines — run log
+Commit           : 3bda002813447f43d2e788495cd3be0f2e4f3e37
+Splits run       : ['hetero', 'bipartite']
+Seeds (RF)       : [42, 123, 456, 789, 1024]
+Runtime          : 4061.3s
+Package versions :
+  torch           2.13.0+cpu
+  scikit-learn    1.9.0
+  numpy           2.4.4
+  pandas          3.0.3
+  scipy           1.18.0
+  torch-geometric 2.8.0.post1
+  rdkit           2026.3.5

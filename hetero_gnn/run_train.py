@@ -7,6 +7,7 @@ Usage:
 """
 import argparse
 import os
+import subprocess
 import sys
 
 import torch
@@ -18,13 +19,22 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from hetero_gnn.dataset import build_dataset, BINDS_TO
 from hetero_gnn.model import build_model
-from hetero_gnn.train import train
+from hetero_gnn.train import train, set_seed
 from hetero_gnn.config import (
     ASSAY_EMB_DIM, ASSAY_EMB_DIM_RANGE, CHECKPOINT_DIR, DOCUMENT_JOURNAL_EMB_DIM,
-    DOCUMENT_JOURNAL_EMB_DIM_RANGE, GRAPH_PATH, MODEL_SYSTEM_EMB_DIM,
-    MODEL_SYSTEM_EMB_DIM_RANGE, PKG_DIR, POOLING_MODE,
+    DOCUMENT_JOURNAL_EMB_DIM_RANGE, ENCODER_DROPOUT, GRAPH_PATH, MODEL_SYSTEM_EMB_DIM,
+    MODEL_SYSTEM_EMB_DIM_RANGE, PKG_DIR, POOLING_MODE, SEED,
 )
 from hetero_gnn.preprocess import main as run_preprocess
+
+
+def _commit_hash() -> str:
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=os.path.dirname(PKG_DIR), text=True
+        ).strip()
+    except Exception:
+        return "UNKNOWN (git rev-parse failed)"
 
 
 def plot_history(history: dict, out_path: str):
@@ -109,6 +119,17 @@ def main():
         help="Hop pooling: 'attention' (current default) or 'mean' (the original, "
              "pre-attention model — kept runnable to reproduce earlier reported results).",
     )
+    parser.add_argument(
+        "--seed", type=int, default=SEED,
+        help=f"Random seed for torch/numpy (model init, dropout, minibatch order); "
+             f"default {SEED} (hetero_gnn/config.py's existing SEED constant).",
+    )
+    parser.add_argument(
+        "--out", type=str, default=None,
+        help="Results file path; defaults to "
+             "hetero_gnn/test_results_seed<seed>_<pooling-mode>.txt so different "
+             "runs no longer overwrite each other.",
+    )
     args = parser.parse_args()
 
     print("=" * 60)
@@ -126,7 +147,9 @@ def main():
 
     print("\n[2/4] Building model …")
     print(f"  assay_emb_dim={args.assay_emb_dim}  model_system_emb_dim={args.model_system_emb_dim}  "
-          f"document_journal_emb_dim={args.document_journal_emb_dim}  pooling_mode={args.pooling_mode}")
+          f"document_journal_emb_dim={args.document_journal_emb_dim}  pooling_mode={args.pooling_mode}  "
+          f"seed={args.seed}")
+    set_seed(args.seed)
     model = build_model(
         data, edge_dim=edge_dim,
         assay_emb_dim=args.assay_emb_dim,
@@ -151,10 +174,16 @@ def main():
     plot_path = os.path.join(PKG_DIR, "training_curve.png")
     plot_history(history, plot_path)
 
-    results_path = os.path.join(PKG_DIR, "test_results.txt")
+    results_path = args.out or os.path.join(
+        PKG_DIR, f"test_results_seed{args.seed}_{args.pooling_mode}.txt"
+    )
     with open(results_path, "w") as f:
         test = history["test"]
         f.write("ODO Heterogeneous GNN — Test Set Results\n")
+        f.write(f"Seed           : {args.seed}\n")
+        f.write(f"Pooling mode   : {args.pooling_mode}\n")
+        f.write(f"Encoder dropout: {ENCODER_DROPOUT}\n")
+        f.write(f"Commit         : {_commit_hash()}\n")
         f.write(f"RMSE     : {test['rmse']:.4f}\n")
         f.write(f"MAE      : {test['mae']:.4f}\n")
         f.write(f"Pearson r: {test['pearson_r']:.4f}\n")

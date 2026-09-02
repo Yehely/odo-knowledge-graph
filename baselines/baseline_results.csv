@@ -1,0 +1,7 @@
+split,baseline,rmse,mae,pearson_r,r2,rmse_sd,mae_sd,pearson_r_sd,r2_sd,n_test,notes
+hetero,global_mean,1.4317842544180115,1.1907374858856201,nan,-0.003501415252685547,,,,,2854,
+hetero,per_target_mean,1.4225592172160026,1.180802583694458,0.13972078263759613,0.009388148784637451,,,,,2854,fallback_to_global_mean=34 rows (target unseen in the 19-target training set)
+hetero,fingerprint_rf,1.25417748018631,1.0142702052188857,0.49285196373976453,0.2300122904983218,0.0036692750583497183,0.003108257721580668,0.0034822154319033008,0.004504139830384923,2854,"RandomForestRegressor({'n_estimators': 500, 'n_jobs': 4}, random_state=seed), seeds=[42, 123, 456, 789, 1024], ECFP4(2048-bit)+target-one-hot (73 targets), 4 test targets unseen in train"
+bipartite,global_mean,1.4000416511061924,1.158794641494751,nan,-0.011228680610656738,,,,,2628,
+bipartite,per_target_mean,1.3507093261491674,1.127362608909607,0.26836612820625305,0.058779776096343994,,,,,2628,fallback_to_global_mean=20 rows (target unseen in the 31-target training set)
+bipartite,fingerprint_rf,1.2609502701807416,0.9819821873155149,0.4650638133210765,0.17971638011977928,0.0017392354055051277,0.0011772656889704732,0.0018836871418039052,0.0022630489582463756,2628,"RandomForestRegressor({'n_estimators': 500, 'n_jobs': 4}, random_state=seed), seeds=[42, 123, 456, 789, 1024], ECFP4(2048-bit)+target-one-hot (43 targets), 4 test targets unseen in train"

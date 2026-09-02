@@ -41,13 +41,16 @@ gnn/checkpoints/
 hetero_gnn/checkpoints/
 hetero_gnn/target_reference.csv
 hetero_gnn/training_curve.png
-hetero_gnn/test_results.txt
+hetero_gnn/test_results*.txt
 hetero_gnn/best_hparams.json
 
 # Bipartite GNN — regenerate with gnn/train_gnn.py / gnn/train_ensemble.py
 gnn/test_results*.txt
 gnn/ensemble_test_results.txt
 gnn/training_curve*.png
+
+# Graph-free baseline prediction dumps — regenerate with baselines/run_baselines.py
+baselines/predictions_*.npz
 
 # Literature extraction — regenerate with smart_retrieval/GetFiles.py + CleanFiles.py
 smart_retrieval/Full_Text_Articles/

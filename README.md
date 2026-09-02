@@ -1,8 +1,15 @@
 # ODO Knowledge Graph — Opioid Drug-Receptor Interactions
 
 A knowledge graph and GNN prediction pipeline built from the ODO 2026 database,
-containing **~34,000 biological activity measurements** across **~12,906 chemical
-compounds** tested against opioid receptors (MOR, DOR, KOR, NOP).
+containing **37,362 biological activity measurements** across **13,396 chemical
+compounds** tested against opioid receptors (MOR, DOR, KOR, NOP) — the counts
+produced by the ChEMBL-ID identity rule (`kg/build_kg.py` / `gnn/preprocess_bipartite_graph.py`),
+the pipeline that builds the actual RDF knowledge graph. The heterogeneous
+GNN pipeline (`hetero_gnn/preprocess.py`) uses a different identity rule
+(PubChem CID / UniProt accession) and gets 37,353 activities / 13,297
+compounds from the same source file — see
+[`analysis/target_inventory.md`](analysis/target_inventory.md) for the full
+reconciliation.
 
 Built as a final project for a B.Sc. in Bioinformatics.
 
@@ -44,6 +51,11 @@ All commands use the `odo` conda environment. The preprocessing step runs automa
 #### Model 1 — Paper Model (Temporal Split, 2048-bit FP)
 
 Train ≤ 2015, Test 2016–2020. Matches the architecture described in Progress Report 5.
+Note: this is not a forward-in-time split — per `gnn/preprocess_bipartite_graph.py`'s
+`make_temporal_splits` (`TEMPORAL_CUTOFF=2016`, `TEST_MAX_YEAR=2020`), only
+`doc_year` in `[2016, 2020]` goes to test; activities published after 2020
+(and any with an unknown year) fall back into the train/val pool rather than
+being excluded or held out.
 
 ```bash
 conda run -n odo python3 gnn/train_gnn.py --split temporal --fp-bits 2048
@@ -117,16 +129,23 @@ conda run -n odo python3 gnn/train_gnn.py --split random --fp-bits 2048
 ### Heterogeneous GNN (`hetero_gnn/`)
 
 A 5-node-type graph (**Compound, Target, Assay, Model System, Document**)
-with 2-hop, attention-weighted hub-and-spoke message passing through Assay
-nodes. Full spec in [`docs/HETEROGENEOUS_GNN_ARCHITECTURE.md`](docs/HETEROGENEOUS_GNN_ARCHITECTURE.md);
+with 2-hop hub-and-spoke message passing through Assay nodes, using a
+selectable pooling mode (attention-weighted, the default, or plain mean —
+see Architecture below). Full spec in [`docs/HETEROGENEOUS_GNN_ARCHITECTURE.md`](docs/HETEROGENEOUS_GNN_ARCHITECTURE.md);
 implementation notes and rationale in [`hetero_gnn/README.md`](hetero_gnn/README.md).
 
 ```bash
 # Step 1 — Excel → hetero_gnn/processed_hetero_graph.pt
 conda run -n odo python3 hetero_gnn/run_preprocess.py
 
-# Step 2 — train
-conda run -n odo python3 hetero_gnn/run_train.py
+# Step 2 — train (--seed and --out default to a seed/pooling-mode-tagged
+# results file, e.g. hetero_gnn/test_results_seed42_mean.txt, so different
+# runs no longer overwrite each other). --pooling-mode mean matches the
+# reported result below; the current config.py default is "attention",
+# which has no verified surviving result (see the note at the top of
+# reports/generate_final_report.py) — omitting --pooling-mode here would
+# train a different, unvalidated configuration.
+conda run -n odo python3 hetero_gnn/run_train.py --seed 42 --pooling-mode mean
 
 # Optional — hyperparameter search (Optuna), then trains the winning config
 conda run -n odo python3 hetero_gnn/search_hparams.py --n-trials 20
@@ -134,6 +153,48 @@ conda run -n odo python3 hetero_gnn/search_hparams.py --n-trials 20
 # Inference on a new compound (after training)
 conda run -n odo python3 hetero_gnn/predict.py
 ```
+
+**Expected results (temporal split, train < 2015 / test ≥ 2015, mean-aggregation pooling):** RMSE=1.23 | MAE=0.98 | Pearson r=0.54 | R²=0.26
+
+This number was originally produced by a run with no recorded seed (see
+`hetero_gnn/test_results.txt`, still on disk, not reproducible bit-for-bit) —
+the pooling mode above is inferred from how the report itself labeled this
+result ("mean-aggregation baseline"), not from a recorded config value, since
+no run before this change recorded its config at all. The command above now
+records its own seed, pooling mode, encoder dropout, and commit hash in the
+results file for every future run, so this won't happen again — it does not
+guarantee the historical 0.26 itself replays exactly.
+
+---
+
+### Graph-free baselines (`baselines/`)
+
+Global-mean, per-target-mean, and fingerprint-only (ECFP4 + target one-hot,
+no graph structure) RandomForest baselines, scored on the same saved
+temporal-split graphs the two models above use — the point of comparison
+for "is the graph actually helping."
+
+```bash
+conda run -n odo python3 baselines/run_baselines.py
+```
+
+One run produces results for **both** splits (labelled separately in
+`baselines/summary.md` — they use different temporal partitions and are
+not comparable to each other):
+
+| Split | Baseline | R² |
+|---|---|---|
+| hetero (train<2015/test≥2015) | Global mean | ≈-0.00 |
+| hetero | Per-target mean | 0.01 |
+| hetero | Fingerprint-only RF | **0.230 ± 0.005** (5 seeds) |
+| bipartite (train≤2015/test 2016-2020) | Global mean | ≈-0.01 |
+| bipartite | Per-target mean | 0.06 |
+| bipartite | Fingerprint-only RF | 0.180 ± 0.002 (5 seeds) |
+
+The hetero-split fingerprint-only RF (0.230) is within a few hundredths of
+R² of the heterogeneous GNN itself (0.26) on the same test set — see
+`analysis/target_inventory.md` and `baselines/summary.md` for the full
+read.
 
 ---
 
@@ -224,8 +285,19 @@ Full spec: [`docs/ARCHITECTURE_SKILLS.md`](docs/ARCHITECTURE_SKILLS.md).
 **HeteroOpioidGNN** (`hetero_gnn/`) — 5-node-type Heterogeneous GNN
 
 - Per-node-type encoders into a shared 256-dim latent space (Dropout 0.4)
-- 2-hop hub-and-spoke message passing through Assay, using **learned
-  attention-weighted pooling** (not a plain mean) at both hops
+- 2-hop hub-and-spoke message passing through Assay. Pooling mode is a
+  selectable flag (`POOLING_MODE` in `hetero_gnn/config.py`, or
+  `--pooling-mode` on the CLI): **"attention" (the default)** — a learned
+  Linear→Tanh→Linear per-hop scoring head — or **"mean"**, a plain average
+  over each hop's neighbours. The mean variant is the one that reproduces
+  the earlier reported result (R²=0.26 — see the Heterogeneous GNN section
+  above). The two modes have not been compared under equal
+  hyperparameter-search budgets: the attention variant's best observed
+  figure (R²=0.31) came from `hetero_gnn/search_hparams.py`'s Optuna search
+  rather than a single `run_train.py` run under the same conditions as the
+  0.26 figure, so it is not a like-for-like comparison and is not reported
+  as a result here. Example:
+  `conda run -n odo python3 hetero_gnn/run_train.py --pooling-mode attention --seed 42`
 - Edge MLP head: ~530 → 256 → 128 → 1 (pKi regression)
 - Loss: combined exact-MSE + censored-hinge (handles `<`/`>` qualified measurements)
 
