@@ -43,6 +43,13 @@ from hetero_gnn.config import (
 BINDS_TO = ("compound", "binds_to", "target")
 
 
+def set_seed(seed: int):
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+
+
 # ---------------------------------------------------------------------------
 # §1 combined loss
 # ---------------------------------------------------------------------------
